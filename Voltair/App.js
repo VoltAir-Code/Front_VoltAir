@@ -8,6 +8,7 @@ import{
 } from "@expo-google-fonts/poppins";
 
 export default function App() {
+  
   return(
     <>
     </>
