@@ -13,6 +13,7 @@ import{
 import { Navigation } from "./src/screens/Navigation/Navigation";
 import { Login } from "./src/screens/Login/Login";
 import { StatusBar } from "react-native";
+import { CreateAccount } from "./src/screens/CreateAccount/CreateAccount";
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -45,6 +46,12 @@ export default function App() {
         name='Login'
         component={Login}
         options={{title: 'Login'}}
+      />
+
+      <Stack.Screen
+        name="CreateAccount"
+        component={CreateAccount}
+        options={{title: "CreateAccount"}}
       />
 
       </Stack.Navigator>
