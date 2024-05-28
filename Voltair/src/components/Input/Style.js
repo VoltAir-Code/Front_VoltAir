@@ -1,19 +1,21 @@
 import styled from "styled-components";
 
-export const InputWhite = styled.TextInput.attrs({placeholderTextColot: 'rgba(49, 49, 49, 0.1922)'})`
+export const InputWhite = styled.TextInput.attrs({placeholderTextColor: 'rgba(49, 49, 49, 0.1922)'})`
     width: 81.67%;
+    color: rgba(49, 49, 49, 0.5);
     height: ${props => `${props.height}`};
     margin: ${props => `${props.margin}`};
     border: 1px solid #313131;
     border-radius: 5px;
     font-size: 13px;
-    align-items: 'center';
-    padding: 16px 113px;
-    font-family: 'Poppins_700Bold';
+    text-align: justify;
+    padding: 16px;
+    font-family: 'Poppins_400Regular';
 `
 
 export const InputBlack = styled(InputWhite).attrs({placeholderTextColot: '#FFFFFF'})`
     border: 1px solid #F2732E;
+    color: "#FFFFFF;
 `
 
 export const InputLabel = styled.Text`

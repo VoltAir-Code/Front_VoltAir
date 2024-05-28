@@ -5,7 +5,7 @@ import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import { ButtonDefault } from "../../components/Button/Button";
 import { LogoRayOrange } from '../../components/Logo/Style';
 
-export const Login = ({ navigation }) => {
+export const ResetPassword = ({ navigation }) => {
     return (
         <ContainerBlack>
 
@@ -14,26 +14,27 @@ export const Login = ({ navigation }) => {
             />
 
             <ContainerWhite height={"88%"}>
+
                 <Title color={"#313131"} margin={"45px 0px 35px 0px"}>
-                    Login
+                    Resetar Senha:
                 </Title>
                 <SubTitle color={"#313131"} margin={"0px 0px 20px 0px"}>
-                    Bem vindo ao Voltair®
+                    Digite e confirme a sua nova senha
                 </SubTitle>
-                <InputWhite height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu e-mail"} />
-                <InputWhite height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} secureTextEntry/>
-                <TextLink margin={"16px 0px 138px 0px"}>
-                    Esqueceu sua senha?
-                </TextLink>
+
+                <InputWhite height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"Digite sua nova senha"} secureTextEntry/>
+                <InputWhite height={"53px"} margin={"39px 0px 70px 0px"} placeholder={"Confirme a nova senha"} secureTextEntry/>
+                
                 <ButtonDefault
-                    text={"Entrar"}
+                    text={"Confirmar nova senha"}
                     height={"58px"}
-                    margin={"0px 0px 0px 0px"}
                 />
                 <TextLink margin={"16px 0px 0px 0px"}>
-                    Criar uma conta
+                    Voltar
                 </TextLink>
+
             </ContainerWhite>
+
         </ContainerBlack>
     );
 };

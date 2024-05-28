@@ -13,5 +13,5 @@ export const ContainerWhite = styled.SafeAreaView`
     background-color: #FFFFFF;
     height: ${props => `${props.height}`};
     width: 100%;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 16px 16px 0px 0px;
 `
