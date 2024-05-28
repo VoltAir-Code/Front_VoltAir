@@ -8,7 +8,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/Logo/Tela_Logo.png",
-      "resizeMode": "center",
+      "resizeMode": "cover",
       "backgroundColor": "#313131"
     },
     "ios": {
@@ -23,8 +23,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [[
-      "expo-font"
-    ]]
+    "plugins": [
+      [
+        "expo-font"
+      ]
+    ]
   }
 }

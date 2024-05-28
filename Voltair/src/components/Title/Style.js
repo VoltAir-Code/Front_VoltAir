@@ -16,7 +16,7 @@ export const SubTitle = styled.Text`
 `
 
 export const TextLink = styled.Text`
-    font-size: 16px;
+    font-size: 14px;
     color: #313131;
     font-family: "Poppins_400Regular";
     margin-top: ${props => `${props.marginTop}`};
