@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const InputWhite = styled.TextInput.attrs({placeholderTextColot: 'rgba(49, 49, 49, 0.1922)'})`
     width: 81.67%;
     height: ${props => `${props.height}`};
-
+    margin: ${props => `${props.margin}`};
     border: 1px solid #313131;
     border-radius: 5px;
     font-size: 13px;
