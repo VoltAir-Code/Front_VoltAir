@@ -15,3 +15,30 @@ export const TextButton = styled.Text`
     font-family: "Poppins_700Bold";
     align-self: center;
 `
+
+export const ButtonCircleFooter = styled.TouchableOpacity`
+    height: 94px;
+    width: 100%;
+    background-color: #F2732E;
+    border-radius: 110px 110px 110px 110px;
+    position: absolute;
+    margin: 0px 0px 0px 0px;
+    bottom: 35px;
+    align-items: center;
+    justify-content: center;
+`
+export const ButtonSideFooter = styled.TouchableOpacity`
+    height: 54.17px;
+    width: 12.59%;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+`
+export const ContentDefaultButtonCircle = styled.View`
+    width: 26%;
+    height: 100%;
+    
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+`
+

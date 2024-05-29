@@ -4,9 +4,9 @@ import MapView, { Marker } from "react-native-maps";
 
 import * as Location from "expo-location";
 import { useEffect, useRef, useState } from "react";
-import GlobalApi from "./GlobalApi";
+import GlobalApi from "../../GlobalApi";
 
-export default function Map() {
+export default function Map({navigation}) {
   const [initialPosition, setInitialPosition] = useState(null);
   const [chargingStations, setChargingStations] = useState([]);
   const mapReference = useRef(null);
@@ -106,5 +106,6 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+    zIndex: 0
   },
 });
