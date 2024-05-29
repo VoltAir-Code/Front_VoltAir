@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native"
 import { ButtonDefault } from "../../components/Button/Button"
 import { ContainerBlack, ContainerWhite } from "../../components/Container/Style"
 import { InputWhite } from "../../components/Input/Style"
@@ -26,7 +27,10 @@ export const CreateAccount = ({ navigation }) => {
                         onPress={() => setModalVisible(true)}
                     />
 
+                    <TouchableOpacity>
+
                     <TextLink margin={"19px 0px 0px 0px"}>Cancelar</TextLink>
+                    </TouchableOpacity>
 
                 </ContainerWhite>
 
