@@ -1,0 +1,40 @@
+import React from 'react';
+import { ContainerBlack, ContainerWhite } from "../../components/Container/Style";
+import { InputWhite } from "../../components/Input/Style";
+import { SubTitle, TextLink, Title } from "../../components/Title/Style";
+import { ButtonDefault } from "../../components/Button/Button";
+import { LogoRayOrange } from '../../components/Logo/Style';
+
+export const Login = ({ navigation }) => {
+    return (
+        <ContainerBlack>
+
+            <LogoRayOrange
+                source={require("../../../assets/Logo/LogoRay.png")} margin={"0px 0px 20px 0px"}
+            />
+
+            <ContainerWhite height={"88%"}>
+                <Title color={"#313131"} margin={"45px 0px 35px 0px"}>
+                    Login
+                </Title>
+                <SubTitle color={"#313131"} margin={"0px 0px 20px 0px"}>
+                    Bem vindo ao Voltair®
+                </SubTitle>
+                <InputWhite height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu e-mail"} />
+                <InputWhite height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} secureTextEntry/>
+                <TextLink margin={"16px 0px 138px 0px"}>
+                    Esqueceu sua senha?
+                </TextLink>
+                <ButtonDefault
+                    text={"Entrar"}
+                    height={"58px"}
+                    margin={"0px 0px 0px 0px"}
+                    onPress={() => navigation.navigate("Home")}
+                />
+                <TextLink margin={"16px 0px 0px 0px"}>
+                    Criar uma conta
+                </TextLink>
+            </ContainerWhite>
+        </ContainerBlack>
+    );
+};
