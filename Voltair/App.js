@@ -14,6 +14,8 @@ import { Navigation } from "./src/screens/Navigation/Navigation";
 import { Login } from "./src/screens/Login/Login";
 import { StatusBar } from "react-native";
 import { CreateAccount } from "./src/screens/CreateAccount/CreateAccount";
+import { ForgotPassword } from "./src/screens/ForgotPassword/ForgotPassword";
+import { ResetPassword } from "./src/screens/ResetPassword/ResetPassword";
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -52,6 +54,18 @@ export default function App() {
         name="CreateAccount"
         component={CreateAccount}
         options={{title: "CreateAccount"}}
+      />
+
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
+        options={{title: "ForgotPassword"}}
+      />
+
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{title: "ResetPassword"}}
       />
 
       </Stack.Navigator>

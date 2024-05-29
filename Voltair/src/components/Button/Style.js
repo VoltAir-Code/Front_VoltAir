@@ -6,6 +6,7 @@ export const Button = styled.TouchableOpacity`
     background-color: #F2732E;
     border-radius: 10px;
     justify-content:center;
+    margin: ${props => `${props.margin}`};
 `
 
 export const TextButton = styled.Text`
