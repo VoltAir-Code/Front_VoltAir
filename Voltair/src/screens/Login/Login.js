@@ -29,6 +29,7 @@ export const Login = ({ navigation }) => {
                     text={"Entrar"}
                     height={"58px"}
                     margin={"0px 0px 0px 0px"}
+                    onPress={() => navigation.navigate("Home")}
                 />
                 <TextLink margin={"16px 0px 0px 0px"}>
                     Criar uma conta
