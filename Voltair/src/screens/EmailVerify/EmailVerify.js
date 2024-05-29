@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native"
 import { ButtonDefault } from "../../components/Button/Button"
 import { ContainerBlack, ContainerWhite } from "../../components/Container/Style"
 import { InputVerify } from "../../components/Input/Style"
@@ -38,9 +39,13 @@ export const EmailVerify = ({navigation}) => {
                     margin={"0px 0px 0px 0px"}
                 />
 
+                <TouchableOpacity>
+
                 <TextLink margin={"16px 0px 0px 0px"}>
                     Reenviar código
                 </TextLink>
+                
+                </TouchableOpacity>
 
             </ContainerWhite>
 

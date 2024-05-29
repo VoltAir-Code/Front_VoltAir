@@ -5,6 +5,7 @@ import { InputWhite } from "../../components/Input/Style"
 import { LogoRayOrange } from "../../components/Logo/Style"
 import { SubTitle, TextLink, Title } from "../../components/Title/Style"
 import ModalDefault from "../../components/Modal/ModalDefault"
+import { TouchableOpacity } from "react-native"
 
 export const ForgotPassword = ({ navigation }) => {
 
@@ -36,9 +37,13 @@ export const ForgotPassword = ({ navigation }) => {
                         onPress={() => setModalVisible(true)}
                     />
 
+                    <TouchableOpacity>
+
                     <TextLink margin={"16px 0px 0px 0px"}>
                         Voltar
                     </TextLink>
+                    
+                    </TouchableOpacity>
 
                 </ContainerWhite>
 

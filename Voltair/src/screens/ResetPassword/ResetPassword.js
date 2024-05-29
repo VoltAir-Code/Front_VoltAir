@@ -4,6 +4,7 @@ import { InputWhite } from "../../components/Input/Style";
 import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import { ButtonDefault } from "../../components/Button/Button";
 import { LogoRayOrange } from '../../components/Logo/Style';
+import { TouchableOpacity } from 'react-native';
 
 export const ResetPassword = ({ navigation }) => {
     return (
@@ -30,9 +31,14 @@ export const ResetPassword = ({ navigation }) => {
                     height={"58px"}
                     margin={"0px 0px 0px 0px"}
                 />
+
+                <TouchableOpacity>
+
                 <TextLink margin={"16px 0px 0px 0px"}>
                     Voltar
                 </TextLink>
+                
+                </TouchableOpacity>
 
             </ContainerWhite>
 
