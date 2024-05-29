@@ -9,6 +9,7 @@ import { useFonts } from 'expo-font';
 import {
   Poppins_400Regular,
   Poppins_700Bold,
+  Poppins_200ExtraLight
 } from "@expo-google-fonts/poppins";
 import { Navigation } from "./src/screens/Navigation/Navigation";
 import { Login } from "./src/screens/Login/Login";
@@ -25,6 +26,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
 
   const [fontsLoaded, fontsError] = useFonts({
+    Poppins_200ExtraLight,
     Poppins_400Regular,
     Poppins_700Bold,
   })
