@@ -28,6 +28,7 @@ export const ResetPassword = ({ navigation }) => {
                 <ButtonDefault
                     text={"Confirmar nova senha"}
                     height={"58px"}
+                    margin={"0px 0px 0px 0px"}
                 />
                 <TextLink margin={"16px 0px 0px 0px"}>
                     Voltar
