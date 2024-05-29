@@ -22,6 +22,10 @@ export const Navigation = ({navigation}) => {
                 title="ResetPassword"
                 onPress={() => navigation.navigate("ResetPassword")}
             />
+            <Button
+                title="EmailVerify"
+                onPress={() => navigation.navigate("EmailVerify")}
+            />
         </View>
     )
 }

@@ -16,6 +16,7 @@ import { StatusBar } from "react-native";
 import { CreateAccount } from "./src/screens/CreateAccount/CreateAccount";
 import { ForgotPassword } from "./src/screens/ForgotPassword/ForgotPassword";
 import { ResetPassword } from "./src/screens/ResetPassword/ResetPassword";
+import { EmailVerify } from "./src/screens/EmailVerify/EmailVerify";
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -66,6 +67,12 @@ export default function App() {
         name="ResetPassword"
         component={ResetPassword}
         options={{title: "ResetPassword"}}
+      />
+
+      <Stack.Screen
+        name="EmailVerify"
+        component={EmailVerify}
+        options={{title: "EmailVerify"}}
       />
 
       </Stack.Navigator>
