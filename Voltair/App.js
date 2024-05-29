@@ -19,6 +19,7 @@ import { ForgotPassword } from "./src/screens/ForgotPassword/ForgotPassword";
 import { ResetPassword } from "./src/screens/ResetPassword/ResetPassword";
 import { EmailVerify } from "./src/screens/EmailVerify/EmailVerify";
 import { Home } from "./src/screens/Home/Home";
+import { MapScreen } from "./src/screens/MapScreen/MapScreen";
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -83,6 +84,11 @@ export default function App() {
         component={EmailVerify}
         options={{title: "EmailVerify"}}
       />
+
+      <Stack.Screen
+        name="MapScreen"
+        component={MapScreen}
+        options={{title: "MapScreen"}}/>
 
       </Stack.Navigator>
 
