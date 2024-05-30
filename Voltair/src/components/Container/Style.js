@@ -8,6 +8,10 @@ export const ContainerBlack = styled.SafeAreaView`
     justify-content: flex-end;
 `
 
+export const ContainerHome = styled.SafeAreaView`
+flex: 1;
+`
+
 export const ContainerWhite = styled.SafeAreaView`
     align-items: center;
     background-color: #FFFFFF;
@@ -35,4 +39,13 @@ export const ContainerTransparentMap = styled.View`
     position: absolute;
     z-index: 1;
     align-self: flex-start;
+`
+export const ContainerBlackHome = styled.SafeAreaView`
+height: 15%;
+width: 100%;
+background-color: #313131;
+border-radius: 10px 10px 0px 0px;
+flex-direction: row;
+align-items: center;
+gap: 80px;
 `

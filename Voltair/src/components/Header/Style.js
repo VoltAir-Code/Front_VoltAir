@@ -4,6 +4,8 @@ export const ContainerBack = styled.View`
 background-color: #313131;
 height: 30%;
 border-radius: 0px 0px 10px 10px;
+display: flex;
+justify-content: center;
 `
 
 export const TextCar = styled.Text`

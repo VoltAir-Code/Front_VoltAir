@@ -1,9 +1,9 @@
 import { Modal } from "react-native";
-import { ButtonDefault } from "../Button/Button"
+import { ButtonDefault, ButtonLoading } from "../Button/Button"
 import { SubTitle, TextLink, Title } from "../Title/Style"
 import { ModalContainer, ModalContent } from "./Style"
 
-const ModalDefault = ({navigation, visible, textLink, onClose, buttonText, setModalVisible, title, subTitle }) => {
+const ModalDefault = ({navigation, visible, textLink, onClose, buttonText, setModalVisible, title, subTitle, buttonTextLoading }) => {
 
     return (
         <Modal visible={visible} transparent={true} animationType="fade">
@@ -23,6 +23,9 @@ const ModalDefault = ({navigation, visible, textLink, onClose, buttonText, setMo
                 margin={"0px 0px 30px 0px"}
                 onPress={() => onClose()}
             />
+
+           
+
 
             <TextLink margin={"16px 0px 0px 0px"}>
                 {textLink}
