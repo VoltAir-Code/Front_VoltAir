@@ -41,11 +41,11 @@ export const ContainerTransparentMap = styled.View`
     align-self: flex-start;
 `
 export const ContainerBlackHome = styled.SafeAreaView`
-height: 15%;
+height: ${props => `${props.height}`};
 width: 100%;
 background-color: #313131;
-border-radius: 10px 10px 0px 0px;
+border-radius: ${props => `${props.radius}`};
 flex-direction: row;
 align-items: center;
-gap: 80px;
+gap: ${props => `${props.gap}`};
 `
