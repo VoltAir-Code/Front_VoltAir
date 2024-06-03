@@ -19,13 +19,12 @@ export const ButtonDefault = ({ text, height, margin, onPress }) => {
     )
 }
 
-export const ButtonDefaultCircle = ({ source, text }) => {
+export const ButtonDefaultCircle = ({ source, text, icon, onPress }) => {
     return (
         <ContentDefaultButtonCircle>
-            <ButtonCircleFooter>
-                <Image source={source} />
+            <ButtonCircleFooter onPress={onPress}>
+                {icon}
             </ButtonCircleFooter>
-
             <TextBtnFooter margin={"0px 0px 10px 0px"}>{text}</TextBtnFooter>
         </ContentDefaultButtonCircle>
     )
@@ -39,6 +38,7 @@ export const ButtonDefaultSide = () => {
         </>
     )
 }
+
 export const ButtonMaps = styled.TouchableOpacity`
 width: 80px;
 height: 80px;

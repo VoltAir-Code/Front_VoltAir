@@ -24,6 +24,7 @@ export const ButtonCircleFooter = styled.TouchableOpacity`
     position: absolute;
     margin: 0px 0px 0px 0px;
     bottom: 35px;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
 `
