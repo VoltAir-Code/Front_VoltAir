@@ -17,10 +17,10 @@ export const TextButton = styled.Text`
 `
 
 export const ButtonCircleFooter = styled.TouchableOpacity`
-    height: 94px;
-    width: 100%;
+    height: 80px;
+    width:80px;
     background-color: #F2732E;
-    border-radius: 110px 110px 110px 110px;
+    border-radius: 100px;
     position: absolute;
     margin: 0px 0px 0px 0px;
     bottom: 35px;
@@ -35,7 +35,7 @@ export const ButtonSideFooter = styled.TouchableOpacity`
     border-radius: 10px;
 `
 export const ContentDefaultButtonCircle = styled.View`
-    width: 26%;
+    width: 100%;
     height: 100%;
     
     flex-direction: column;
