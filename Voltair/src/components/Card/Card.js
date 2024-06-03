@@ -43,13 +43,13 @@ return(
                 onClose={() => setModalInformationsVisible(false)}
                 setModalVisible={setModalInformationsVisible}
                 title={"Informações Da Bateria"}
-                // information1={"Ciclo de vida "}
-                // answer1={"98% de capacidade restante"}
-                // information2={"Degradação"}
-                // answer2={'Capacidade da Bateria: 75 kWh Eficiência do Veículo: 0,15 kWh/km'}
-                // information3={'Autonomia'}
-                // answer3={'500km'}
-                // buttonTextLoading={"teste"}
+                 information1={"Ciclo de vida "}
+                 answer1={"98% de capacidade restante"}
+                 information2={"Degradação"}
+                 answer2={'Capacidade da Bateria: 75 kWh Eficiência do Veículo: 0,15 kWh/km'}
+                 information3={'Autonomia'}
+                 answer3={'500km'}
+                 buttonTextLoading={"teste"}
                 buttonText={"Confirmar"}
             />
 

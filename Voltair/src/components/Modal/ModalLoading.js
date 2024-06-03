@@ -9,11 +9,11 @@ const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setM
         <Modal visible={visible} transparent={true} animationType="fade">
             <ModalContainerHome>
                 <ModalContent>
-                    <Title color={"#FFFFFF"} margin={"40px 0px 35px 0px"}>
+                    <Title color={"#FFFFFF"} margin={"40px 0px 10px 0px"}>
                         {title}
                     </Title>
 
-                    <SubTitle color={"#FFFFFF"} margin={"0px 0px 40px 0px"}>
+                    <SubTitle color={"#FFFFFF"} margin={"0px 0px 10px 0px"}>
                         {subTitle}
                     </SubTitle>
 
@@ -24,14 +24,14 @@ const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setM
                     <ButtonLoading
                         text={`${buttonTextLoading}`}
                         height={"58px"}
-                        margin={"0px 0px 30px 0px"}
+                        margin={"0px 0px 10px 0px"}
                         onPress={() => onClose()}
                     />
 
                     <ButtonDefault
                         text={`${buttonText}`}
                         height={"58px"}
-                        margin={"0px 0px 30px 0px"}
+                        margin={"0px 0px 10px 0px"}
                         onPress={() => onClose()}
                     />
 
