@@ -80,10 +80,9 @@ width: 54px;
 height: 54px;
 margin-left: 20px;
 margin-top: -5%;
-
 `
 export const ButtonProfile = styled(ButtonHome)`
-margin-left: 0px;
+margin-left: 1%;
 `
 
 
