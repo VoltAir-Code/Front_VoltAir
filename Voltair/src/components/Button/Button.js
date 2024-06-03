@@ -19,7 +19,7 @@ export const ButtonDefault = ({ text, height, margin, onPress }) => {
     )
 }
 
-export const ButtonDefaultCircle = ({ source, text, icon, onPress }) => {
+export const ButtonDefaultCircle = ({ text, icon, onPress }) => {
     return (
         <ContentDefaultButtonCircle>
             <ButtonCircleFooter onPress={onPress}>
