@@ -39,6 +39,13 @@ export const Navigation = ({ navigation }) => {
                 onPress={() => navigation.navigate("MapScreen")}
             />
 
+            <Button 
+                title="EditCar"
+                onPress={() => navigation.navigate("EditCar")}
+            />
+
+
+
         </View>
     )
 }

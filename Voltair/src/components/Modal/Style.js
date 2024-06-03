@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.View`
-height:${props => `${props.heigth}`};
+height:${props => `${props.height}`};
 margin-top: auto;
 align-items:center;
 justify-content:center;
@@ -20,4 +20,8 @@ export const ModalContent = styled.View`
     height: 390px;
     align-items:center;
     justify-content:center;
+`
+export const ModalTransparent = styled.View` 
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.3);
 `
