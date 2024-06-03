@@ -24,9 +24,6 @@ const ModalDefault = ({navigation, visible, textLink, onClose, buttonText, setMo
                 onPress={() => onClose()}
             />
 
-           
-
-
             <TextLink margin={"16px 0px 0px 0px"}>
                 {textLink}
             </TextLink>
