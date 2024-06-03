@@ -14,6 +14,7 @@ margin-bottom: 94px;
  align-self: center;
  width:100%;
  height: 100%;
+ border-radius: 10px 10px 0px 0px;
  `
 
  export const CardInformation = styled.View`

@@ -62,7 +62,8 @@ align-self: center;
 margin-top: 25%;
 `
 export const ImageBatery = styled.Image`
-width: 50%;
+width: 100px;
+height: 100px;
 margin-top: -10%;
 ` 
 export const ImageCar = styled.Image`
