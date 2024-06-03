@@ -16,15 +16,12 @@ export const Login = ({ navigation }) => {
     async function Login() {
         try {
             // Chamando a API
-console.log(email);
-console.log(password);
-        
             const response = await api.post('Login', {
                 email: email,
-                password: password,
+                password: password
             });
 
-            console.log(response);
+            console.log(response.data);
          
 
             if (response.status === 200) {
