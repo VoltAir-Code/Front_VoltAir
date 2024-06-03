@@ -5,11 +5,11 @@ import { MapFooter } from "../../components/MapFooter/MapFooter"
 import { MapHeader } from "../../components/MapHeader/MapHeader"
 import Map from "../Map"
 
-export const MapScreen = () => {
+export const MapScreen = ({navigation}) => {
     return (
         <>
             <View style={{flex: 1}}>
-                <MapHeader />
+                <MapHeader navigation={navigation}/>
 
                 <Map/>
 

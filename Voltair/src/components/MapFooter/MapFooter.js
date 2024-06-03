@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 export const MapFooter = () => {
     const [run, setRun] = useState(false)
     return (
-        <ContainerBlackMap flexDirection={"row"} justifyContent={"center"}>
+        <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"center"}>
             <ButtonDefaultCircle
                 text={"Iniciar corrida"}
                 icon={

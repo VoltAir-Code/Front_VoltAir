@@ -22,7 +22,7 @@ export const ContainerWhite = styled.SafeAreaView`
 
 export const ContainerBlackMap = styled(ContainerBlack)`
     flex: none;
-    height: 104px;
+    height: ${props => `${props.height}`};
     border-radius: 10px 10px 0px 0px;
     flex-direction: ${props => `${props.flexDirection}`};
     justify-content: ${props => `${props.justifyContent}`};

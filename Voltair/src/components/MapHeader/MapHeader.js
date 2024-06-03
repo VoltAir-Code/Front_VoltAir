@@ -12,7 +12,7 @@ export const MapHeader = ({navigation}) => {
         <>
             <ContainerTransparentMap>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> {navigation.navigate("Home")}}>
                     <AntDesign name="left" size={30} color="black" />
                 </TouchableOpacity>
 
