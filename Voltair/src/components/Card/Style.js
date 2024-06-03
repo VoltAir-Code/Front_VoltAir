@@ -12,12 +12,12 @@ margin-bottom: 40%;
 `
  export const ImageCard = styled.Image`
  align-self: center;
- margin-bottom:100px;
+ margin-bottom:43%;
  `
 
  export const CardInformation = styled.View`
  width: 122%;
- height: 30px;
+ height: 28%;
  background-color: white;
  align-self: center;
  margin-top: -56%;
