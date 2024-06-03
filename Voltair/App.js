@@ -20,6 +20,7 @@ import { ResetPassword } from "./src/screens/ResetPassword/ResetPassword";
 import { EmailVerify } from "./src/screens/EmailVerify/EmailVerify";
 import { Home } from "./src/screens/Home/Home";
 import { MapScreen } from "./src/screens/MapScreen/MapScreen";
+import { EditCar } from "./src/screens/EditCar/EditCar";
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -89,6 +90,11 @@ export default function App() {
         name="MapScreen"
         component={MapScreen}
         options={{title: "MapScreen"}}/>
+
+      <Stack.Screen
+        name="EditCar"
+        component={EditCar}
+        options={{title: "EditCar"}}/>
 
       </Stack.Navigator>
 

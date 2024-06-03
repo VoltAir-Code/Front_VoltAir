@@ -26,3 +26,10 @@ export const TextLink = styled.Text`
 export const TextBtnFooter = styled(TextLink)`
     color: #FFFFFF;
 `
+
+export const TextInput = styled.Text`
+    font-size: 14px;
+    color: #FFF;
+    font-family: "Poppins_700Bold";
+    margin: ${props => `${props.margin}`};
+`
