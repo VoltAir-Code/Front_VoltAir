@@ -52,6 +52,7 @@ export const ForgotPassword = ({ navigation }) => {
             <ModalDefault
                 visible={modalVisible}
                 navigation={navigation}
+                height={'41.5%'}
                 setModalVisible={setModalVisible}
                 onClose={() => {setModalVisible(false)}} //Falta colocar o navigation.replace
                 title={"Foi enviado um e-mail para:"}

@@ -3,11 +3,11 @@ import { ButtonDefault, ButtonLoading } from "../Button/Button"
 import { SubTitle, TextLink, Title } from "../Title/Style"
 import { ModalContainer, ModalContent } from "./Style"
 
-const ModalDefault = ({navigation, visible, textLink, onClose, buttonText, setModalVisible, title, subTitle, buttonTextLoading }) => {
+const ModalDefault = ({navigation, visible, textLink, onClose, buttonText, setModalVisible, title, subTitle, buttonTextLoading, height }) => {
 
     return (
         <Modal visible={visible} transparent={true} animationType="fade">
-        <ModalContainer>
+        <ModalContainer height={height}>
             <ModalContent>
             <Title color={"#FFFFFF"} margin={"40px 0px 35px 0px"}>
                 {title}

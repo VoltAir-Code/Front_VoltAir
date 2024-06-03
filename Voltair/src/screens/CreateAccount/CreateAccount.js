@@ -38,6 +38,7 @@ export const CreateAccount = ({ navigation }) => {
 
             <ModalDefault
                 visible={modalVisible}
+                height={'41.5%'}
                 navigation={navigation}
                 onClose={() => { setModalVisible(false), navigation.replace("Login") }}
                 setModalVisible={setModalVisible}

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.View`
-height: 41.5%;
+height:${props => `${props.heigth}`};
 margin-top: auto;
 align-items:center;
 justify-content:center;
