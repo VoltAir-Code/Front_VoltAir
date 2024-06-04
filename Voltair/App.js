@@ -21,6 +21,7 @@ import { EmailVerify } from "./src/screens/EmailVerify/EmailVerify";
 import { Home } from "./src/screens/Home/Home";
 import { MapScreen } from "./src/screens/MapScreen/MapScreen";
 import { EditCar } from "./src/screens/EditCar/EditCar";
+import { Camera } from "./src/screens/Camera/Camera";
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -36,6 +37,16 @@ export default function App() {
   if (!fontsLoaded && !fontsError) {
     return null;
   }
+
+  async function requestCamera() {
+		await Camera.requestCameraPermissionsAsync();
+	}
+
+	async function requestGalery() {
+		await MediaLibrary.requestPermissionsAsync();
+
+		await ImagePicker.requestMediaLibraryPermissionsAsync();
+	}
 
   return (
     <NavigationContainer>
@@ -80,21 +91,28 @@ export default function App() {
           options={{ title: "Home" }}
         />
 
-      <Stack.Screen
-        name="EmailVerify"
-        component={EmailVerify}
-        options={{title: "EmailVerify"}}
-      />
+        <Stack.Screen
+          name="EmailVerify"
+          component={EmailVerify}
+          options={{ title: "EmailVerify" }}
+        />
 
-      <Stack.Screen
-        name="MapScreen"
-        component={MapScreen}
-        options={{title: "MapScreen"}}/>
+        <Stack.Screen
+          name="MapScreen"
+          component={MapScreen}
+          options={{ title: "MapScreen" }} />
 
-      <Stack.Screen
-        name="EditCar"
-        component={EditCar}
-        options={{title: "EditCar"}}/>
+        <Stack.Screen
+          name="EditCar"
+          component={EditCar}
+          options={{ title: "EditCar" }} />
+
+        <Stack.Screen
+          name="Camera"
+          component={Camera}
+          options={{
+						title: 'CameraPhoto'
+					}} />
 
       </Stack.Navigator>
 

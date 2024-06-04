@@ -11,7 +11,9 @@ export const ContainerBlack = styled.SafeAreaView`
 export const ContainerHome = styled.SafeAreaView`
 flex: 1;
 `
-
+export const ContainerCamera = styled.SafeAreaView`
+flex: 1;
+`
 export const ContainerWhite = styled.SafeAreaView`
     align-items: center;
     background-color: #FFFFFF;
@@ -48,4 +50,13 @@ border-radius: ${props => `${props.radius}`};
 flex-direction: row;
 align-items: center;
 gap: ${props => `${props.gap}`};
+`
+
+export const FooterCamera = styled.View`
+height: 15.34%;
+width: 100%;
+background-color: #313131;
+flex-direction: row;
+border-radius: 10px 10px 0px 0px ;
+gap: 54px;
 `

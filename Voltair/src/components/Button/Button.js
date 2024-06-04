@@ -39,7 +39,7 @@ export const ButtonDefaultSide = () => {
     )
 }
 
-export const ButtonMaps = styled.TouchableOpacity`
+export const CircleButton = styled.TouchableOpacity`
 width: 80px;
 height: 80px;
 border-radius: 100px;
@@ -47,8 +47,37 @@ background-color: #F2732E;
 align-self: center;
 margin-top: -25%;
 `
+export const ButtonCamera = styled(CircleButton)`
+`
 
-export const ImageMap = styled.Image`
+export const ButtonReturn = styled.TouchableOpacity`
+width: 80px;
+height: 80px;
+align-self: flex-end;
+`
+
+export const Provisorio = styled.View`
+height: 85%;
+width: 100%;
+background-color: black
+`
+
+export const ButtonGallery = styled.TouchableOpacity`
+width: 40px;
+height: 40px;
+border-radius: 5px;
+`
+export const ImageGallery = styled.Image`
+width: 100%; 
+height: 100%;
+`;
+
+export const ImageReturn = styled.Image`
+width: 54px;
+height: 54px;
+`
+
+export const ImageCircle = styled.Image`
 width: 65%;
 height: 65%;
 align-self: center;
@@ -57,7 +86,7 @@ margin-top: 15%;
 
 export const ImageRay = styled.Image`
 height: 45%;
-width: 40%;
+width: 45%;
 align-self: center;
 margin-top: 25%;
 `
@@ -65,13 +94,13 @@ export const ImageBatery = styled.Image`
 width: 100px;
 height: 100px;
 margin-top: -10%;
-` 
+`
 export const ImageCar = styled.Image`
 width: 50%;
 height: 50%;
 align-self:center;
 margin-top: 25%;
-` 
+`
 
 export const ButtonHome = styled.TouchableOpacity`
 border: 1px;
@@ -79,8 +108,9 @@ border-radius: 10px;
 border-color: white;
 width: 54px;
 height: 54px;
-margin-left: 5%;
-margin-top: -5%;
+margin-left: 4%;
+margin-top: -4%;
+
 `
 export const ButtonProfile = styled(ButtonHome)`
 margin-left: 0%;
