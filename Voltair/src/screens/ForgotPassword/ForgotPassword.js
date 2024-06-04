@@ -1,67 +1,82 @@
-import { useState } from "react"
-import { ButtonDefault } from "../../components/Button/Button"
-import { ContainerBlack, ContainerWhite } from "../../components/Container/Style"
-import { InputWhite } from "../../components/Input/Style"
-import { LogoRayOrange } from "../../components/Logo/Style"
-import { SubTitle, TextLink, Title } from "../../components/Title/Style"
-import ModalDefault from "../../components/Modal/ModalDefault"
-import { TouchableOpacity } from "react-native"
+import { useState } from "react";
+import { ButtonDefault } from "../../components/Button/Button";
+import { ContainerBlack, ContainerWhite,} from "../../components/Container/Style";
+import { InputWhite } from "../../components/Input/Style";
+import { LogoRayOrange } from "../../components/Logo/Style";
+import { SubTitle, TextLink, Title } from "../../components/Title/Style";
+import ModalDefault from "../../components/Modal/ModalDefault";
+import { Alert, TouchableOpacity } from "react-native";
+import api from '../../services/Service';
 
 export const ForgotPassword = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
-    const [modalVisible, setModalVisible] = useState(false);
+  async function sendEmail() {
+    if (email != '') {
+        console.log(email);
+        await api.post(`RecuperarSenha?email=${email}`)
+        .then(() => {
+            navigation.navigate("EmailVerify", {recoveryEmail: email});
+        }).catch(error => {
+            console.log(error);
+        })
+    } else {
+        Alert('Insira um email válido!')
+    }
+  }
 
-    return (
-        <>
-            <ContainerBlack>
+  return (
+    <>
+      <ContainerBlack>
+        <LogoRayOrange
+          source={require("../../../assets/Logo/LogoRay.png")}
+          margin={"0px 0px 20px 0px"}
+        />
 
-                <LogoRayOrange
-                    source={require("../../../assets/Logo/LogoRay.png")} margin={"0px 0px 20px 0px"}
-                />
+        <ContainerWhite height={"88%"}>
+          <Title color={"#313131"} margin={"25% 0px 0px 0px"}>
+            Esqueceu sua senha?
+          </Title>
+          <SubTitle color={"#313131"} margin={"20px 0px 20px 0px"}>
+            Digite seu e-mail abaixo e enviaremos um código
+          </SubTitle>
 
-                <ContainerWhite height={"88%"}>
+          <InputWhite
+            height={"53px"}
+            margin={"39px 0px 35px 0px"}
+            placeholder={"digite seu e-mail"}
+            value={email}
+            onChangeText={(txt) => setEmail(txt)}
+          />
 
-                    <Title color={"#313131"} margin={"25% 0px 0px 0px"}>
-                        Esqueceu sua senha?
-                    </Title>
-                    <SubTitle color={"#313131"} margin={"20px 0px 20px 0px"}>
-                        Digite seu e-mail abaixo e enviaremos um código
-                    </SubTitle>
+          <ButtonDefault
+            text={"Enviar e-mail"}
+            height={"58px"}
+            margin={"0px 0px 0px 0px"}
+            onPress={() => setModalVisible(true)}
+          />
 
-                    <InputWhite height={"53px"} margin={"39px 0px 35px 0px"} placeholder={"digite seu e-mail"} />
+          <TouchableOpacity>
+            <TextLink margin={"16px 0px 0px 0px"}>Voltar</TextLink>
+          </TouchableOpacity>
+        </ContainerWhite>
+      </ContainerBlack>
 
-                    <ButtonDefault
-                        text={"Enviar e-mail"}
-                        height={"58px"}
-                        margin={"0px 0px 0px 0px"}
-                        onPress={() => setModalVisible(true)}
-                    />
-
-                    <TouchableOpacity>
-
-                    <TextLink margin={"16px 0px 0px 0px"}>
-                        Voltar
-                    </TextLink>
-                    
-                    </TouchableOpacity>
-
-                </ContainerWhite>
-
-            </ContainerBlack>
-
-            <ModalDefault
-                visible={modalVisible}
-                navigation={navigation}
-                height={'41.5%'}
-                setModalVisible={setModalVisible}
-                onClose={() => {setModalVisible(false)}} //Falta colocar o navigation.replace
-                title={"Foi enviado um e-mail para:"}
-                subTitle={"Variavel"}
-                buttonText={"Confirmar"}
-                textLink={"voltar"}
-            />
-        </>
-
-    )
-
-}
+      <ModalDefault
+        visible={modalVisible}
+        navigation={navigation}
+        height={"41.5%"}
+        setModalVisible={setModalVisible}
+        onClose={() => {
+          setModalVisible(false);
+          sendEmail();
+        }} //Falta colocar o navigation.replace
+        title={"Foi enviado um e-mail para:"}
+        subTitle={email}
+        buttonText={"Confirmar"}
+        textLink={"voltar"}
+      />
+    </>
+  );
+};
