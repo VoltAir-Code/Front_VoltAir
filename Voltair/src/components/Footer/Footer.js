@@ -6,7 +6,7 @@ import { StyleSheet, Text } from "react-native"
 
 export const Footer = ()=>{
 return(
-   <ContainerBlackHome>
+   <ContainerBlackHome height={"15%"} radius={'10px 10px 0px 0px'} gap={'80px'}>
       <ButtonHome>
       <ImageRay source={require("../../../assets/Logo/LogoRay.png")}/>
       <Text style={styles.textFooter}>Home</Text>
