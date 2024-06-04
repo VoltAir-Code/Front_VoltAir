@@ -32,4 +32,7 @@ export const TextInput = styled.Text`
     color: #FFF;
     font-family: "Poppins_700Bold";
     margin: ${props => `${props.margin}`};
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-content: flex-start;
 `
