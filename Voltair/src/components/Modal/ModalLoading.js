@@ -1,14 +1,13 @@
 import { Modal } from "react-native";
 import { ButtonDefault, ButtonLoading, ImageBatery } from "../Button/Button"
 import { SubTitle, TextLink, Title } from "../Title/Style"
-import { ModalContainer, ModalContainerHome, ModalContent } from "./Style"
+import { ModalContainer } from "./Style"
 
 const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setModalVisible, title, subTitle, buttonTextLoading }) => {
 
     return (
         <Modal visible={visible} transparent={true} animationType="fade">
-            <ModalContainerHome>
-                <ModalContent>
+            <ModalContainer  height={"45%"}>
                     <Title color={"#FFFFFF"} margin={"40px 0px 10px 0px"}>
                         {title}
                     </Title>
@@ -40,8 +39,7 @@ const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setM
                     <TextLink margin={"16px 0px 0px 0px"}>
                         {textLink}
                     </TextLink>
-                </ModalContent>
-            </ModalContainerHome>
+            </ModalContainer>
         </Modal>
     )
 }
