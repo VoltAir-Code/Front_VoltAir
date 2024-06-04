@@ -22,7 +22,7 @@ export const Card = ({ navigation }) => {
             <CardImagens onPress={() => setModalInformationsVisible(true)}>
                 <ImageCard source={require("../../../assets/Imagem-home-02.png")} />
                 <CardInformation>
-                    <Text style={styles.textCard}>Informações Da Bateria </Text>
+                    <Text style={styles.textCard}>Bateria</Text>
                 </CardInformation>
             </CardImagens>
 
