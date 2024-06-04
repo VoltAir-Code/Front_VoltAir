@@ -17,8 +17,7 @@ export const Main = () => {
                     backgroundColor: "#313131",
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
-                    height: "15%",
-                    gap: 80,
+                    height: "15%"
                 },
                 tabBarIcon: ({ focused}) => {
                     if (route.name === "Home") {

@@ -39,13 +39,12 @@ export const ButtonDefaultSide = () => {
     )
 }
 
-export const ButtonMaps = styled.TouchableOpacity`
+export const ButtonMaps = styled.View`
 width: 80px;
 height: 80px;
 border-radius: 100px;
 background-color: #F2732E;
 align-self: center;
-margin-top: -25%;
 `
 
 export const ImageMap = styled.Image`
@@ -73,14 +72,12 @@ align-self:center;
 margin-top: 25%;
 ` 
 
-export const ButtonHome = styled.TouchableOpacity`
+export const ButtonHome = styled.View`
 border: 1px;
 border-radius: 10px;
 border-color: white;
 width: 54px;
 height: 54px;
-margin-left: 5%;
-margin-top: -5%;
 `
 export const ButtonProfile = styled(ButtonHome)`
 margin-left: 0%;
