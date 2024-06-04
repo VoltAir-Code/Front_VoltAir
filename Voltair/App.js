@@ -21,6 +21,7 @@ import { EmailVerify } from "./src/screens/EmailVerify/EmailVerify";
 import { Home } from "./src/screens/Home/Home";
 import { MapScreen } from "./src/screens/MapScreen/MapScreen";
 import { EditCar } from "./src/screens/EditCar/EditCar";
+import { Main } from "./src/screens/Main/Main";
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();
@@ -43,11 +44,9 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
       >
-
         <Stack.Screen
-          name='Navigation'
-          component={Navigation}
-          options={{ title: 'Navigation' }}
+          name="Main"
+          component={Main}
         />
 
         <Stack.Screen
@@ -55,6 +54,13 @@ export default function App() {
           component={Login}
           options={{ title: 'Login' }}
         />
+
+        <Stack.Screen
+          name='Navigation'
+          component={Navigation}
+          options={{ title: 'Navigation' }}
+        />
+
 
         <Stack.Screen
           name="CreateAccount"
@@ -80,21 +86,21 @@ export default function App() {
           options={{ title: "Home" }}
         />
 
-      <Stack.Screen
-        name="EmailVerify"
-        component={EmailVerify}
-        options={{title: "EmailVerify"}}
-      />
+        <Stack.Screen
+          name="EmailVerify"
+          component={EmailVerify}
+          options={{ title: "EmailVerify" }}
+        />
 
-      <Stack.Screen
-        name="MapScreen"
-        component={MapScreen}
-        options={{title: "MapScreen"}}/>
+        <Stack.Screen
+          name="MapScreen"
+          component={MapScreen}
+          options={{ title: "MapScreen" }} />
 
-      <Stack.Screen
-        name="EditCar"
-        component={EditCar}
-        options={{title: "EditCar"}}/>
+        <Stack.Screen
+          name="EditCar"
+          component={EditCar}
+          options={{ title: "EditCar" }} />
 
       </Stack.Navigator>
 
