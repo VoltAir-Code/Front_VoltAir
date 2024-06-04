@@ -34,8 +34,8 @@ export const EmailVerify = ({ navigation, route }) => {
 
     async function validarCodigo() {
         try {
-            const response = await api.post(`RecuperarSenha/ValidarCodigoDeRecuperacaoSenha?email=${route.params.email}&code=${codigo.join('')}`);
-            navigation.replace("ResetPassword", { email: route.params.email });
+            const response = await api.post(`RecuperarSenha/ValidarCodigoDeRecuperacaoSenha?email=${route.params.recoveryEmail}&code=${codigo.join('')}`);
+            navigation.replace("ResetPassword", { email: route.params.recoveryEmail });
         } catch (error) {
             console.log(error);
         }
@@ -43,6 +43,7 @@ export const EmailVerify = ({ navigation, route }) => {
 
     useEffect(() => {
         inputs[0].current.focus();
+        console.log(route.params);
     }, []);
 
     return (
@@ -55,7 +56,7 @@ export const EmailVerify = ({ navigation, route }) => {
                     Digite o código enviado:
                 </Title>
                 <SubTitle color={"#313131"} margin={"0px 0px 20px 0px"}>
-                 {route.params.email}
+                 {route.params.recoveryEmail}
                 </SubTitle>
                 <ContentVerify margin={"20px 0px 54px 0px"}>
                     { [0, 1, 2, 3].map((index) => (

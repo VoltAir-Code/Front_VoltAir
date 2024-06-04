@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ContainerBlack,
   ContainerWhite,
@@ -8,14 +8,24 @@ import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import { ButtonDefault } from "../../components/Button/Button";
 import { LogoRayOrange } from "../../components/Logo/Style";
 import { TouchableOpacity } from "react-native";
+import api from "../../services/Service";
 
-export const ResetPassword = ({ navigation }) => {
+export const ResetPassword = ({ navigation , route}) => {
   const [pass, setPass] = useState("");
+
   const [confirmPass, setConfirmPass] = useState("");
 
   async function UpdatePassword() {
-    if (pass === confirmPass) {
-        
+    if (pass === confirmPass && pass.length > 4) {
+        try {
+          const response = await api.put(`Usuario/AlterarSenha?email=${route.params.email}`,{
+            senhaNova: pass
+          })
+          alert("Senha alterada com sucesso")
+          navigation.replace("Login", {email: route.params.email})
+        } catch (error) {
+          console.log(error);
+        }
     } else {
         
     }
