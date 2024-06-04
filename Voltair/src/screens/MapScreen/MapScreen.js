@@ -4,8 +4,12 @@ import { ContainerBlackMap } from "../../components/Container/Style"
 import { MapFooter } from "../../components/MapFooter/MapFooter"
 import { MapHeader } from "../../components/MapHeader/MapHeader"
 import Map from "../Map"
+import { ModalNotificationCharge } from "../../components/Modal/ModalNotificationCharge"
+import { useState } from "react"
 
 export const MapScreen = ({navigation}) => {
+    const [notificationCharge, setNotificationCharge] = useState(false)
+
     return (
         <>
             <View style={{flex: 1}}>
@@ -15,6 +19,10 @@ export const MapScreen = ({navigation}) => {
 
                 <MapFooter />
             </View>
+
+            <ModalNotificationCharge
+                visible={notificationCharge}
+            />
         </>
     )
 }

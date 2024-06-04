@@ -49,3 +49,15 @@ flex-direction: row;
 align-items: center;
 gap: ${props => `${props.gap}`};
 `
+
+export const ContainerLabelInput = styled.View`
+
+    height: auto;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 6%;
+
+`

@@ -13,12 +13,13 @@ const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setM
                         {title}
                     </Title>
 
-                    <SubTitle color={"#FFFFFF"} margin={"0px 0px 10px 0px"}>
+                    <SubTitle color={"#FFFFFF"} margin={"0px 0px 20px 0px"}>
                         {subTitle}
                     </SubTitle>
 
                     <ImageBatery
                     source={require('../../../assets/Img/bateria.png')}
+                    
                     />
 
                     <ButtonLoading

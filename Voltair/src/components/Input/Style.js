@@ -13,9 +13,9 @@ export const InputWhite = styled.TextInput.attrs({placeholderTextColor: 'rgba(49
     font-family: 'Poppins_400Regular';
 `
 
-export const InputBlack = styled(InputWhite).attrs({placeholderTextColot: '#FFFFFF'})`
+export const InputBlack = styled(InputWhite).attrs({placeholderTextColot: '#F2732E'})`
     border: 1px solid #F2732E;
-    color: "#FFFFFF";
+    color: #FFFFFF;
 `
 
 export const InputVerify = styled(InputWhite)`
