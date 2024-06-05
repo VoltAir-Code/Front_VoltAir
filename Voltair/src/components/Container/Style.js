@@ -69,6 +69,5 @@ width: 100%;
 background-color: #313131;
 flex-direction: row;
 border-radius: 10px 10px 0px 0px ;
-gap: 54px;
-
+gap: 60px;
 `

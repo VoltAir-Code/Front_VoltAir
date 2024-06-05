@@ -45,6 +45,7 @@ height: 80px;
 border-radius: 100px;
 background-color: #F2732E;
 align-self: center;
+margin-top: -10%;
 `
 export const ButtonCamera = styled(ButtonMaps)`
 `
@@ -53,6 +54,7 @@ export const ButtonReturn = styled.TouchableOpacity`
 width: 80px;
 height: 80px;
 align-self: flex-end;
+margin-right: 4%;
 `
 
 export const Provisorio = styled.View`
@@ -67,6 +69,7 @@ height: 54px;
 border-radius: 5px;
 background-color: #F2732E;
 align-self: center;
+margin-left: 9%;
 `
 export const ImageGallery = styled.Image`
 width: 100%; 

@@ -80,11 +80,12 @@ export const Camera = ({ navigation, route }) => {
                 
             </CameraView>
 
-            <FooterCamera>
+            <FooterCamera > 
                     <ButtonGallery
                      onPress={SelectImageGallery}
                     >
-                        {lastedPhoto && <ImageGallery source={{ uri: lastedPhoto }} />}
+
+                    <ImageCircle source={require("../../../assets/Img/picture.png")} />
                     </ButtonGallery>
 
                     <ButtonCamera
@@ -94,7 +95,6 @@ export const Camera = ({ navigation, route }) => {
                     </ButtonCamera>
 
                     <ButtonReturn
-
                     >
                         <ImageReturn source={require("../../../assets/Img/return.png")} />
                     </ButtonReturn>
