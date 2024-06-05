@@ -21,9 +21,8 @@ export const ButtonCircleFooter = styled.TouchableOpacity`
     width:80px;
     background-color: #F2732E;
     border-radius: 100px;
-    position: absolute;
     margin: 0px 0px 0px 0px;
-    bottom: 35px;
+    bottom: 8px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -35,11 +34,9 @@ export const ButtonSideFooter = styled.TouchableOpacity`
     border-radius: 10px;
 `
 export const ContentDefaultButtonCircle = styled.View`
-    width: 100%;
-    height: 100%;
+   
     
     flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
 `
 
