@@ -40,14 +40,14 @@ export default function App() {
   }
 
   async function requestCamera() {
-		await Camera.requestCameraPermissionsAsync();
-	}
+    await Camera.requestCameraPermissionsAsync();
+  }
 
-	async function requestGalery() {
-		await MediaLibrary.requestPermissionsAsync();
+  async function requestGalery() {
+    await MediaLibrary.requestPermissionsAsync();
 
-		await ImagePicker.requestMediaLibraryPermissionsAsync();
-	}
+    await ImagePicker.requestMediaLibraryPermissionsAsync();
+  }
 
   return (
     <NavigationContainer>
@@ -59,6 +59,10 @@ export default function App() {
           name="Main"
           component={Main}
         />
+        <Stack.Screen
+          name="MapScreen"
+          component={MapScreen}
+          options={{ title: "MapScreen" }} />
 
         <Stack.Screen
           name='Login'
@@ -103,10 +107,6 @@ export default function App() {
           options={{ title: "EmailVerify" }}
         />
 
-        <Stack.Screen
-          name="MapScreen"
-          component={MapScreen}
-          options={{ title: "MapScreen" }} />
 
         <Stack.Screen
           name="EditCar"
@@ -117,8 +117,8 @@ export default function App() {
           name="Camera"
           component={Camera}
           options={{
-						title: 'CameraPhoto'
-					}} />
+            title: 'CameraPhoto'
+          }} />
 
       </Stack.Navigator>
 

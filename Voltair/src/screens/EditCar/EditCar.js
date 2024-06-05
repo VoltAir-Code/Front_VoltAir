@@ -1,15 +1,15 @@
 import { TouchableOpacity } from "react-native";
-import { ButtonDefault } from "../../components/Button/Button";
+import { ButtonDefault, ButtonInput, ImageInput } from "../../components/Button/Button";
 import { ContainerBlackMap, ContainerLabelInput } from "../../components/Container/Style"
 import { InputSelect } from "../../components/Input/InputSelect"
-import { InputBlack } from "../../components/Input/Style"
+import { InputBlack, ViewInput } from "../../components/Input/Style"
 import { TextInput, TextLink, Title } from "../../components/Title/Style"
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
 
 
-export const EditCar = ({ }) => {
+export const EditCar = ({ navigation}) => {
 
     const carBrands = [
         { label: "Ford", value: "Ford" },
@@ -53,13 +53,24 @@ export const EditCar = ({ }) => {
                     placeholder={"Duração"}
                 />
 
+
                 <ContainerLabelInput>
                     <TextInput margin={"20px 0px 0px 15px"}>Número da placa</TextInput>
                 </ContainerLabelInput>
-                <InputBlack
-                    height={"53px"}
-                    margin={"5px 0px 25px 0px"}
-                />
+                <ViewInput>
+                    <InputBlack
+                        height={"53px"}
+                        margin={"5px 0px 25px 0px"}
+                    >
+
+                    </InputBlack>
+
+                    <ButtonInput onPress={() => navigation.navigate("Camera")}>
+                            <ImageInput source={require('../../../assets/Img/camera-laranja.png')}
+                            />
+                        </ButtonInput>
+                </ViewInput>
+
 
 
                 <ButtonDefault
@@ -69,7 +80,7 @@ export const EditCar = ({ }) => {
                 />
 
                 <ButtonLogOut margin={"20px 0px 0px 0px"}>
-                    <TextLink style={{ color: '#FFFFFF'}} margin={"0px 0px 0px 0px"}>
+                    <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
                         Sair do app
                     </TextLink>
                 </ButtonLogOut>

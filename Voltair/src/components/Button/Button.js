@@ -39,13 +39,17 @@ export const ButtonDefaultSide = () => {
     )
 }
 
-export const ButtonMaps = styled.View`
+export const ButtonMaps = styled.TouchableOpacity`
+flex: 1;
 width: 80px;
 height: 80px;
 border-radius: 100px;
 background-color: #F2732E;
 align-self: center;
 margin-top: -10%;
+bottom: 50px;
+left: 40%;
+position: absolute;
 `
 export const ButtonCamera = styled(ButtonMaps)`
 `
@@ -60,7 +64,7 @@ margin-right: 4%;
 export const Provisorio = styled.View`
 height: 85%;
 width: 100%;
-background-color: black
+background-color: black;
 `
 
 export const ButtonGallery = styled.TouchableOpacity`
@@ -81,7 +85,7 @@ width: 70%;
 height: 70%;
 `
 
-export const ImageCircle = styled.Image`
+export const ImageMap = styled.Image`
 width: 65%;
 height: 65%;
 align-self: center;
@@ -106,15 +110,25 @@ align-self:center;
 margin-top: 25%;
 `
 
+// export const ButtonHome = styled.TouchableOpacity`
 export const ButtonHome = styled.View`
 border: 1px;
 border-radius: 10px;
 border-color: white;
+margin-left: -30%;
 width: 54px;
 height: 54px;
 `
 export const ButtonProfile = styled(ButtonHome)`
 margin-left: 0%;
+margin-right: -30%;
+`
+
+export const ImageInput = styled.Image`
+height: 30px;
+width: 30px;
+margin-top: -17%;
+margin-left: 65%;
 `
 
 
@@ -128,3 +142,8 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 });
+
+
+export const ButtonInput = styled.TouchableOpacity`
+
+`
