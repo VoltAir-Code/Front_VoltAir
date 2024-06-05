@@ -62,9 +62,11 @@ background-color: black
 `
 
 export const ButtonGallery = styled.TouchableOpacity`
-width: 40px;
-height: 40px;
+width: 54px;
+height: 54px;
 border-radius: 5px;
+background-color: #F2732E;
+align-self: center;
 `
 export const ImageGallery = styled.Image`
 width: 100%; 
@@ -72,8 +74,8 @@ height: 100%;
 `;
 
 export const ImageReturn = styled.Image`
-width: 54px;
-height: 54px;
+width: 70%;
+height: 70%;
 `
 
 export const ImageCircle = styled.Image`

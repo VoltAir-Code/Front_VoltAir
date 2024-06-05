@@ -3,6 +3,7 @@ import { Home } from "../Home/Home"
 import { EditCar } from "../EditCar/EditCar"
 import { ButtonHome, ButtonMaps, ButtonProfile, ImageCar, ImageMap, ImageRay } from "../../components/Button/Button"
 import { MapScreen } from "../MapScreen/MapScreen"
+import { Camera } from "../Camera/Camera"
 
 const BottomTab = createBottomTabNavigator()
 
@@ -19,29 +20,29 @@ export const Main = () => {
                     borderTopRightRadius: 10,
                     height: "15%"
                 },
-                tabBarIcon: ({ focused}) => {
-                    if (route.name === "Home") {
-                        return (
-                            <ButtonHome>
-                                <ImageRay source={require("../../../assets/Logo/LogoRay.png")} />
-                            </ButtonHome>
-                        )
-                    }
-                    else if (route.name === "Meu Carro") {
-                        return (
-                            <ButtonProfile>
-                                <ImageCar source={require("../../../assets/Img/Volante.png")} />
-                            </ButtonProfile>
-                        )
-                    }
-                    else {
-                        return (
-                            <ButtonMaps>
-                                <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
-                            </ButtonMaps>
-                        )
-                    }
-                }
+                // tabBarIcon: ({ focused}) => {
+                //     if (route.name === "Home") {
+                //         return (
+                //             <ButtonHome>
+                //                 <ImageRay source={require("../../../assets/Logo/LogoRay.png")} />
+                //             </ButtonHome>
+                //         )
+                //     }
+                //     else if (route.name === "Meu Carro") {
+                //         return (
+                //             <ButtonProfile>
+                //                 <ImageCar source={require("../../../assets/Img/Volante.png")} />
+                //             </ButtonProfile>
+                //         )
+                //     }
+                //     else {
+                //         return (
+                //             <ButtonMaps>
+                //                 <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
+                //             </ButtonMaps>
+                //         )
+                //     }
+                // }
             })}
 
         >
@@ -52,7 +53,7 @@ export const Main = () => {
 
             <BottomTab.Screen
                 name="Mapa"
-                component={MapScreen}
+                component={Camera}
             />
 
             <BottomTab.Screen
