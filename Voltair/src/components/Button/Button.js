@@ -47,7 +47,7 @@ border-radius: 100px;
 background-color: #F2732E;
 align-self: center;
 bottom: 50px;
-left: 40%;
+left: 20%;
 position: absolute;
 `
 export const ButtonCamera = styled(ButtonMaps)`
@@ -102,21 +102,22 @@ export const ImageCar = styled.Image`
 width: 50%;
 height: 50%;
 align-self:center;
-margin-top: 25%;
 `
 
 // export const ButtonHome = styled.TouchableOpacity`
 export const ButtonHome = styled.View`
 border: 1px;
 border-radius: 10px;
-border-color: white;
-margin-left: -30%;
+border-color: ${props => `${props.borderColor}`};
+margin-left: -5%;
+align-items:center ;
+justify-content:center ;
 width: 54px;
 height: 54px;
 `
 export const ButtonProfile = styled(ButtonHome)`
 margin-left: 0%;
-margin-right: -30%;
+margin-right: -5%;
 `
 
 
