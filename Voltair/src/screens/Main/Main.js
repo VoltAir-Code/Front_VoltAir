@@ -27,7 +27,7 @@ export const Main = () => {
                             </ButtonHome>
                         )
                     }
-                    else if (route.name === "Meu Carro") {
+                    else if (route.name === "EditCar") {
                         return (
                             <ButtonProfile>
                                 <ImageCar source={require("../../../assets/Img/Volante.png")} />
@@ -51,12 +51,12 @@ export const Main = () => {
             />
 
             <BottomTab.Screen
-                name="Mapa"
+                name="MapScreen"
                 component={MapScreen}
             />
 
             <BottomTab.Screen
-                name="Meu Carro"
+                name="EditCar"
                 component={EditCar}
             />
 
