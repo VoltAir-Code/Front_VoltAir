@@ -1,4 +1,4 @@
-import { ButtonHome,ButtonProfile, CircleButton, ImageCar, ImageCircle, ImageMap, ImageRay,  } from "../Button/Button"
+import { ButtonHome,ButtonMaps,ButtonProfile,  ImageCar, ImageCircle, ImageMap, ImageRay,  } from "../Button/Button"
 import { ContainerBlackHome } from "../Container/Style"
 import { StyleSheet, Text } from "react-native"
 
@@ -12,10 +12,10 @@ return(
       <Text style={styles.textFooter}>Home</Text>
       </ButtonHome>
 
-      <CircleButton>
+      <ButtonMaps>
       <ImageCircle source={require("../../../assets/Img/MapPoint.png")}/>
       <Text style={styles.textFooter}>Mapa</Text>
-      </CircleButton>
+      </ButtonMaps>
 
       <ButtonProfile>
       <ImageCar source={require("../../../assets/Img/Volante.png")}/>

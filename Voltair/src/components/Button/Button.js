@@ -46,7 +46,7 @@ border-radius: 100px;
 background-color: #F2732E;
 align-self: center;
 `
-export const ButtonCamera = styled(CircleButton)`
+export const ButtonCamera = styled(ButtonMaps)`
 `
 
 export const ButtonReturn = styled.TouchableOpacity`
