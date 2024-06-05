@@ -58,7 +58,7 @@ align-self: flex-end;
 export const Provisorio = styled.View`
 height: 85%;
 width: 100%;
-background-color: black
+background-color: black;
 `
 
 export const ButtonGallery = styled.TouchableOpacity`
@@ -76,7 +76,7 @@ width: 54px;
 height: 54px;
 `
 
-export const ImageCircle = styled.Image`
+export const ImageMap = styled.Image`
 width: 65%;
 height: 65%;
 align-self: center;
