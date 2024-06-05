@@ -17,7 +17,7 @@ export const SubTitle = styled.Text`
     
 `
 
-export const TextLink = styled.Text`
+export const TextLink = styled.Text`    
     font-size: 14px;
     color: #313131;
     font-family: "Poppins_400Regular";
@@ -32,4 +32,7 @@ export const TextInput = styled.Text`
     color: #FFF;
     font-family: "Poppins_700Bold";
     margin: ${props => `${props.margin}`};
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-content: flex-start;
 `

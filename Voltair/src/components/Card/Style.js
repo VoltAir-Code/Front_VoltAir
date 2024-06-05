@@ -5,10 +5,10 @@ flex: 1;
 `
 export const CardImagens = styled.TouchableOpacity`
 width: 64.35%;
-height: 176px;
+height: 40.93%;
 align-self: center;
 margin-top: -10%;
-margin-bottom: 94px;
+margin-bottom: 25%;
 `
  export const ImageCard = styled.Image`
  align-self: center;
@@ -21,6 +21,6 @@ margin-bottom: 94px;
  width: 100%;
  background-color: white;
  align-self: flex-end;
- margin-top: -10.50%;
+ margin-top: -10.60%;
  opacity: 0.90;
  `

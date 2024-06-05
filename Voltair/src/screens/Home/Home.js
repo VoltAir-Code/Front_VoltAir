@@ -8,7 +8,7 @@ export const Home = ()=>{
         <ContainerHome>
             <Header/>
             <Card/>
-            <Footer/>
+            {/* <Footer/> */}
         </ContainerHome>
     )
 }

@@ -8,16 +8,16 @@ import { ModalNotificationCharge } from "../../components/Modal/ModalNotificatio
 import { useState } from "react"
 import { ModalChargingStation } from "../../components/Modal/ModalChargingStation"
 
-export const MapScreen = ({navigation}) => {
+export const MapScreen = ({ navigation }) => {
     const [notificationCharge, setNotificationCharge] = useState(false)
     const [chargingStation, setChargingStation] = useState(false)
 
     return (
         <>
-            <View style={{flex: 1}}>
-                <MapHeader navigation={navigation}/>
+            <View style={{ flex: 1 }}>
+                <MapHeader navigation={navigation} />
 
-                <Map/>
+                <Map />
 
                 <MapFooter />
             </View>

@@ -5,14 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from "react";
 
 
-export const MapHeader = ({navigation}) => {
+export const MapHeader = ({ navigation }) => {
     const [run, setRun] = useState(false)
 
     return (
         <>
             <ContainerTransparentMap>
 
-                <TouchableOpacity onPress={()=> {navigation.navigate("Home")}}>
+                <TouchableOpacity onPress={() => { navigation.replace("Main") }}>
                     <AntDesign name="left" size={30} color="black" />
                 </TouchableOpacity>
 
