@@ -44,6 +44,11 @@ export const Navigation = ({ navigation }) => {
                 onPress={() => navigation.navigate("EditCar")}
             />
 
+            <Button
+            title="Camera"
+            onPress={()=>{navigation.navigate("Camera")}}
+            />
+
 
 
         </View>

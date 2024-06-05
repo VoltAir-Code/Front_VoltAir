@@ -34,6 +34,17 @@ export const ButtonSideFooter = styled.TouchableOpacity`
     border: 1px solid #FFFFFF;
     border-radius: 10px;
 `
+
+export const ButtonLogOut = styled.TouchableOpacity`
+    height: 53px;
+    width: 82.32%;
+    border: 1px solid #F2732E;
+    border-radius: 10px;
+    justify-content:center;
+    align-items: center;
+    margin: ${props => `${props.margin}`};
+`
+
 export const ContentDefaultButtonCircle = styled.View`
     width: 100%;
     height: 100%;
