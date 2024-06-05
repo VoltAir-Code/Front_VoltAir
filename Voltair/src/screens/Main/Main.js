@@ -6,7 +6,7 @@ import { MapScreen } from "../MapScreen/MapScreen"
 
 const BottomTab = createBottomTabNavigator()
 
-export const Main = () => {
+export const Main = ({ navigation }) => {
     return (
         <BottomTab.Navigator
             initialRouteName="Home"
@@ -17,9 +17,10 @@ export const Main = () => {
                     backgroundColor: "#313131",
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
-                    height: "15%"
+                    height: "15%",
+                    paddingTop: 10
                 },
-                tabBarIcon: ({ focused}) => {
+                tabBarIcon: ({ focused }) => {
                     if (route.name === "Home") {
                         return (
                             <ButtonHome>
@@ -27,7 +28,7 @@ export const Main = () => {
                             </ButtonHome>
                         )
                     }
-                    else if (route.name === "EditCar") {
+                    else if (route.name === "Meu Carro") {
                         return (
                             <ButtonProfile>
                                 <ImageCar source={require("../../../assets/Img/Volante.png")} />
@@ -36,9 +37,7 @@ export const Main = () => {
                     }
                     else {
                         return (
-                            <ButtonMaps>
-                                <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
-                            </ButtonMaps>
+                            null
                         )
                     }
                 }
@@ -53,10 +52,19 @@ export const Main = () => {
             <BottomTab.Screen
                 name="MapScreen"
                 component={MapScreen}
+                options={{
+                    tabBarButton: () => 
+                        (
+
+                            <ButtonMaps onPress={() => navigation.navigate("MapScreen")}>
+                                <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
+                            </ButtonMaps>
+                        )
+                }}
             />
 
             <BottomTab.Screen
-                name="EditCar"
+                name="Meu Carro"
                 component={EditCar}
             />
 
