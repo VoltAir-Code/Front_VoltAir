@@ -1,6 +1,6 @@
-import { TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { ButtonDefault, ButtonInput, ImageInput } from "../../components/Button/Button";
-import { ContainerBlackMap, ContainerLabelInput } from "../../components/Container/Style"
+import { ContainerBlack, ContainerBlackMap, ContainerHome, ContainerLabelInput, ContainerScroll } from "../../components/Container/Style"
 import { InputSelect } from "../../components/Input/InputSelect"
 import { InputBlack, ViewInput } from "../../components/Input/Style"
 import { TextInput, TextLink, Title } from "../../components/Title/Style"
@@ -15,7 +15,7 @@ export const EditCar = ({ navigation}) => {
         { label: "Ford", value: "Ford" },
         { label: "Chevrolet", value: "Chevrolet" },
         { label: "Toyota", value: "Toyota" },
-        // Adicione mais marcas conforme necessário
+        
     ];
     const electricCarModels = [
         { label: "Mustang Mach-E", value: "Mustang Mach-E" },
@@ -24,7 +24,8 @@ export const EditCar = ({ navigation}) => {
     ]
 
     return (
-        <>
+        <ContainerHome>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <ContainerBlackMap height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
                 <Title color={"#FFF"} margin={"35px 0px 15px 0px"}>
                     Informe os dados do seu carro
@@ -52,8 +53,7 @@ export const EditCar = ({ navigation}) => {
                     margin={"5px 0px 0px 0px"}
                     placeholder={"Duração"}
                 />
-
-
+                
                 <ContainerLabelInput>
                     <TextInput margin={"20px 0px 0px 15px"}>Número da placa</TextInput>
                 </ContainerLabelInput>
@@ -79,14 +79,15 @@ export const EditCar = ({ navigation}) => {
                     margin={"25px 0px 0px 0px"}
                 />
 
-                <ButtonLogOut margin={"20px 0px 0px 0px"}>
+                <ButtonLogOut margin={"20px 0px 130px 0px"}>
                     <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
                         Sair do app
                     </TextLink>
                 </ButtonLogOut>
 
-
             </ContainerBlackMap>
-        </>
+                </ScrollView>
+                </ContainerHome>
+        
     )
 }

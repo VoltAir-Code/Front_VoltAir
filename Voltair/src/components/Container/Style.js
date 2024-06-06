@@ -23,7 +23,7 @@ export const ContainerWhite = styled.SafeAreaView`
 `
 
 export const ContainerBlackMap = styled(ContainerBlack)`
-    flex: none;
+    flex: 1;
     height: ${props => `${props.height}`};
     border-radius: 10px 10px 0px 0px;
     flex-direction: ${props => `${props.flexDirection}`};
@@ -61,8 +61,8 @@ export const ContainerLabelInput = styled.View`
     justify-content: flex-start;
     align-items: flex-start;
     padding-left: 6%;
-
 `
+
 export const FooterCamera = styled.View`
 height: 15.34%;
 width: 100%;
