@@ -27,12 +27,12 @@ export const EditCar = ({ navigation}) => {
         <ContainerHome>
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <ContainerBlackMap height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
-                <Title color={"#FFF"} margin={"35px 0px 15px 0px"}>
+                <Title color={"#FFF"} margin={"25px 0px 10px 0px"}>
                     Informe os dados do seu carro
                 </Title>
 
                 <ContainerLabelInput>
-                    <TextInput margin={"20px 0px 0px 15px"}>Marca</TextInput>
+                    <TextInput margin={"10px 0px 0px 15px"}>Marca</TextInput>
                 </ContainerLabelInput>
                 <InputSelect
                     item={carBrands}
@@ -79,7 +79,7 @@ export const EditCar = ({ navigation}) => {
                     margin={"25px 0px 0px 0px"}
                 />
 
-                <ButtonLogOut margin={"20px 0px 130px 0px"}>
+                <ButtonLogOut margin={"20px 0px 145px 0px"}>
                     <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
                         Sair do app
                     </TextLink>
