@@ -51,13 +51,13 @@ bottom: 50px;
 left: 20%;
 position: absolute;
 `
-export const ButtonCamera = styled(ButtonMaps)`
+export const ButtonCamera = styled.TouchableOpacity`
 `
 
 export const ButtonReturn = styled.TouchableOpacity`
-width: 80px;
-height: 80px;
-align-items: center;
+width: 54px;
+height: 54px;
+border-radius: 5px;
 `
 
 export const Provisorio = styled.View`
@@ -70,18 +70,20 @@ export const ButtonGallery = styled.TouchableOpacity`
 width: 54px;
 height: 54px;
 border-radius: 5px;
-background-color: #F2732E;
-align-self: center;
-margin-left: 9%;
+margin-left: 4%;
 `
 export const ImageGallery = styled.Image`
-width: 100%; 
-height: 100%;
+width: 81.22%; 
+height: 81.22%;
+align-self: center;
+margin-top: 10%;
 `;
 
 export const ImageReturn = styled.Image`
-width: 70%;
-height: 70%;
+width: 81.22%;
+height: 81.22%;
+margin-top: 10%;
+align-self: center;
 `
 
 export const ImageMap = styled.Image`
@@ -133,6 +135,7 @@ margin-left: 65%;
 export const ImageCircle = styled.Image`
 width: 60px;
 height: 60px;
+align-self: center;
 `
 
 const styles = StyleSheet.create({

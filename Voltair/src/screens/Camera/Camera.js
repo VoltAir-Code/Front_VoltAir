@@ -1,7 +1,12 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRef, useState } from "react";
-import { ContainerCamera, FooterCamera } from "../../components/Container/Style";
-import { ButtonCamera, ButtonGallery, ButtonReturn, ImageCircle, ImageReturn } from "../../components/Button/Button";
+import { ContainerCamera, ContainerHome, FooterCamera } from "../../components/Container/Style";
+import { ButtonCamera, ButtonGallery, ButtonReturn, ImageCircle, ImageGallery, ImageReturn } from "../../components/Button/Button";
+import * as MediaLibrary from 'expo-media-library';
+import * as ImagePicker from 'expo-image-picker';
+import Svg, { Circle, Rect } from 'react-native-svg';
+import CameraIcon from "../../components/icons/CameraIcon";
+
 
 
 export const Camera = ({ navigation, route }) => {
@@ -30,16 +35,16 @@ export const Camera = ({ navigation, route }) => {
     // }
     //   }
 
-    // async function SelectImageGallery() {
-    //     const result = await ImagePicker.launchImageLibraryAsync({
-    //         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    //         quality: 1,
-    //     });
+     async function SelectImageGallery() {
+         const result = await ImagePicker.launchImageLibraryAsync({
+             mediaTypes: ImagePicker.MediaTypeOptions.Images,
+             quality: 1,
+        });
 
-    //     if (!result.canceled) {
-    //         setPhoto(result.uri);
-    //     }
-    // }
+     if (!result.canceled) {
+             setPhoto(result.uri);
+        }
+    }
 
     // async function GetLastPhoto() {
     //     const { assets } = await MediaLibrary.getAssetsAsync({
@@ -64,8 +69,9 @@ export const Camera = ({ navigation, route }) => {
     //     setTipoCamera(current => (current === ExpoCamera.Constants.Type.back ? ExpoCamera.Constants.Type.front : ExpoCamera.Constants.Type.back));
     // }
 
+
     return (
-        <ContainerCamera>
+        <ContainerHome>
             <CameraView
                 style={{ flex: 1 }}
                 type={tipoCamera}
@@ -76,24 +82,26 @@ export const Camera = ({ navigation, route }) => {
             />
             <FooterCamera > 
                     <ButtonGallery
-                    //  onPress={SelectImageGallery}
+                    onPress={SelectImageGallery}
                     >
 
-                    <ImageCircle source={require("../../../assets/Img/picture.png")} />
+                    <ImageGallery source={require("../../../assets/Img/picture.png")} />
                     </ButtonGallery>
 
                     <ButtonCamera
                     //  onPress={CapturePhoto}
                     >
-                        <ImageCircle source={require("../../../assets/Img/camera.png")} />
+                   <CameraIcon color={"#F2732E"} size={60} />
+                    {/* <ImageCircle source={require("../../../assets/Img/camera.png")}/> */}
                     </ButtonCamera>
+
 
                     <ButtonReturn
                     >
                         <ImageReturn source={require("../../../assets/Img/return.png")} />
-                    </ButtonReturn>
+                    </ButtonReturn> 
                 </FooterCamera>
 
-        </ContainerCamera>
+        </ContainerHome>
     );
 };
