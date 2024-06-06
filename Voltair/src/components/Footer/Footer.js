@@ -1,4 +1,4 @@
-import { ButtonHome, ButtonProfile,  ImageCar, ImageCircle, ImageMap, ImageRay, } from "../Button/Button"
+import { ButtonHome, ButtonProfile,  ImageCar, ImageMap, ImageRay, } from "../Button/Button"
 import { ContainerBlackHome } from "../Container/Style"
 import { StyleSheet, Text } from "react-native"
 

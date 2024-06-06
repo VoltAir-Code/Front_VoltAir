@@ -12,13 +12,12 @@ export const TextCar = styled.Text`
 font-family:'Poppins_200ExtraLight';
 color: white;
 font-size: 20px;
-margin-left: 28%;
+align-self: center;
 `
 
 export const TextName = styled.Text`
 font-family: 'Poppins_400Regular';
 color: white;
 font-size: 30px;
-margin-top: 9%;
 align-self: center;
 `

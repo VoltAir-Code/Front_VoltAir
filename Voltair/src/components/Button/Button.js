@@ -46,6 +46,7 @@ height: 80px;
 border-radius: 100px;
 background-color: #F2732E;
 align-self: center;
+margin-top: -10%;
 bottom: 50px;
 left: 20%;
 position: absolute;
@@ -56,7 +57,7 @@ export const ButtonCamera = styled(ButtonMaps)`
 export const ButtonReturn = styled.TouchableOpacity`
 width: 80px;
 height: 80px;
-align-self: flex-end;
+align-items: center;
 `
 
 export const Provisorio = styled.View`
@@ -66,9 +67,12 @@ background-color: black;
 `
 
 export const ButtonGallery = styled.TouchableOpacity`
-width: 40px;
-height: 40px;
+width: 54px;
+height: 54px;
 border-radius: 5px;
+background-color: #F2732E;
+align-self: center;
+margin-left: 9%;
 `
 export const ImageGallery = styled.Image`
 width: 100%; 
@@ -76,8 +80,8 @@ height: 100%;
 `;
 
 export const ImageReturn = styled.Image`
-width: 54px;
-height: 54px;
+width: 70%;
+height: 70%;
 `
 
 export const ImageMap = styled.Image`
@@ -120,6 +124,16 @@ margin-left: 0%;
 margin-right: -5%;
 `
 
+export const ImageInput = styled.Image`
+height: 30px;
+width: 30px;
+margin-top: -17%;
+margin-left: 65%;
+`
+export const ImageCircle = styled.Image`
+width: 60px;
+height: 60px;
+`
 
 const styles = StyleSheet.create({
     ButtonModal: {
@@ -131,3 +145,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 });
+
+
+export const ButtonInput = styled.TouchableOpacity`
+`
