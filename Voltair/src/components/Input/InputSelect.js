@@ -19,10 +19,16 @@ export const InputSelect = ({ item }) => {
             dropdownTextStyles={{ fontSize: 15, fontSize: 15, color: '#FFF'  }}
             dropdownItemStyles={{marginHorizontal: 5, marginBottom: 3}}
             dropdownStyles={{borderWidth: 1.5, borderColor:'#F2732E'}}
-            arrowicon={<MaterialIcons name="arrow-circle-down" size={23} color="#F2732E" />}
-            inputStyles={{ fontSize: 15, color: '#F2732E', fontWeight: 'bold'}}
-            placeholderStyles={{ fontSize: 15, color: '#FFF' }}
+            arrowicon={<MaterialIcons name="arrow-circle-down" size={23} color="white" />}
+            inputStyles={{ fontSize: 15, color: 'white', fontWeight: 'bold'}}
+            placeholderStyles={{ fontSize: 15 }}
+      
             notFoundText='Nenhum dado encontrado'
+            searchPlaceholder='Pesquisar'
+searchicon={<MaterialIcons name="search" size={23} color="white" />}
+closeicon={<MaterialIcons name="close" size={23} color="white" />}
+            searchPlaceholderTextColor={'white'}
+    
             />
 
     )
