@@ -77,7 +77,7 @@ export const Main = ({ navigation }) => {
                         <ButtonMaps onPress={() => navigation.navigate("MapScreen")}>
                             <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
                         </ButtonMaps>
-                        <SubTitle color={color} margin={"60px 0px 0px 0px "}>Mapa</SubTitle>
+                        <SubTitle color={color} margin={"60px 0px 0px 0px"}>Mapa</SubTitle>
                         </>
                     )
                 }}

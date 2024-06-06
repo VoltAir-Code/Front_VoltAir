@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Title } from "../Title/Style";
 
 export const ModalContainer = styled.View`
 height:${props => `${props.height}`};
@@ -15,4 +16,8 @@ box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.25);
 export const ModalTransparent = styled.View` 
     flex: 1;
     background-color: rgba(0, 0, 0, 0.3);
+`
+
+export const BatteryPercentage = styled(Title)`
+    font-size: 40px;
 `

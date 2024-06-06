@@ -32,8 +32,8 @@ export const Card = ({ navigation }) => {
                 navigation={navigation}
                 onClose={() => setModalLoadingVisible(false)}
                 setModalVisible={setModalLoadingVisible}
-                title={"Carregamento"}
-                subTitle={"Sua Bateria Está Em:"}
+                title={"Carga da bateria:"}
+                Percentage={"50%"}
                 buttonTextLoading={"Estou carregando"}
                 buttonText={"Confirmar"}
             />
@@ -42,12 +42,12 @@ export const Card = ({ navigation }) => {
                 navigation={navigation}
                 onClose={() => setModalInformationsVisible(false)}
                 setModalVisible={setModalInformationsVisible}
-                title={"Informações Da Bateria"}
-                information1={"Ciclo de vida "}
+                information1={"Ciclo de vida:"}
                 answer1={"98% de capacidade restante"}
-                information2={"Degradação"}
-                answer2={'Capacidade da Bateria: 75 kWh Eficiência do Veículo: 0,15 kWh/km'}
-                information3={'Autonomia'}
+                information2={"Degradação:"}
+                answer2={'Capacidade: 75 kWh'}
+                answer21={'Eficiência: 0,15 kWh/km'}
+                information3={'Autonomia:'}
                 answer3={'500km'}
                 buttonTextLoading={"teste"}
                 buttonText={"Confirmar"}
