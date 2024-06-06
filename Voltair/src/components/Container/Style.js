@@ -61,13 +61,13 @@ export const ContainerLabelInput = styled.View`
     justify-content: flex-start;
     align-items: flex-start;
     padding-left: 6%;
-
 `
+
 export const FooterCamera = styled.View`
 height: 15.34%;
 width: 100%;
 background-color: #313131;
 flex-direction: row;
 border-radius: 10px 10px 0px 0px ;
-gap: 54px;
+gap: 60px;
 `

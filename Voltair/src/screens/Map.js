@@ -1,7 +1,6 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { PROVIDER_DEFAULT } from "react-native-maps";
 import MapView, { Marker } from "react-native-maps";
-
 import * as Location from "expo-location";
 import { useEffect, useRef, useState } from "react";
 import GlobalApi, { API_KEY } from "../../GlobalApi";
@@ -11,8 +10,7 @@ import axios from "axios";
 export default function Map({ navigation }) {
   const [initialPosition, setInitialPosition] = useState(null);
   const [chargingStations, setChargingStations] = useState([]);
-  const [chargingPosition, setChargingPosition] = useState(null);
-  const [distance, setDistance] = useState(null)
+  const [nearestStation, setNearestStation] = useState({});
   const mapReference = useRef(null);
 
   async function getCurrentLocation() {
@@ -50,19 +48,31 @@ export default function Map({ navigation }) {
 
   async function calcDistance() {
     const Station = chargingStations;
+    const results = [];
+    const origin = `${initialPosition.coords.latitude}, ${initialPosition.coords.longitude}`;
+
+    //Laço para trazer cada estação de station
     for (const station of Station) {
       const destination = `${station.location.latitude}, ${station.location.longitude}`;
-      const origin = `${initialPosition.coords.latitude}, ${initialPosition.coords.longitude}`;
       const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${destination}&key=${API_KEY}`;
+
       try {
         const response = await axios.get(url);
-        const result = response.data;
-        const distanceInMeters = result.rows[0].elements[0].distance.value;
-        console.log(distanceInMeters);
+        const result = {
+          evStation: station,
+          distance: response.data.rows[0].elements[0].distance.value
+        } 
+        results.push(result);
       } catch (error) {
         console.log(error);
       }
     }
+    results.sort((a, b) => a.distance - b.distance);
+    // console.log('Sorted charging stations by distance:');
+    //     results.forEach(item => {
+    //         console.log(`${item.evStation.displayName.text}: ${item.distance} meters`);
+    //     });
+    setNearestStation(results[0].evStation);
   }
 
   useEffect(() => {
@@ -70,14 +80,13 @@ export default function Map({ navigation }) {
   }, []);
 
   useEffect(() => {
-    calcDistance();
-    console.log(distance);
-  }, [])
-
-  useEffect(() => {
     fetchChargingStations();
   }, [initialPosition]);
-
+  
+  useEffect(() => {
+    calcDistance();
+    console.log(nearestStation);
+  }, [chargingStations]);
   return (
     <>
       {initialPosition ? (
@@ -96,12 +105,12 @@ export default function Map({ navigation }) {
           >
             <MapViewDirections
               origin={initialPosition.coords}
-              // destination={{
-              //   latitude: chargingStations[18].location.latitude,
-              //   longitude:  chargingStations[18].location.longitude,
-              //   longitudeDelta: 0.005,
-              //   latitudeDelta: 0.005
-              // }}
+              destination={{
+                latitude: nearestStation?.location?.latitude,
+                longitude:  nearestStation?.location?.longitude,
+                longitudeDelta: 0.005,
+                latitudeDelta: 0.005
+              }}
               mode="DRIVING"
               optimizeWaypoints={true}
               precision={"high"}

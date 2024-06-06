@@ -27,3 +27,9 @@ export const InputLabel = styled.Text`
     font-size: 14px;
     font-family: "Poppins_700Bold";
 `
+
+export const ViewInput = styled.View`
+height: 53px;
+width: 100%;
+align-items: center;
+`
