@@ -57,8 +57,7 @@ export const ButtonCamera = styled(ButtonMaps)`
 export const ButtonReturn = styled.TouchableOpacity`
 width: 80px;
 height: 80px;
-align-self: flex-end;
-margin-right: 4%;
+align-items: center;
 `
 
 export const Provisorio = styled.View`
@@ -131,7 +130,10 @@ width: 30px;
 margin-top: -17%;
 margin-left: 65%;
 `
-
+export const ImageCircle = styled.Image`
+width: 60px;
+height: 60px;
+`
 
 const styles = StyleSheet.create({
     ButtonModal: {
@@ -146,5 +148,4 @@ const styles = StyleSheet.create({
 
 
 export const ButtonInput = styled.TouchableOpacity`
-
 `

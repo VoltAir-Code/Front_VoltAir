@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Text } from "react-native";
-import { ButtonCamera, ButtonGallery, ButtonReturn, ImageCircle, ImageGallery, ImageReturn, Provisorio } from "../../components/Button/Button";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import { useRef, useState } from "react";
 import { ContainerCamera, FooterCamera } from "../../components/Container/Style";
-import { CameraView, Camera as ExpoCamera, useCameraPermissions } from 'expo-camera';
-import * as MediaLibrary from 'expo-media-library';
-import * as ImagePicker from 'expo-image-picker';
+import { ButtonCamera, ButtonGallery, ButtonReturn, ImageCircle, ImageReturn } from "../../components/Button/Button";
+
 
 export const Camera = ({ navigation, route }) => {
     const cameraRef = useRef(null);
