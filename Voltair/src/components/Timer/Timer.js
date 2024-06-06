@@ -1,29 +1,26 @@
-import React, { useEffect } from 'react';
-import { Dimensions, Text, View } from 'react-native';
-import Animated, { useSharedValue, withTiming, useAnimatedProps, useDerivedValue } from 'react-native-reanimated';
+import React, { useEffect, useState } from 'react';
 import { Circle, Svg } from 'react-native-svg';
-import { ContainerTimer, TitleHour } from './Style';
+import { ContainerTimer } from './Style';
 import { ReText } from 'react-native-redash';
+import Animated, { useSharedValue, withTiming, useAnimatedProps, useDerivedValue } from 'react-native-reanimated';
 
-const Timer = ({ progressValue }) => {
+const Timer = ({ progressValue, duration }) => {
     const BACKGROUND_COLOR = '#ebe7dd';
     const STROKE_COLOR = '#F2732E';
     const CIRCLE_LENGTH = 200;
     const R = CIRCLE_LENGTH / (2 * Math.PI);
     const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-    const progress = useSharedValue(0);
+
+
+
 
     const animatedProps = useAnimatedProps(() => ({
-        strokeDashoffset: CIRCLE_LENGTH * (1 - progress.value)
+        strokeDashoffset: Math.floor(CIRCLE_LENGTH * (1 - progressValue))
     }));
 
-    useEffect(() => {
-        progress.value = withTiming(progressValue, { duration: 2000 });
-    }, [progressValue]);
-
     const progressText = useDerivedValue(() => {
-        return `${Math.floor(progress.value * 100)}`;
-    });
+        return `${Math.floor(progressValue * 100)}`;
+    },[progressValue]);
 
     return (
         <ContainerTimer>
