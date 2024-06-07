@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 //importando navegacoes
 
 //importando fonts
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 import {
   Poppins_400Regular,
   Poppins_700Bold,
-  Poppins_200ExtraLight
+  Poppins_200ExtraLight,
 } from "@expo-google-fonts/poppins";
 import { Navigation } from "./src/screens/Navigation/Navigation";
 import { Login } from "./src/screens/Login/Login";
@@ -28,12 +28,11 @@ import { Camera } from "./src/screens/Camera/Camera";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   const [fontsLoaded, fontsError] = useFonts({
     Poppins_200ExtraLight,
     Poppins_400Regular,
     Poppins_700Bold,
-  })
+  });
 
   if (!fontsLoaded && !fontsError) {
     return null;
@@ -51,31 +50,29 @@ export default function App() {
 
   return (
     <NavigationContainer>
-
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-      >
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="Main"
-          component={Main}
+          name="Login"
+          component={Login}
+          options={{ title: "Login" }}
         />
+
+        <Stack.Screen 
+        name="Main" 
+        component={Main} 
+        />
+
         <Stack.Screen
           name="MapScreen"
           component={MapScreen}
-          options={{ title: "MapScreen" }} />
-
-        <Stack.Screen
-          name='Login'
-          component={Login}
-          options={{ title: 'Login' }}
+          options={{ title: "MapScreen" }}
         />
 
         <Stack.Screen
-          name='Navigation'
+          name="Navigation"
           component={Navigation}
-          options={{ title: 'Navigation' }}
+          options={{ title: "Navigation" }}
         />
-
 
         <Stack.Screen
           name="CreateAccount"
@@ -107,24 +104,22 @@ export default function App() {
           options={{ title: "EmailVerify" }}
         />
 
-
         <Stack.Screen
           name="EditCar"
           component={EditCar}
-          options={{ title: "EditCar" }} />
+          options={{ title: "EditCar" }}
+        />
 
         <Stack.Screen
           name="Camera"
           component={Camera}
           options={{
-            title: 'CameraPhoto'
-          }} />
-
+            title: "CameraPhoto",
+          }}
+        />
       </Stack.Navigator>
 
-      <StatusBar
-        style="auto"
-      />
+      <StatusBar style="auto" />
     </NavigationContainer>
-  )
+  );
 }
