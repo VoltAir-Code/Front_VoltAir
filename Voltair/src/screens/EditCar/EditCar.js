@@ -79,7 +79,7 @@ export const EditCar = ({ navigation}) => {
                     margin={"25px 0px 0px 0px"}
                 />
 
-                <ButtonLogOut margin={"20px 0px 130px 0px"}>
+                <ButtonLogOut margin={"20px 0px 145px 0px"}>
                     <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
                         Sair do app
                     </TextLink>
