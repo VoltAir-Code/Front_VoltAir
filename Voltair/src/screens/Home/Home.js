@@ -20,6 +20,8 @@ export const Home = () => {
     }
   }
 
+  console.log(user);
+
   async function userCarLoad() {
     try {
       const car = await api.get(`Carro/BuscarPorId?idCarro=${user.idCarro}`);
@@ -34,6 +36,7 @@ export const Home = () => {
     userCarLoad();
     console.log(userCar);
   }, []);
+
   return (
     <ContainerHome>
       <Header 
