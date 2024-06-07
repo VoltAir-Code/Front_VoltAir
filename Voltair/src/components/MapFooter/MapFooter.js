@@ -36,8 +36,10 @@ export const MapFooter = () => {
     const timeRemaining = duration * progressValue;
 
     return (
+
         <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"}>
             <Timer key={Math.random()} progressValue={progressValue} />
+
             <ButtonDefaultCircle
                 text={run ? "Parar corrida" : "Iniciar corrida"}
                 icon={

@@ -12,23 +12,24 @@ export const InputSelect = ({ item }) => {
     return (
         <SelectList
             data={item}
-            boxStyles={{ width: "82%", height: 60, alignItems: "center", marginTop: 5, borderWidth: 2, borderColor: '#F2732E' }}
+            boxStyles={{ width: "82%", height: 60, alignItems: "center", marginTop: 5, borderWidth: 1,borderRadius: 5, borderColor: '#F2732E' }}
             fontFamily="Poppins_400Regular"
             placeholder="Selecione uma marca"
             maxHeight={95}
             dropdownTextStyles={{ fontSize: 15, fontSize: 15, color: '#FFF' }}
             dropdownItemStyles={{ marginHorizontal: 5, marginBottom: 3 }}
-            dropdownStyles={{ borderWidth: 1.5, borderColor: '#F2732E' }}
+            dropdownStyles={{ borderWidth: 1, borderColor: '#F2732E' }}
             arrowicon={<MaterialIcons name="arrow-circle-down" size={23} color="#F2732E" />}
+
             //search={false} 
+
             inputStyles={{ fontSize: 15, color: '#F2732E', fontWeight: 'bold' }}
             placeholderStyles={{ fontSize: 15, color: '#FFF' }}
             notFoundText='Nenhum dado encontrado'
             searchPlaceholder='Pesquisar'
-            searchicon={<MaterialIcons name="search" size={23} color="white" />}
-            closeicon={<MaterialIcons name="close" size={23} color="white" />}
+            searchicon={<MaterialIcons name="search" size={20} color="white" />}
+            closeicon={<MaterialIcons name="close" size={20} color="white" />}
             searchPlaceholderTextColor={'white'}
-
         />
 
     )
@@ -39,8 +40,7 @@ const pickerSelectStyles = StyleSheet.create({
         width: '230%',
         height: 53,
         borderColor: '#F2732E',
-        borderWidth: 2,
-        borderRadius: 5,
+        borderWidth: 1,
         fontFamily: 'Poppins_400Regular',
         fontSize: 14,
         padding: 5,

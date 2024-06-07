@@ -22,15 +22,15 @@ export const ContainerWhite = styled.SafeAreaView`
 export const ContainerBlackMap = styled(ContainerBlack)`
     flex: none;
     height: ${props => `${props.height}`};
-    border-radius: 10px 10px 0px 0px;
+    border-radius: ${props => `${props.radius}`};
     flex-direction: ${props => `${props.flexDirection}`};
     justify-content: ${props => `${props.justifyContent}`};
 `
 export const ContainerTransparentMap = styled.View`
-    height: 96px;
+    height: 85px;
     width: 100%;
-    padding: 0px 8px 0px 8px;
-    background-color: rgba(251, 244, 244, 0.6);
+    padding: 0px 55px 0px 8px;
+    background-color: rgba(251, 244, 244, 0.94);
 
     flex-direction: row;
     justify-content: space-between;
@@ -40,13 +40,13 @@ export const ContainerTransparentMap = styled.View`
     align-self: flex-start;
 `
 export const ContainerBlackHome = styled.SafeAreaView`
-height: ${props => `${props.height}`};
-width: 100%;
-background-color: #313131;
-border-radius: ${props => `${props.radius}`};
-flex-direction: row;
-align-items: center;
-gap: ${props => `${props.gap}`};
+    height: ${props => `${props.height}`};
+    width: 100%;
+    background-color: #313131;
+    border-radius: ${props => `${props.radius}`};
+    flex-direction: row;
+    align-items: center;
+    gap: ${props => `${props.gap}`};
 `
 
 export const ContainerLabelInput = styled.View`
