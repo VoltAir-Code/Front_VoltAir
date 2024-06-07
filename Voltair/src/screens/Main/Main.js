@@ -4,13 +4,36 @@ import { EditCar } from "../EditCar/EditCar"
 import { ButtonHome, ButtonMaps, ButtonProfile, ImageCar, ImageMap, ImageRay } from "../../components/Button/Button"
 import { MapScreen } from "../MapScreen/MapScreen"
 import { SubTitle } from "../../components/Title/Style"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Ionicons } from '@expo/vector-icons';
+import { Keyboard } from "react-native"
 
 const BottomTab = createBottomTabNavigator()
 
 export const Main = ({ navigation }) => {
     const [color, setColor] = useState("#FFFFFF")
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+                setKeyboardVisible(true);
+            }
+        );
+        
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false);
+            }
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
 
     return (
         <BottomTab.Navigator
@@ -18,6 +41,7 @@ export const Main = ({ navigation }) => {
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarShowLabel: false,
+                tabBarHideOnKeyboard: true,
                 tabBarStyle: {
                     backgroundColor: "#313131",
                     borderTopLeftRadius: 10,
@@ -32,7 +56,7 @@ export const Main = ({ navigation }) => {
                             <>
                                 <ButtonHome borderColor={color}>
                                     {/* <ImageRay source={require("../../../assets/Logo/LogoRay.png")} /> */}
-                                    <Ionicons name="flash" size={28} color="#F2732E"/>
+                                    <Ionicons name="flash" size={28} color="#F2732E" />
                                 </ButtonHome>
                                 <SubTitle color={color} margin={"5px 0px 0px -5% "}>Home</SubTitle>
                             </>
@@ -71,15 +95,19 @@ export const Main = ({ navigation }) => {
                 name="MapScreen"
                 component={MapScreen}
                 options={{
-                    tabBarIcon: () =>
-                    (
-                        <>
-                        <ButtonMaps onPress={() => navigation.navigate("MapScreen")}>
-                            <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
-                        </ButtonMaps>
-                        <SubTitle color={color} margin={"60px 0px 0px 0px"}>Mapa</SubTitle>
-                        </>
-                    )
+                    tabBarButton: () => {
+                        if (isKeyboardVisible) {
+                            return null;
+                        }
+                        return (
+                            <>
+                                <ButtonMaps onPress={() => navigation.navigate("MapScreen")}>
+                                    <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
+                                </ButtonMaps>
+                                <SubTitle color={color} margin={"60px 0px 0px 0px"}>Mapa</SubTitle>
+                            </>
+                        )
+                    }
                 }}
             />
 

@@ -22,7 +22,7 @@ export const ContainerWhite = styled.SafeAreaView`
 export const ContainerBlackMap = styled(ContainerBlack)`
     flex: none;
     height: ${props => `${props.height}`};
-    border-radius: 10px 10px 0px 0px;
+    border-radius: ${props => `${props.radius}`};
     flex-direction: ${props => `${props.flexDirection}`};
     justify-content: ${props => `${props.justifyContent}`};
 `
@@ -40,13 +40,13 @@ export const ContainerTransparentMap = styled.View`
     align-self: flex-start;
 `
 export const ContainerBlackHome = styled.SafeAreaView`
-height: ${props => `${props.height}`};
-width: 100%;
-background-color: #313131;
-border-radius: ${props => `${props.radius}`};
-flex-direction: row;
-align-items: center;
-gap: ${props => `${props.gap}`};
+    height: ${props => `${props.height}`};
+    width: 100%;
+    background-color: #313131;
+    border-radius: ${props => `${props.radius}`};
+    flex-direction: row;
+    align-items: center;
+    gap: ${props => `${props.gap}`};
 `
 
 export const ContainerLabelInput = styled.View`
