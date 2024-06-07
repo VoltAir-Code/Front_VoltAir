@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import GlobalApi, { API_KEY } from "../../GlobalApi";
 import MapViewDirections from "react-native-maps-directions";
 import axios from "axios";
+import { MapFooter } from "../components/MapFooter/MapFooter";
 
 export default function Map({ navigation }) {
   const [initialPosition, setInitialPosition] = useState(null);
@@ -68,10 +69,7 @@ export default function Map({ navigation }) {
       }
     }
     results.sort((a, b) => a.distance - b.distance);
-    // console.log('Sorted charging stations by distance:');
-    //     results.forEach(item => {
-    //         console.log(`${item.evStation.displayName.text}: ${item.distance} meters`);
-    //     });
+
     setNearestStation(results[0].evStation);
   }
 
@@ -137,6 +135,7 @@ export default function Map({ navigation }) {
           <ActivityIndicator />
         </View>
       )}
+         
     </>
   );
 }

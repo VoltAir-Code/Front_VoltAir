@@ -8,30 +8,33 @@ import { TextLink } from "../Title/Style";
 export const MapFooter = () => {
     const [run, setRun] = useState(false);
     const [progressValue, setProgressValue] = useState(1);
-    const duration = 2000;
-    const updatesPerSecond = 100;
-    const intervalTime = duration / updatesPerSecond;
+    const duration = 600000;
+  
 
     const onPress = useCallback(() => {
         setRun(!run);
     }, [run]);
 
-useEffect(() => {
-    let interval;
-    if (run) {
-        interval = setInterval(() => {
-            setProgressValue(prev => {
-                const newValue = prev - 0.01;
-                return newValue <= 0 ? 0 : newValue;
-            });
-       
-        }, intervalTime);
-    } else {
-        clearInterval(interval)
-    }
+    useEffect(() => {
+        let interval;
+        if (run) {
+            interval = setInterval(() => {
+                setProgressValue(prev => {
+                    const newValue = Math.max(0, prev - (1000 / duration)); 
+                    return newValue;
+                });
+ 
+            }, 1000);
+        } else {
+            clearInterval(interval);
+        }
 
-    return () => clearInterval(interval);
-},[run,progressValue,updatesPerSecond])
+        return () => clearInterval(interval);
+    }, [run]);
+
+
+    const timeRemaining = duration * progressValue;
+
     return (
         <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"}>
             <Timer key={Math.random()} progressValue={progressValue} />
@@ -45,7 +48,7 @@ useEffect(() => {
                 }
                 onPress={onPress}
             />
-               <Timer key={Math.random()} progressValue={progressValue}  />
+            <Timer key={Math.random()} progressValue={progressValue} timeRemaining={timeRemaining} duration={duration} />
         </ContainerBlackMap>
     );
 };
