@@ -22,7 +22,7 @@ export const Login = ({ navigation }) => {
             });
 
             console.log(response.data);
-         
+
 
             if (response.status === 200) {
                 await AsyncStorage.setItem('token', response.data.token);
@@ -50,18 +50,18 @@ export const Login = ({ navigation }) => {
                     Bem vindo ao Voltair®
                 </SubTitle>
 
-                <InputWhite 
-                    height={"53px"} 
-                    margin={"39px 0px 0px 0px"} 
-                    placeholder={"Digite seu e-mail"} 
+                <InputWhite
+                    height={"53px"}
+                    margin={"39px 0px 0px 0px"}
+                    placeholder={"Digite seu e-mail"}
                     onChangeText={(txt) => setEmail(txt)}
                     value={email}
                 />
 
-                <InputWhite 
-                    height={"53px"} 
-                    margin={"39px 0px 0px 0px"} 
-                    placeholder={"Digite sua senha"} 
+                <InputWhite
+                    height={"53px"}
+                    margin={"39px 0px 0px 0px"}
+                    placeholder={"Digite sua senha"}
                     secureTextEntry
                     onChangeText={(txt) => setPassword(txt)}
                     value={password}
@@ -82,6 +82,7 @@ export const Login = ({ navigation }) => {
                         Criar uma conta
                     </TextLink>
                 </TouchableOpacity>
+
             </ContainerWhite>
         </ContainerBlack>
     );

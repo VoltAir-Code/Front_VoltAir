@@ -7,6 +7,7 @@ import { TextInput, TextLink, Title } from "../../components/Title/Style"
 import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -23,6 +24,16 @@ export const EditCar = ({ navigation }) => {
         { label: "Bolt EV", value: "Bolt EV" },
         { label: "bZ4X", value: "bZ4X" },
     ]
+
+    async function Logout(){
+        try {
+            const token = await AsyncStorage.getItem('token')
+            console.log("Toke do usuario: ",token);
+            // await AsyncStorage.removeItem("token", navigation.replace("Login"))
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <ContainerHome>
@@ -81,7 +92,7 @@ export const EditCar = ({ navigation }) => {
                         margin={"25px 0px 0px 0px"}
                     />
 
-                <ButtonLogOut margin={"20px 0px 145px 0px"}>
+                <ButtonLogOut onPress={() => Logout()} margin={"20px 0px 145px 0px"}>
                     <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
                         Sair do app
                     </TextLink>

@@ -56,6 +56,12 @@ export default function App() {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen
+          name='Login'
+          component={Login}
+          options={{ title: 'Login' }}
+        />
+        
+        <Stack.Screen
           name="Main"
           component={Main}
         />
@@ -63,12 +69,6 @@ export default function App() {
           name="MapScreen"
           component={MapScreen}
           options={{ title: "MapScreen" }} />
-
-        <Stack.Screen
-          name='Login'
-          component={Login}
-          options={{ title: 'Login' }}
-        />
 
         <Stack.Screen
           name='Navigation'
