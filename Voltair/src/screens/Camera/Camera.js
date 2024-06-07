@@ -4,12 +4,15 @@ import { ContainerHome, FooterCamera } from "../../components/Container/Style";
 import { ButtonCamera, ButtonDefault, ButtonGallery, ButtonReturn, ImageCircle, ImageGallery, ImageReturn } from "../../components/Button/Button";
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
+import { Feather } from '@expo/vector-icons';
 
 import Svg, { Circle, Rect } from 'react-native-svg';
 import CameraIcon from "../../components/icons/CameraIcon";
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Title } from "../../components/Title/Style";
+import CameraReturn from "../../components/icons/CameraReturn";
+import GaleriaCamera from "../../components/icons/GaleriaCamera";
 
 
 
@@ -32,27 +35,11 @@ export const Camera = ({ navigation, route }) => {
         })();
     }, []);
 
-    //   useEffect(() => {
-    //       requestPermission();
-    //       GetLastPhoto();
-    //   }, []);
-
-
     async function CapturePhoto() {
-        // Ativar o foco automático antes de tirar a foto
-        setAutoFocus('on');
-
-        // Esperar um curto período de tempo para permitir que o foco automático seja aplicado
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Tirar a foto após o foco automático ser aplicado
-        if (cameraRef) {
-            const photo = await cameraRef.current.takePictureAsync({
-                quality: 1,
-            });
-            await setPhoto(photo.uri);
-            console.log(photo.uri);
-            setOpenModal(true)
+        if (cameraRef.current) {
+            const photo = await cameraRef.current.takePictureAsync({ quality: 1 });
+            setPhoto(photo.uri);
+            setOpenModal(true);
         }
     }
 
@@ -63,7 +50,8 @@ export const Camera = ({ navigation, route }) => {
         });
 
         if (!result.canceled) {
-            setPhoto(result.uri);
+            setPhoto(result.assets[0].uri);
+            setOpenModal(true);
         }
     }
 
@@ -107,25 +95,31 @@ export const Camera = ({ navigation, route }) => {
                 autoFocus={autoFocus}
             />
             <FooterCamera >
-                <ButtonGallery
+                <ButtonGallery 
                     onPress={SelectImageGallery}
                 >
+                <GaleriaCamera 
+                color={'#F2732E'} 
+                />
 
-                    <ImageGallery source={require("../../../assets/Img/picture.png")} />
+                    {/* <ImageGallery source={require("../../../assets/Img/picture.png")} /> */}
                 </ButtonGallery>
 
                 <ButtonCamera
                     onPress={CapturePhoto}
                 >
                     {/* {<CameraIcon color={"#F2732E"} size={60} />} */}
-                    <ImageCircle source={require("../../../assets/Img/camera.png")} />
+                    <Feather name="camera" size={60} color="#F2732E" />
                 </ButtonCamera>
 
 
                 <ButtonReturn
                     onPress={toggleCameraFacing}
                 >
-                    <ImageReturn source={require("../../../assets/Img/return.png")} />
+                    <CameraReturn 
+                    color={'#F2732E'}
+                    />
+                    {/* <ImageReturn source={require("../../../assets/Img/return.png")} /> */}
                 </ButtonReturn>
             </FooterCamera>
 
