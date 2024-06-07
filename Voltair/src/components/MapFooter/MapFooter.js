@@ -34,7 +34,7 @@ useEffect(() => {
 },[run,progressValue,updatesPerSecond])
     return (
         <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"}>
-            <Timer key={`${progressValue}`} progressValue={progressValue} />
+            <Timer key={Math.random()} progressValue={progressValue} />
             <ButtonDefaultCircle
                 text={run ? "Parar corrida" : "Iniciar corrida"}
                 icon={
