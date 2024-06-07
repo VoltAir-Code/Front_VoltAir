@@ -96,6 +96,7 @@ export const Camera = ({ navigation, route }) => {
         setOpenModal(false)
     }
 
+
     return (
         <ContainerHome>
             <CameraView

@@ -25,9 +25,10 @@ export const ResetPassword = ({ navigation , route}) => {
           navigation.replace("Login", {email: route.params.email})
         } catch (error) {
           console.log(error);
+          alert("Insira uma senha valida ou tente novamente mais tarde!");
         }
     } else {
-        
+      alert("Insira uma senha valida")
     }
   }
   return (
@@ -69,9 +70,10 @@ export const ResetPassword = ({ navigation , route}) => {
           margin={"0px 0px 0px 0px"}
         />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.replace("Login")}>
           <TextLink margin={"16px 0px 0px 0px"}>Voltar</TextLink>
         </TouchableOpacity>
+
       </ContainerWhite>
     </ContainerBlack>
   );

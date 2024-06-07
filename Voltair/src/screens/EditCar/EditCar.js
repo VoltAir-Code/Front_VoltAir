@@ -26,18 +26,18 @@ export const EditCar = ({ navigation }) => {
 
     return (
         <ContainerHome>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <ContainerBlackMap radius={"0px 0px 0px 0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
-                    <Title color={"#FFF"} margin={"35px 0px 15px 0px"}>
-                        Informe os dados do seu carro
-                    </Title>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ContainerBlackMap height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
+                <Title color={"#FFF"} margin={"25px 0px 10px 0px"}>
+                    Informe os dados do seu carro
+                </Title>
 
-                    <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Marca</TextInput>
-                    </ContainerLabelInput>
-                    <InputSelect
-                        item={carBrands}
-                    />
+                <ContainerLabelInput>
+                    <TextInput margin={"10px 0px 0px 15px"}>Marca</TextInput>
+                </ContainerLabelInput>
+                <InputSelect
+                    item={carBrands}
+                />
 
                     <ContainerLabelInput>
                         <TextInput margin={"20px 0px 0px 15px"}>Modelo</TextInput>

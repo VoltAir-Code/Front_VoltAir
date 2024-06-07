@@ -27,7 +27,7 @@ export const Login = ({ navigation }) => {
             if (response.status === 200) {
                 await AsyncStorage.setItem('token', response.data.token);
 
-                navigation.navigate("Home");
+                navigation.navigate("Main");
             }
         } catch (error) {
             console.log(error); // Log do erro para depuração
@@ -67,9 +67,15 @@ export const Login = ({ navigation }) => {
                     value={password}
                 />
 
+                <TouchableOpacity
+                onPress={() => navigation.navigate("ForgotPassword")}
+                >
+
                 <TextLink margin={"16px 0px 138px 0px"}>
                     Esqueceu sua senha?
                 </TextLink>
+
+                </TouchableOpacity>
                 <ButtonDefault
                     text={"Entrar"}
                     height={"58px"}
@@ -77,7 +83,9 @@ export const Login = ({ navigation }) => {
                     onPress={() => Login()}
                 />
 
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("CreateAccount")}
+                >
                     <TextLink margin={"16px 0px 0px 0px"}>
                         Criar uma conta
                     </TextLink>
