@@ -7,6 +7,7 @@ import { LogoRayOrange } from '../../components/Logo/Style';
 import { Alert, ScrollView, TouchableOpacity } from 'react-native';
 import api from '../../services/Service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { token } from 'stylis';
 
 export const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -34,6 +35,7 @@ export const Login = ({ navigation }) => {
             Alert.alert('Falha no Login!', 'Verifique seus dados e aguarde um momento.');
         }
     }
+
 
     return (
         <>

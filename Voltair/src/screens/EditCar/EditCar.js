@@ -27,9 +27,7 @@ export const EditCar = ({ navigation }) => {
 
     async function Logout() {
         try {
-            const token = await AsyncStorage.getItem('token')
-            console.log("Toke do usuario: ", token);
-            // await AsyncStorage.removeItem("token", navigation.replace("Login"))
+            await AsyncStorage.removeItem("token", navigation.replace("Login"))
         } catch (error) {
             console.log(error);
         }
@@ -38,7 +36,7 @@ export const EditCar = ({ navigation }) => {
     return (
         <ContainerHome>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <ContainerBlackMap height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
+                <ContainerBlackMap radius={"0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
                     <Title color={"#FFF"} margin={"25px 0px 10px 0px"}>
                         Informe os dados do seu carro
                     </Title>
