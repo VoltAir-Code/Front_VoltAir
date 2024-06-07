@@ -11,9 +11,6 @@ export const ContainerBlack = styled.SafeAreaView`
 export const ContainerHome = styled.SafeAreaView`
 flex: 1;
 `
-export const ContainerCamera = styled.SafeAreaView`
-flex: 1;
-`
 export const ContainerWhite = styled.SafeAreaView`
     align-items: center;
     background-color: #FFFFFF;
@@ -64,10 +61,13 @@ export const ContainerLabelInput = styled.View`
 `
 
 export const FooterCamera = styled.View`
-height: 15.34%;
+height: 20%;
 width: 100%;
 background-color: #313131;
 flex-direction: row;
 border-radius: 10px 10px 0px 0px ;
-gap: 60px;
+gap: 70px;
+align-items: center;
+justify-content: center;
+margin-top: -5%;
 `
