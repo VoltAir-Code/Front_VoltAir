@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ContainerBlack, ContainerWhite } from "../../components/Container/Style";
+import { ContainerBlack, ContainerHome, ContainerWhite } from "../../components/Container/Style";
 import { InputWhite } from "../../components/Input/Style";
 import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import { ButtonDefault } from "../../components/Button/Button";
 import { LogoRayOrange } from '../../components/Logo/Style';
-import { Alert, TouchableOpacity } from 'react-native';
+import { Alert, ScrollView, TouchableOpacity } from 'react-native';
 import api from '../../services/Service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -27,7 +27,7 @@ export const Login = ({ navigation }) => {
             if (response.status === 200) {
                 await AsyncStorage.setItem('token', response.data.token);
 
-                navigation.navigate("Home");
+                navigation.navigate("Main");
             }
         } catch (error) {
             console.log(error); // Log do erro para depuração
@@ -36,54 +36,69 @@ export const Login = ({ navigation }) => {
     }
 
     return (
-        <ContainerBlack>
-            <LogoRayOrange
-                source={require("../../../assets/Logo/LogoRay.png")}
-                margin={"0px 0px 20px 0px"}
-            />
+        <>
+            <ScrollView style={{flex: 1}}>
+                <ContainerBlack>
+                    
+                    <LogoRayOrange
+                        source={require("../../../assets/Logo/LogoRay.png")}
+                        margin={"15px 0px 5px 0px"}
+                    />
 
-            <ContainerWhite height={"88%"}>
-                <Title color={"#313131"} margin={"45px 0px 35px 0px"}>
-                    Login
-                </Title>
-                <SubTitle color={"#313131"} margin={"0px 0px 20px 0px"}>
-                    Bem vindo ao Voltair®
-                </SubTitle>
+                    <ContainerWhite height={"91.41%"}>
+                        <Title color={"#313131"} margin={"45px 0px 35px 0px"}>
+                            Login
+                        </Title>
+                        <SubTitle color={"#313131"} margin={"0px 0px 20px 0px"}>
+                            Bem vindo ao Voltair®
+                        </SubTitle>
 
-                <InputWhite
-                    height={"53px"}
-                    margin={"39px 0px 0px 0px"}
-                    placeholder={"Digite seu e-mail"}
-                    onChangeText={(txt) => setEmail(txt)}
-                    value={email}
-                />
+                        <InputWhite
+                            height={"53px"}
+                            margin={"39px 0px 0px 0px"}
+                            placeholder={"Digite seu e-mail"}
+                            onChangeText={(txt) => setEmail(txt)}
+                            value={email}
+                        />
 
-                <InputWhite
-                    height={"53px"}
-                    margin={"39px 0px 0px 0px"}
-                    placeholder={"Digite sua senha"}
-                    secureTextEntry
-                    onChangeText={(txt) => setPassword(txt)}
-                    value={password}
-                />
+                        <InputWhite
+                            height={"53px"}
+                            margin={"39px 0px 0px 0px"}
+                            placeholder={"Digite sua senha"}
+                            secureTextEntry
+                            onChangeText={(txt) => setPassword(txt)}
+                            value={password}
+                        />
 
-                <TextLink margin={"16px 0px 138px 0px"}>
-                    Esqueceu sua senha?
-                </TextLink>
-                <ButtonDefault
-                    text={"Entrar"}
-                    height={"58px"}
-                    margin={"0px 0px 0px 0px"}
-                    onPress={() => Login()}
-                />
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("ForgotPassword")}
+                        >
 
-                <TouchableOpacity>
-                    <TextLink margin={"16px 0px 0px 0px"}>
-                        Criar uma conta
-                    </TextLink>
-                </TouchableOpacity>
+                            <TextLink margin={"16px 0px 138px 0px"}>
+                                Esqueceu sua senha?
+                            </TextLink>
 
-            </ContainerWhite>
-        </ContainerBlack>
+                        </TouchableOpacity>
+                        <ButtonDefault
+                            text={"Entrar"}
+                            height={"58px"}
+                            margin={"0px 0px 0px 0px"}
+                            onPress={() => Login()}
+                        />
+
+                        <TouchableOpacity onPress={() => navigation.navigate("CreateAccount")}>
+                            <TextLink margin={"19px 0px 30px 0px"}>
+                                Criar uma conta
+                            </TextLink>
+                        </TouchableOpacity>
+
+                    </ContainerWhite>
+
+                </ContainerBlack>
+            </ScrollView>
+        </>
+
+
+
     );
 };

@@ -25,10 +25,10 @@ export const EditCar = ({ navigation }) => {
         { label: "bZ4X", value: "bZ4X" },
     ]
 
-    async function Logout(){
+    async function Logout() {
         try {
             const token = await AsyncStorage.getItem('token')
-            console.log("Toke do usuario: ",token);
+            console.log("Toke do usuario: ", token);
             // await AsyncStorage.removeItem("token", navigation.replace("Login"))
         } catch (error) {
             console.log(error);
@@ -38,13 +38,13 @@ export const EditCar = ({ navigation }) => {
     return (
         <ContainerHome>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <ContainerBlackMap radius={"0px 0px 0px 0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
-                    <Title color={"#FFF"} margin={"35px 0px 15px 0px"}>
+                <ContainerBlackMap height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
+                    <Title color={"#FFF"} margin={"25px 0px 10px 0px"}>
                         Informe os dados do seu carro
                     </Title>
 
                     <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Marca</TextInput>
+                        <TextInput margin={"10px 0px 0px 15px"}>Marca</TextInput>
                     </ContainerLabelInput>
                     <InputSelect
                         item={carBrands}
@@ -92,12 +92,12 @@ export const EditCar = ({ navigation }) => {
                         margin={"25px 0px 0px 0px"}
                     />
 
-                <ButtonLogOut onPress={() => Logout()} margin={"20px 0px 145px 0px"}>
-                    <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
-                        Sair do app
-                    </TextLink>
-                </ButtonLogOut>
-                    
+                    <ButtonLogOut onPress={() => Logout()} margin={"20px 0px 145px 0px"}>
+                        <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
+                            Sair do app
+                        </TextLink>
+                    </ButtonLogOut>
+
 
                 </ContainerBlackMap>
             </ScrollView>

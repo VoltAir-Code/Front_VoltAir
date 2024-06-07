@@ -13,17 +13,27 @@ export const ForgotPassword = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   async function sendEmail() {
-    if (email != '') {
+    if (email != null) {
         console.log(email);
         await api.post(`RecuperarSenha?email=${email}`)
         .then(() => {
             navigation.navigate("EmailVerify", {recoveryEmail: email});
         }).catch(error => {
             console.log(error);
+            Alert.alert('Email invalido ou tente novamente mais tarde!');
         })
     } else {
-        Alert('Insira um email válido!')
+        Alert.alert('Insira um email válido ou tente novamente mais tarde!')
     }
+  }
+
+  function verifyEmail() {
+    if (email != '') {
+      setModalVisible(true)
+    }
+    else {
+      Alert.alert('Insira um email!')
+  }
   }
 
   return (
@@ -54,10 +64,10 @@ export const ForgotPassword = ({ navigation }) => {
             text={"Enviar e-mail"}
             height={"58px"}
             margin={"0px 0px 0px 0px"}
-            onPress={() => setModalVisible(true)}
+            onPress={() => verifyEmail()}
           />
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.replace("Login")}>
             <TextLink margin={"16px 0px 0px 0px"}>Voltar</TextLink>
           </TouchableOpacity>
         </ContainerWhite>
