@@ -27,10 +27,10 @@ export const ContainerBlackMap = styled(ContainerBlack)`
     justify-content: ${props => `${props.justifyContent}`};
 `
 export const ContainerTransparentMap = styled.View`
-    height: 96px;
+    height: 85px;
     width: 100%;
-    padding: 0px 8px 0px 8px;
-    background-color: rgba(251, 244, 244, 0.6);
+    padding: 0px 55px 0px 8px;
+    background-color: rgba(251, 244, 244, 0.94);
 
     flex-direction: row;
     justify-content: space-between;
