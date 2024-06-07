@@ -23,7 +23,7 @@ const ModalDefault = ({
                     {title}
                 </Title>
 
-                <SubTitle color={"#FFFFFF"} margin={"0px 0px 40px 0px"}>
+                <SubTitle color={"#FFFFFF"} margin={"0px 15px 40px 15px"}>
                     {subTitle}
                 </SubTitle>
 
@@ -33,10 +33,7 @@ const ModalDefault = ({
                     margin={"0px 0px 30px 0px"}
                     onPress={() => onClose()}
                 />
-
-                <TextLink margin={"16px 0px 0px 0px"}>
-                    {textLink}
-                </TextLink>
+                
             </ModalContainer>
         </Modal>
     )

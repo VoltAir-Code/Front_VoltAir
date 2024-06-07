@@ -7,6 +7,7 @@ import { LogoRayOrange } from "../../components/Logo/Style";
 import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import { ContentVerify } from "./Style";
 import api from "../../services/Service";
+import { ButtonLogOut } from "../../components/Button/Style";
 
 export const EmailVerify = ({ navigation, route }) => {
     const [codigo, setCodigo] = useState(['', '', '', '']);
@@ -56,19 +57,19 @@ export const EmailVerify = ({ navigation, route }) => {
                     Digite o código enviado:
                 </Title>
                 <SubTitle color={"#313131"} margin={"0px 0px 20px 0px"}>
-                 {route.params.recoveryEmail}
+                    {route.params.recoveryEmail}
                 </SubTitle>
                 <ContentVerify margin={"20px 0px 54px 0px"}>
-                    { [0, 1, 2, 3].map((index) => (
-                        <InputVerify 
+                    {[0, 1, 2, 3].map((index) => (
+                        <InputVerify
                             key={index}
                             ref={inputs[index]}
-                            keyboardType="numeric" 
-                            maxLength={1} 
+                            keyboardType="numeric"
+                            maxLength={1}
                             caretHidden={true}
-                            height={"60px"} 
-                            margin={"0px 0px 0px 0px"} 
-                            placeholder={"0"} 
+                            height={"60px"}
+                            margin={"0px 0px 0px 0px"}
+                            placeholder={"0"}
                             onChangeText={(text) => {
                                 const novoCodigo = [...codigo];
                                 novoCodigo[index] = text;
@@ -89,11 +90,17 @@ export const EmailVerify = ({ navigation, route }) => {
                     margin={"0px 0px 0px 0px"}
                     onPress={() => validarCodigo()}
                 />
-                <TouchableOpacity>
-                    <TextLink onPress={() => SendEmail()} margin={"16px 0px 0px 0px"}>
+
+                <ButtonLogOut margin={"20px 0px 0px 0px"}>
+                    <TextLink onPress={() => SendEmail()} margin={"0px 0px 0px 0px"}>
                         Reenviar código
                     </TextLink>
+                </ButtonLogOut>
+
+                <TouchableOpacity onPress={() => navigation.replace("Login")}>
+                    <TextLink margin={"30px 0px 0px 0px"}>Voltar</TextLink>
                 </TouchableOpacity>
+
             </ContainerWhite>
         </ContainerBlack>
     );
