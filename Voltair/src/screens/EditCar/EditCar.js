@@ -4,9 +4,10 @@ import { ContainerBlack, ContainerBlackMap, ContainerHome, ContainerLabelInput, 
 import { InputSelect } from "../../components/Input/InputSelect"
 import { InputBlack, ViewInput } from "../../components/Input/Style"
 import { TextInput, TextLink, Title } from "../../components/Title/Style"
-
+import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
+
 
 
 export const EditCar = ({ navigation }) => {
@@ -26,7 +27,7 @@ export const EditCar = ({ navigation }) => {
     return (
         <ContainerHome>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <ContainerBlackMap height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
+                <ContainerBlackMap radius={"0px 0px 0px 0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
                     <Title color={"#FFF"} margin={"35px 0px 15px 0px"}>
                         Informe os dados do seu carro
                     </Title>
@@ -66,10 +67,10 @@ export const EditCar = ({ navigation }) => {
                         />
 
 
-                        <ButtonInput onPress={() => {navigation.navigate("Camera"); console.log("Cam");} }>
-                            <ImageInput source={require('../../../assets/Img/camera-laranja.png')}
-                            />
+                        <ButtonInput onPress={() => { navigation.navigate("Camera"); console.log("Cam"); }}>
+                            <Feather name="camera" size={24} color="#F2732E" />
                         </ButtonInput>
+
                     </ViewInput>
 
 

@@ -151,5 +151,7 @@ const styles = StyleSheet.create({
 
 
 export const ButtonInput = styled.TouchableOpacity`
-
+ position: absolute;
+ top: 20px;
+ right: 45px;
 `

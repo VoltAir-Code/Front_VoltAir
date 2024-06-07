@@ -29,7 +29,8 @@ export const InputLabel = styled.Text`
 `
 
 export const ViewInput = styled.View`
-height: 53px;
+height: min-content;
 width: 100%;
 align-items: center;
+/* border: 1px solid white; */
 `
