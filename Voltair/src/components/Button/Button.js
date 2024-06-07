@@ -48,7 +48,7 @@ background-color: #F2732E;
 align-self: center;
 margin-top: -10%;
 bottom: 50px;
-left: 20%;
+left: 39%;
 position: absolute;
 `
 export const ButtonCamera = styled.TouchableOpacity`
@@ -151,4 +151,5 @@ const styles = StyleSheet.create({
 
 
 export const ButtonInput = styled.TouchableOpacity`
+
 `
