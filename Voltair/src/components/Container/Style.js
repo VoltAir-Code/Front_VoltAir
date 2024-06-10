@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const ContainerBlack = styled.View`
-    height: ${props => `${props.height}`};
+    min-height: ${props => `${props.height}`} ;
+    flex: 1;
     align-items: center;
     background-color: #313131;
     flex-direction: column;
@@ -12,6 +13,7 @@ export const ContainerHome = styled.SafeAreaView`
 flex: 1;
 `
 export const ContainerWhite = styled.View`
+    flex: 1;
     align-items: center;
     background-color: #FFFFFF;
     height: ${props => `${props.height}`};
