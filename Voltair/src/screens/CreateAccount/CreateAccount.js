@@ -29,9 +29,23 @@ export const CreateAccount = ({ navigation }) => {
                         nome: nome,
                         email: email,
                         senha: senha,
+                        idCarro: null,
+                        foto: null
 
-                    })
-                    setModalVisible(true);
+                    },
+                        {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                    if (response.status === 200) {
+                        setModalVisible(true);
+                    }
+                    else {
+                        console.log("Unexpected response status:", response.status);
+                        Alert.alert("Erro ao registrar", "Não foi possível registrar sua conta. Por favor, tente novamente.");
+                    }
+
                 } catch (error) {
                     console.log(error);
                 }
@@ -64,8 +78,9 @@ export const CreateAccount = ({ navigation }) => {
 
                         <InputWhite value={nome} onChangeText={setNome} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu nome"} />
                         <InputWhite value={email} onChangeText={setEmail} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu e-mail"} />
-                        <InputWhite value={senha} onChangeText={setSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} />
-                        <InputWhite value={confirmeSenha} onChangeText={setConfimeSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"confirme sua senha"} />
+                        <InputWhite value={senha} onChangeText={setSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} secureTextEntry={true}/>
+                        <InputWhite value={confirmeSenha} onChangeText={setConfimeSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"confirme sua senha"} secureTextEntry={true}/>
+                        
                         <ButtonDefault
                             text={"Cadastrar"}
                             height={"58px"}

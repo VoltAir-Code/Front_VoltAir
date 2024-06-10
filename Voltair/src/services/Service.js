@@ -13,6 +13,7 @@ const apiUrlLocal = `http://172.16.39.89:7152/api/`;
 // Configurar axios
 const api = axios.create({
     baseURL: apiUrlLocal,
+    timeout: 1000,
 });
 
 export default api;
