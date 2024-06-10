@@ -8,10 +8,11 @@ import MapViewDirections from "react-native-maps-directions";
 import axios from "axios";
 import { MapFooter } from "../components/MapFooter/MapFooter";
 
-export default function Map({ navigation }) {
+export default function Map({ navigation, getDirection }) {
   const [initialPosition, setInitialPosition] = useState(null);
   const [chargingStations, setChargingStations] = useState([]);
   const [nearestStation, setNearestStation] = useState({});
+
   const mapReference = useRef(null);
 
   async function getCurrentLocation() {
@@ -101,7 +102,8 @@ export default function Map({ navigation }) {
             }}
             provider={PROVIDER_DEFAULT}
           >
-            <MapViewDirections
+            {getDirection ? (
+              <MapViewDirections
               origin={initialPosition.coords}
               destination={{
                 latitude: nearestStation?.location?.latitude,
@@ -115,7 +117,9 @@ export default function Map({ navigation }) {
               apikey={API_KEY}
               strokeColor="#EC6F2C"
               strokeWidth={5}
-            />
+            /> 
+            ) : null}
+       
             {chargingStations.map((station) => (
               <Marker
                 key={Math.random()}

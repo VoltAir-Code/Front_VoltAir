@@ -10,8 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { token } from 'stylis';
 
 export const Login = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('afiorentino1415@gmail.com');
+    const [password, setPassword] = useState('Senai@134');
 
     // Função de login
     async function Login() {
