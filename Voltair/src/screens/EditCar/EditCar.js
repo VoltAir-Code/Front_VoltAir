@@ -8,10 +8,20 @@ import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../services/Service"
+import { useEffect, useState } from "react";
 
 
 
 export const EditCar = ({ navigation }) => {
+
+    const [selectedBrand, setSelectedBrand] = useState(null);
+    const [selectedModel, setSelectedModel] = useState(null);
+
+
+    const [carData, setCarData] = useState();
+
+    const [carBrandData, setCarBrandData] = useState();
 
     const carBrands = [
         { label: "Ford", value: "Ford" },
@@ -24,6 +34,58 @@ export const EditCar = ({ navigation }) => {
         { label: "Bolt EV", value: "Bolt EV" },
         { label: "bZ4X", value: "bZ4X" },
     ]
+
+
+
+    async function ListCarBrand() {
+        await api.get('Marca')
+            .then((response) => {
+                setCarBrandData(response.data)
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            }
+            )
+    }
+
+    async function ListCar() {
+        await api.get('Carro')
+            .then((response) => {
+                setCarData(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            }
+            )
+    }
+
+    function FoundCar() {
+        if (carData != null) {
+            return carData.map((car) => ({
+                label: car.modelo,
+                value: car.modelo,
+            }));
+        } else {
+            return [];
+        }
+    }
+
+    function FoundBrand() {
+        if (carBrandData != null) {
+            return carBrandData.map((brand) => ({
+                label: brand.idMarca,
+                value: brand.nomeMarca,
+            }));
+        } else {
+            return [];
+        }
+    }
+
+    useEffect(() => {
+        ListCarBrand();
+        ListCar();
+    }, [])
 
     async function Logout() {
         try {
@@ -45,14 +107,18 @@ export const EditCar = ({ navigation }) => {
                         <TextInput margin={"10px 0px 0px 15px"}>Marca</TextInput>
                     </ContainerLabelInput>
                     <InputSelect
-                        item={carBrands}
+                        item={FoundBrand}
+                        setSelected={(value) => setSelectedBrand(value)}
+                        save=''
                     />
 
                     <ContainerLabelInput>
                         <TextInput margin={"20px 0px 0px 15px"}>Modelo</TextInput>
                     </ContainerLabelInput>
                     <InputSelect
-                        item={electricCarModels}
+                        item={FoundCar}
+                        setSelected={(value) => setSelectedModel(value)}
+                        save=''
                     />
 
                     <ContainerLabelInput>
