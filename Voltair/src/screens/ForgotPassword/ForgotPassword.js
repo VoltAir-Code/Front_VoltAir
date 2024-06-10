@@ -5,12 +5,14 @@ import { InputWhite } from "../../components/Input/Style";
 import { LogoRayOrange } from "../../components/Logo/Style";
 import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import ModalDefault from "../../components/Modal/ModalDefault";
-import { Alert, TouchableOpacity } from "react-native";
+import { Alert, Dimensions, TouchableOpacity } from "react-native";
 import api from '../../services/Service';
 
 export const ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+
+  const { height: screenHeight } = Dimensions.get('window');
 
   async function sendEmail() {
     if (email != null) {
@@ -38,7 +40,7 @@ export const ForgotPassword = ({ navigation }) => {
 
   return (
     <>
-      <ContainerBlack>
+      <ContainerBlack height={`${screenHeight}px`}>
         <LogoRayOrange
           source={require("../../../assets/Logo/LogoRay.png")}
           margin={"0px 0px 20px 0px"}

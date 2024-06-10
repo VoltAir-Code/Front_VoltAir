@@ -15,6 +15,8 @@ export const ResetPassword = ({ navigation , route}) => {
 
   const [confirmPass, setConfirmPass] = useState("");
 
+  const { height: screenHeight } = Dimensions.get('window');
+
   async function UpdatePassword() {
     if (pass === confirmPass && pass.length > 4) {
         try {
@@ -32,7 +34,7 @@ export const ResetPassword = ({ navigation , route}) => {
     }
   }
   return (
-    <ContainerBlack>
+    <ContainerBlack height={`${screenHeight}px`}>
       <LogoRayOrange
         source={require("../../../assets/Logo/LogoRay.png")}
         margin={"0px 0px 20px 0px"}
