@@ -18,16 +18,36 @@ import { useEffect, useState } from "react";
 
 
 export const EditCar = ({ navigation, route }) => {
+    const [user, setUser] = useState({});
+
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedModel, setSelectedModel] = useState(null);
 
-
     const [carData, setCarData] = useState();
-
     const [carBrandData, setCarBrandData] = useState();
 
-    const [plate, setPlate] = useState("")
+    const [plate, setPlate] = useState("");
     const { photoUri } = route.params || {};
+
+
+    useEffect(() => {
+        ListCar(selectedBrand);
+    }, [selectedBrand]);
+
+    useEffect(() => {
+        profileLoad()
+    }, [user])
+
+    async function profileLoad() {
+        const token = await useDecodeToken();
+        try {
+          const response = await api.get(`Usuario/BuscarPorId?id=${token.id}`);
+          setUser(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
 
     async function ListCarBrand() {
         await api.get('Marca')
@@ -41,21 +61,20 @@ export const EditCar = ({ navigation, route }) => {
             )
     }
 
-    async function ListCar() {
-        await api.get('Carro')
+    async function ListCar(idMarca) {
+        await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
             .then((response) => {
-                setCarData(response.data)
+                setCarData(response.data.carros);
             })
             .catch((error) => {
                 console.log(error);
-            }
-            )
+            });
     }
 
     function FoundCar() {
         if (carData != null) {
             return carData.map((car) => ({
-                label: car.modelo,
+                key: car.idCarro,
                 value: car.modelo,
             }));
         } else {
@@ -66,7 +85,7 @@ export const EditCar = ({ navigation, route }) => {
     function FoundBrand() {
         if (carBrandData != null) {
             return carBrandData.map((brand) => ({
-                label: brand.idMarca,
+                key: brand.idMarca,
                 value: brand.nomeMarca,
             }));
         } else {
@@ -129,7 +148,7 @@ export const EditCar = ({ navigation, route }) => {
                     <InputSelect
                         item={FoundBrand}
                         setSelected={(value) => setSelectedBrand(value)}
-                        save=''
+                        save='key'
                     />
 
                     <ContainerLabelInput>
@@ -138,7 +157,7 @@ export const EditCar = ({ navigation, route }) => {
                     <InputSelect
                         item={FoundCar}
                         setSelected={(value) => setSelectedModel(value)}
-                        save=''
+                        save='key'
                     />
 
                     <ContainerLabelInput>

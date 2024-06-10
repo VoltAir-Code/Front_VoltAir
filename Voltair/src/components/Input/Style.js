@@ -13,7 +13,7 @@ export const InputWhite = styled.TextInput.attrs({placeholderTextColor: 'rgba(49
     font-family: 'Poppins_400Regular';
 `
 
-export const InputBlack = styled(InputWhite).attrs({placeholderTextColor: '#FFFFFF'})`
+export const InputBlack = styled(InputWhite).attrs({placeholderTextColor: '#F2732E'})`
     border: 1px solid #F2732E;
     color: #FFFFFF;
 `
