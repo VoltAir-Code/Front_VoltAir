@@ -30,6 +30,7 @@ export const CreateAccount = ({ navigation }) => {
                         nome: nome,
                         email: email,
                         senha: senha
+
                     })
                     setModalVisible(true);
                 } catch (error) {
@@ -89,7 +90,7 @@ export const CreateAccount = ({ navigation }) => {
                 visible={modalVisible}
                 height={'41.5%'}
                 navigation={navigation}
-                onClose={() => { setModalVisible(false), navigation.replace("Login") }}
+                onClose={() => { setModalVisible(false), navigation.navigate("Login") }}
                 setModalVisible={setModalVisible}
                 title={"Conta criada com sucesso!"}
                 subTitle={"Sua conta foi criada. Aproveite ao máximo todos os benefícios que oferecemos."}

@@ -20,7 +20,6 @@ export const Home = () => {
     }
   }
 
-  console.log(user);
 
   async function userCarLoad() {
     try {
@@ -33,17 +32,23 @@ export const Home = () => {
 
   useEffect(() => {
     profileLoad();
+  }, []);
+
+  useEffect(() => {
     userCarLoad();
-    console.log(userCar);
   }, []);
 
   return (
     <ContainerHome>
       <Header 
       nome={user.nome}
+      marca={userCar?.idMarcaNavigation?.nomeMarca}
       modelo={userCar.modelo}
       />
-      <Card />
+      <Card
+      autonomia={userCar.autonomia}
+      capacidade={userCar.capacidade}
+       />
       {/* <Footer/> */}
     </ContainerHome>
   );
