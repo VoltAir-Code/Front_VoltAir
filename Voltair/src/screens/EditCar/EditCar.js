@@ -8,11 +8,15 @@ import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import api from "../../services/Service";
 
 
 
-export const EditCar = ({ navigation }) => {
-
+export const EditCar = ({ navigation, route }) => {
+    const [plate, setPlate] = useState("")
+    const { photoUri } = route.params || {};
+``
     const carBrands = [
         { label: "Ford", value: "Ford" },
         { label: "Chevrolet", value: "Chevrolet" },
@@ -32,6 +36,34 @@ export const EditCar = ({ navigation }) => {
             console.log(error);
         }
     }
+
+    async function OCR() {
+        const formData = new FormData();
+        formData.append("Image", {
+            uri: photoUri,
+            name: `image.jpg`,
+            type: `image/jpeg`
+        })
+
+        await api.post(`Orc`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            console.log(response.data);
+            setPlate(response.data)
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    useEffect(() => {
+        if (photoUri != {}) {
+            console.log(photoUri);
+            OCR();
+        }
+    }, [photoUri]);
+
 
     return (
         <ContainerHome>
@@ -73,13 +105,12 @@ export const EditCar = ({ navigation }) => {
                             height={"53px"}
                             margin={"5px 0px 25px 0px"}
                             editable={false}
+                            placeholder={plate != "" ? plate : "Registre sua placa"}
                         />
-
 
                         <ButtonInput onPress={() => { navigation.navigate("Camera"); console.log("Cam"); }}>
                             <Feather name="camera" size={24} color="#F2732E" />
                         </ButtonInput>
-
                     </ViewInput>
 
 

@@ -71,7 +71,7 @@ export const Camera = ({ navigation, route }) => {
     async function SendPhoto() {
         if (photo) {
             setOpenModal(false);
-            navigation.navigate('EditCar', { photoUri: photo });
+            navigation.replace('EditCar', { photoUri: photo });
         }
     }
 
