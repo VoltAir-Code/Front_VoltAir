@@ -6,22 +6,20 @@ import { SelectList } from "react-native-dropdown-select-list";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-export const InputSelect = ({ item }) => {
+export const InputSelect = ({ item, save, setSelected }) => {
 
 
     return (
         <SelectList
             data={item}
-            boxStyles={{ width: "82%", height: 60, alignItems: "center", marginTop: 5, borderWidth: 1,borderRadius: 5, borderColor: '#F2732E' }}
+            boxStyles={{ width: "82%", height: 60, alignItems: "center", marginTop: 5, borderWidth: 1, borderRadius: 5, borderColor: '#F2732E' }}
             fontFamily="Poppins_400Regular"
             placeholder="Selecione uma marca"
             maxHeight={95}
-            dropdownTextStyles={{ fontSize: 15, fontSize: 15, color: '#FFF' }}
+            dropdownTextStyles={{ fontSize: 15, color: '#FFF' }}
             dropdownItemStyles={{ marginHorizontal: 5, marginBottom: 3 }}
             dropdownStyles={{ borderWidth: 1, borderColor: '#F2732E' }}
             arrowicon={<MaterialIcons name="arrow-circle-down" size={23} color="#F2732E" />}
-
-            //search={false} 
 
             inputStyles={{ fontSize: 15, color: '#F2732E', fontWeight: 'bold' }}
             placeholderStyles={{ fontSize: 15, color: '#FFF' }}
@@ -30,6 +28,8 @@ export const InputSelect = ({ item }) => {
             searchicon={<MaterialIcons name="search" size={20} color="white" />}
             closeicon={<MaterialIcons name="close" size={20} color="white" />}
             searchPlaceholderTextColor={'white'}
+            setSelected={setSelected}
+            save={save}
         />
 
     )

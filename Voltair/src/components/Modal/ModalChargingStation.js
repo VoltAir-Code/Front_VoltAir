@@ -3,14 +3,14 @@ import { ModalContainer, ModalTransparent } from "./Style"
 import { ButtonDefault } from "../Button/Button"
 import { SubTitle, Title } from "../Title/Style"
 
-export const ModalChargingStation = ({ visible }) => {
+export const ModalChargingStation = ({ visible, setChargingStation, setGetDirection, ...rest }) => {
     return (
-        <Modal visible={visible} transparent={true}>
+        <Modal {...rest} visible={visible} transparent={true}>
             <ModalTransparent>
                 <ModalContainer height={"396px"}>
                     <Image
                         source={require("../../../assets/Img/postoshell.jpg")}
-                        style={{ width: "60%", height: 220, borderRadius: 10, resizeMode: "cover", position: "absolute", top: -75}}
+                        style={{ width: "60%", height: 220, borderRadius: 10, resizeMode: "cover", position: "absolute", top: -75 }}
                     />
 
                     <Title margin={"140px 0px 2px 0px"} color={"#FFFFFF"}> Posto Shell</Title>
@@ -21,6 +21,10 @@ export const ModalChargingStation = ({ visible }) => {
                         margin={"0px 0px 50px 0px"}
                         height={"58px"}
                         text={"Traçar rota"}
+                        onPress={() => {
+                            setChargingStation(false);
+                            setGetDirection(true);
+                        }}
                     />
                 </ModalContainer>
             </ModalTransparent>

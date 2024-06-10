@@ -18,7 +18,7 @@ const Timer = ({ progressValue, duration, timeRemaining }) => {
     }));
 
     const progressText = useDerivedValue(() => {
-        console.log(progressValue);
+     
         if (duration != null && timeRemaining !== undefined) {
 
             const hours = Math.floor(timeRemaining / 3600000);

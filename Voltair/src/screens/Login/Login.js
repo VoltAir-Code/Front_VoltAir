@@ -14,6 +14,7 @@ export const Login = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const { height: screenHeight } = Dimensions.get('window');
 
+
     // Função de login
     async function Login() {
         try {
@@ -32,7 +33,7 @@ export const Login = ({ navigation }) => {
                 navigation.replace("Main");
             }
         } catch (error) {
-            console.log(error); // Log do erro para depuração
+            console.log(error); 
             Alert.alert('Falha no Login!', 'Verifique seus dados e aguarde um momento.');
         }
     }

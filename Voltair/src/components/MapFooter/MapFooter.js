@@ -37,7 +37,7 @@ export const MapFooter = () => {
 
     return (
 
-        <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"}>
+        <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"} >
             <Timer key={Math.random()} progressValue={progressValue} />
 
             <ButtonDefaultCircle
