@@ -13,8 +13,11 @@ import { useEffect, useState } from "react";
 
 
 
-export const EditCar = ({ navigation }) => {
 
+
+
+
+export const EditCar = ({ navigation, route }) => {
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedModel, setSelectedModel] = useState(null);
 
@@ -23,19 +26,8 @@ export const EditCar = ({ navigation }) => {
 
     const [carBrandData, setCarBrandData] = useState();
 
-    const carBrands = [
-        { label: "Ford", value: "Ford" },
-        { label: "Chevrolet", value: "Chevrolet" },
-        { label: "Toyota", value: "Toyota" },
-
-    ];
-    const electricCarModels = [
-        { label: "Mustang Mach-E", value: "Mustang Mach-E" },
-        { label: "Bolt EV", value: "Bolt EV" },
-        { label: "bZ4X", value: "bZ4X" },
-    ]
-
-
+    const [plate, setPlate] = useState("")
+    const { photoUri } = route.params || {};
 
     async function ListCarBrand() {
         await api.get('Marca')
@@ -95,6 +87,34 @@ export const EditCar = ({ navigation }) => {
         }
     }
 
+    async function OCR() {
+        const formData = new FormData();
+        formData.append("Image", {
+            uri: photoUri,
+            name: `image.jpg`,
+            type: `image/jpeg`
+        })
+
+        await api.post(`Orc`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            console.log(response.data);
+            setPlate(response.data)
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    useEffect(() => {
+        if (photoUri != {}) {
+            console.log(photoUri);
+            OCR();
+        }
+    }, [photoUri]);
+
+
     return (
         <ContainerHome>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -139,13 +159,12 @@ export const EditCar = ({ navigation }) => {
                             height={"53px"}
                             margin={"5px 0px 25px 0px"}
                             editable={false}
+                            placeholder={plate != "" ? plate : "Registre sua placa"}
                         />
-
 
                         <ButtonInput onPress={() => { navigation.navigate("Camera"); console.log("Cam"); }}>
                             <Feather name="camera" size={24} color="#F2732E" />
                         </ButtonInput>
-
                     </ViewInput>
 
 

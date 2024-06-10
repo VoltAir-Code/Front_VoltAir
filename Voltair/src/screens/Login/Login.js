@@ -20,8 +20,8 @@ export const Login = ({ navigation }) => {
         try {
             // Chamando a API
             const response = await api.post('Login', {
-                email: email,
-                password: password
+                email: "bielgvsa@gmail.com",
+                password: "biel1234"
             });
 
             console.log(response.data);
