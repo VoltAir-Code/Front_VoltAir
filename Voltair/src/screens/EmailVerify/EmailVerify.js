@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Dimensions } from "react-native";
 import { ButtonDefault } from "../../components/Button/Button";
 import { ContainerBlack, ContainerWhite } from "../../components/Container/Style";
 import { InputVerify } from "../../components/Input/Style";
@@ -12,6 +12,8 @@ import { ButtonLogOut } from "../../components/Button/Style";
 export const EmailVerify = ({ navigation, route }) => {
     const [codigo, setCodigo] = useState(['', '', '', '']);
     const inputs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+    const { height: screenHeight } = Dimensions.get('window');
 
     async function SendEmail() {
         try {
@@ -48,7 +50,7 @@ export const EmailVerify = ({ navigation, route }) => {
     }, []);
 
     return (
-        <ContainerBlack>
+        <ContainerBlack height={`${screenHeight}px`}>
             <LogoRayOrange
                 source={require("../../../assets/Logo/LogoRay.png")} margin={"0px 0px 20px 0px"}
             />

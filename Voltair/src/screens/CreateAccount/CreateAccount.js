@@ -1,4 +1,4 @@
-import { Alert, TouchableOpacity } from "react-native"
+import { Alert, Dimensions, TouchableOpacity } from "react-native"
 import { ButtonDefault } from "../../components/Button/Button"
 import { ContainerBlack, ContainerWhite } from "../../components/Container/Style"
 import { InputWhite } from "../../components/Input/Style"
@@ -18,18 +18,18 @@ export const CreateAccount = ({ navigation }) => {
     const [senha, setSenha] = useState();
     const [confirmeSenha, setConfimeSenha] = useState();
 
+    const { height: screenHeight } = Dimensions.get('window');
+
     async function Register() {
         if (nome != null && email != null && senha != null && confirmeSenha != null) {
 
             if (senha != null && confirmeSenha == senha && senha.length > 3) {
 
                 try {
-
                     const response = await api.post('Usuario', {
                         nome: nome,
                         email: email,
-                        senha: senha,
-
+                        senha: senha
                     })
                     setModalVisible(true);
                 } catch (error) {
@@ -43,13 +43,14 @@ export const CreateAccount = ({ navigation }) => {
             alert("Dados invalidos")
         }
     }
+
     return (
         <>
-            <ScrollView>
-                <ContainerBlack>
+            <ScrollView style={{ flex: 1 }}>
+                <ContainerBlack height={`${screenHeight}px`}>
                     <LogoRayOrange margin={"10px 0px 5px 0px"} source={require("../../../assets/Logo/LogoRay.png")} />
-                    <ContainerWhite height={"91.41%"}>
 
+                    <ContainerWhite height={"91.41%"}>
                         <Title color={"#313131"} margin={"45px 0px 35px 0px"}>
                             Criar conta
                         </Title>
@@ -74,10 +75,9 @@ export const CreateAccount = ({ navigation }) => {
                         />
 
                         <TouchableOpacity
-                            onPress={() => navigation.replace("Login")}
-                        >
+                            onPress={() => navigation.replace("Login")}>
 
-                            <TextLink margin={"15px 0px 30px 0px"}>Cancelar</TextLink>
+                            <TextLink margin={"15px 0px 0px 0px"}>Cancelar</TextLink>
                         </TouchableOpacity>
 
                     </ContainerWhite>
