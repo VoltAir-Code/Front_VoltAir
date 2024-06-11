@@ -13,6 +13,7 @@ const BottomTab = createBottomTabNavigator()
 export const Main = ({ navigation }) => {
     const [color, setColor] = useState("#FFFFFF")
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [initialRoute, setInitialRoute] = useState(null)
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
@@ -37,7 +38,7 @@ export const Main = ({ navigation }) => {
 
     return (
         <BottomTab.Navigator
-            initialRouteName="Home"
+            initialRouteName={initialRoute == null ? "Home" : "Meu Carro"}
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarShowLabel: false,
