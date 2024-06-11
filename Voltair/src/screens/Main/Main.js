@@ -10,10 +10,11 @@ import { Keyboard } from "react-native"
 
 const BottomTab = createBottomTabNavigator()
 
-export const Main = ({ navigation }) => {
+export const Main = ({ navigation, route }) => {
     const [color, setColor] = useState("#FFFFFF")
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-    const [initialRoute, setInitialRoute] = useState(null)
+    const [photoUri, setPhotoUri] = useState(null);
+
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
@@ -36,9 +37,15 @@ export const Main = ({ navigation }) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (route.params?.photoUri) {
+            setPhotoUri(route.params.photoUri);
+        }
+    }, [route.params?.photoUri]);
+
     return (
         <BottomTab.Navigator
-            initialRouteName={initialRoute == null ? "Home" : "Meu Carro"}
+            initialRouteName={route.params != null && route.params.photoUri != null ? "Meu Carro" : "Home"}
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarShowLabel: false,
@@ -114,7 +121,7 @@ export const Main = ({ navigation }) => {
 
             <BottomTab.Screen
                 name="Meu Carro"
-                component={EditCar}
+                children={() => <EditCar photoUri={photoUri} navigation={navigation} />}
                 listeners={{
                     focus: () => {
                         setColor("#313131")
