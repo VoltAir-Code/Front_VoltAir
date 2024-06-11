@@ -66,8 +66,6 @@ export default function App() {
           options={{ title: 'Login' }}
         />
 
-
-
         <Stack.Screen
           name="MapScreen"
           component={MapScreen}

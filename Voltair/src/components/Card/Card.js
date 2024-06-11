@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { CardImagens, CardInformation, ContainerCard, ImageCard } from "./Style"
 import { useState } from "react";
 import ModalLoading from "../Modal/ModalLoading";
