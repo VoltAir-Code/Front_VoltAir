@@ -71,7 +71,7 @@ export const Camera = ({ navigation, route }) => {
     async function SendPhoto() {
         if (photo) {
             setOpenModal(false);
-            navigation.replace('EditCar', { photoUri: photo });
+            navigation.replace('Main', { photoUri: photo });
         }
     }
 
@@ -80,7 +80,7 @@ export const Camera = ({ navigation, route }) => {
     }
 
 
-    function backCamera(){
+    function backCamera() {
         setOpenModal(false)
     }
 
@@ -96,12 +96,12 @@ export const Camera = ({ navigation, route }) => {
                 autoFocus={autoFocus}
             />
             <FooterCamera >
-                <ButtonGallery 
+                <ButtonGallery
                     onPress={SelectImageGallery}
                 >
-                <GaleriaCamera 
-                color={'#F2732E'} 
-                />
+                    <GaleriaCamera
+                        color={'#F2732E'}
+                    />
 
                     {/* <ImageGallery source={require("../../../assets/Img/picture.png")} /> */}
                 </ButtonGallery>
@@ -117,8 +117,8 @@ export const Camera = ({ navigation, route }) => {
                 <ButtonReturn
                     onPress={toggleCameraFacing}
                 >
-                    <CameraReturn 
-                    color={'#F2732E'}
+                    <CameraReturn
+                        color={'#F2732E'}
                     />
                     {/* <ImageReturn source={require("../../../assets/Img/return.png")} /> */}
                 </ButtonReturn>
@@ -141,7 +141,7 @@ export const Camera = ({ navigation, route }) => {
                         source={{ uri: photo }}
 
                     />
-                    <View style={{ width: '100%', flexDirection: "row", justifyContent: "center", flexDirection:'column', alignItems:'center'}}>
+                    <View style={{ width: '100%', flexDirection: "row", justifyContent: "center", flexDirection: 'column', alignItems: 'center' }}>
 
                         <ButtonDefault
                             text={"Confirmar"}
