@@ -8,6 +8,7 @@ import ModalDefault from "../../components/Modal/ModalDefault";
 import { Alert, Dimensions, TouchableOpacity } from "react-native";
 import api from '../../services/Service';
 import { ScrollView } from "react-native";
+import Raio from "../../components/icons/Raio";
 
 export const ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -43,10 +44,18 @@ export const ForgotPassword = ({ navigation }) => {
     <>
       <ScrollView>
         <ContainerBlack height={`${screenHeight}px`}>
-          <LogoRayOrange
+
+
+          <Raio
+            color={'#F2732E'}
+            size={50}
+            margin={10}
+          />
+
+          {/* <LogoRayOrange
             source={require("../../../assets/Logo/LogoRay.png")}
             margin={"0px 0px 20px 0px"}
-          />
+          /> */}
 
           <ContainerWhite height={"88%"}>
             <Title color={"#313131"} margin={"25% 0px 0px 0px"}>

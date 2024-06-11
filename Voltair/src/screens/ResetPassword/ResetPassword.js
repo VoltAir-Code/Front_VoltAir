@@ -9,8 +9,9 @@ import { ButtonDefault } from "../../components/Button/Button";
 import { LogoRayOrange } from "../../components/Logo/Style";
 import { TouchableOpacity } from "react-native";
 import api from "../../services/Service";
+import Raio from "../../components/icons/Raio";
 
-export const ResetPassword = ({ navigation , route}) => {
+export const ResetPassword = ({ navigation, route }) => {
   const [pass, setPass] = useState("");
 
   const [confirmPass, setConfirmPass] = useState("");
@@ -19,26 +20,33 @@ export const ResetPassword = ({ navigation , route}) => {
 
   async function UpdatePassword() {
     if (pass === confirmPass && pass.length > 4) {
-        try {
-          const response = await api.put(`Usuario/AlterarSenha?email=${route.params.email}`,{
-            senhaNova: pass
-          })
-          alert("Senha alterada com sucesso")
-          navigation.replace("Login", {email: route.params.email})
-        } catch (error) {
-          console.log(error);
-          alert("Insira uma senha valida ou tente novamente mais tarde!");
-        }
+      try {
+        const response = await api.put(`Usuario/AlterarSenha?email=${route.params.email}`, {
+          senhaNova: pass
+        })
+        alert("Senha alterada com sucesso")
+        navigation.replace("Login", { email: route.params.email })
+      } catch (error) {
+        console.log(error);
+        alert("Insira uma senha valida ou tente novamente mais tarde!");
+      }
     } else {
       alert("Insira uma senha valida")
     }
   }
   return (
     <ContainerBlack height={`${screenHeight}px`}>
-      <LogoRayOrange
+
+      <Raio
+        color={'#F2732E'}
+        size={50}
+        margin={10}
+      />
+
+      {/* <LogoRayOrange
         source={require("../../../assets/Logo/LogoRay.png")}
         margin={"0px 0px 20px 0px"}
-      />
+      /> */}
 
       <ContainerWhite height={"88%"}>
         <Title color={"#313131"} margin={"45px 0px 35px 0px"}>
