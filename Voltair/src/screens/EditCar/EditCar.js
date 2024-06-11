@@ -19,7 +19,7 @@ import { useDecodeToken } from "../../utils/Auth";
 
 
 export const EditCar = ({ navigation, route }) => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState();
 
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedModel, setSelectedModel] = useState(null);
@@ -37,14 +37,33 @@ export const EditCar = ({ navigation, route }) => {
 
     useEffect(() => {
         profileLoad()
-    }, [user])
+    }, [])
+
+
+    async function RegisterCar() {
+        try {
+            await api.put('Usuario/AlterarPerfil', {
+                Nome: user.nome,
+                Email: user.email,
+                Senha: user.senha,
+                IdCarro: selectedModel,
+                Foto: null,
+                Arquivo: plate,
+            })
+        } catch (error) {
+            console.log("RegisterCar");
+            console.log(error);
+        }
+    }
 
     async function profileLoad() {
         const token = await useDecodeToken();
         try {
           const response = await api.get(`Usuario/BuscarPorId?id=${token.id}`);
           setUser(response.data);
+          console.log(response.data);
         } catch (error) {
+            console.log("ProfileLoad");
           console.log(error);
         }
       }
@@ -57,6 +76,7 @@ export const EditCar = ({ navigation, route }) => {
                 console.log(response.data);
             })
             .catch((error) => {
+                console.log("ListCarBrand");
                 console.log(error);
             }
             )
@@ -68,6 +88,7 @@ export const EditCar = ({ navigation, route }) => {
                 setCarData(response.data.carros);
             })
             .catch((error) => {
+                console.log("ListCar");
                 console.log(error);
             });
     }
@@ -139,12 +160,12 @@ export const EditCar = ({ navigation, route }) => {
         <ContainerHome>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ContainerBlackMap radius={"0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
-                    <Title color={"#FFF"} margin={"25px 0px 10px 0px"}>
+                    <Title color={"#FFF"} margin={"45px 0px 10px 0px"}>
                         Informe os dados do seu carro
                     </Title>
 
                     <ContainerLabelInput>
-                        <TextInput margin={"10px 0px 0px 15px"}>Marca</TextInput>
+                        <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
                     </ContainerLabelInput>
                     <InputSelect
                         item={FoundBrand}
@@ -153,7 +174,7 @@ export const EditCar = ({ navigation, route }) => {
                     />
 
                     <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Modelo</TextInput>
+                        <TextInput margin={"35px 0px 0px 15px"}>Modelo</TextInput>
                     </ContainerLabelInput>
                     <InputSelect
                         item={FoundCar}
@@ -162,16 +183,7 @@ export const EditCar = ({ navigation, route }) => {
                     />
 
                     <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Duração da bateria</TextInput>
-                    </ContainerLabelInput>
-                    <InputBlack
-                        height={"53px"}
-                        margin={"5px 0px 0px 0px"}
-                        placeholder={"Duração"}
-                    />
-
-                    <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Número da placa</TextInput>
+                        <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
                     </ContainerLabelInput>
 
                     <ViewInput>
@@ -192,10 +204,10 @@ export const EditCar = ({ navigation, route }) => {
                     <ButtonDefault
                         text={"Confirmar"}
                         height={"58px"}
-                        margin={"25px 0px 0px 0px"}
+                        margin={"45px 0px 0px 0px"}
                     />
 
-                    <ButtonLogOut onPress={() => Logout()} margin={"20px 0px 145px 0px"}>
+                    <ButtonLogOut onPress={() => Logout()} margin={"35px 0px 145px 0px"}>
                         <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
                             Sair do app
                         </TextLink>
