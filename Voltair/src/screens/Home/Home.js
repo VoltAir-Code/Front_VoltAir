@@ -9,6 +9,8 @@ import api from "../../services/Service";
 export const Home = () => {
   const [user, setUser] = useState({});
   const [userCar, setUserCar] = useState({});
+  const [capacidadeAtual, setCapacidadeAtual] = useState();
+  const [duracao, setDuracao] = useState();
 
   async function profileLoad() {
     const token = await useDecodeToken();
@@ -25,6 +27,8 @@ export const Home = () => {
     try {
       const car = await api.get(`Carro/BuscarPorId?idCarro=${user.idCarro}`);
       setUserCar(car.data);
+      setCapacidadeAtual(parseInt(new Date(car.data.capacidadeAtual).toLocaleTimeString('pt-br', { hour: "2-digit"})));
+      setDuracao(parseInt(new Date(car.data.durBateria).getHours()));
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +40,9 @@ export const Home = () => {
 
   useEffect(() => {
     userCarLoad();
-  }, []);
+   console.log(capacidadeAtual);
+   console.log(duracao);
+  }, [user]);
 
   return (
     <ContainerHome>
@@ -48,6 +54,7 @@ export const Home = () => {
       <Card
       autonomia={userCar.autonomia}
       capacidade={userCar.capacidade}
+      porcetagem={(capacidadeAtual/duracao) * 100}
        />
       {/* <Footer/> */}
     </ContainerHome>

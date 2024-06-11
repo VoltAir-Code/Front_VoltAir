@@ -4,7 +4,7 @@ import { useState } from "react";
 import ModalLoading from "../Modal/ModalLoading";
 import ModalInformations from "../Modal/ModalInformations";
 
-export const Card = ({ navigation, autonomia, capacidade }) => {
+export const Card = ({ navigation, autonomia, capacidade, porcetagem}) => {
 
     const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
     const [modalInformationsVisible, setModalInformationsVisible] = useState(false);
@@ -33,7 +33,7 @@ export const Card = ({ navigation, autonomia, capacidade }) => {
                 onClose={() => setModalLoadingVisible(false)}
                 setModalVisible={setModalLoadingVisible}
                 title={"Carga da bateria:"}
-                Percentage={"50%"}
+                Percentage={`${porcetagem}%`}
                 buttonTextLoading={"Estou carregando"}
                 buttonText={"Confirmar"}
             />
@@ -46,7 +46,7 @@ export const Card = ({ navigation, autonomia, capacidade }) => {
                 answer1={"98% de capacidade restante"}
                 information2={"Degradação:"}
                 answer2={`Capacidade: ${capacidade} kWh`}
-                answer21={'Eficiência: 0,15 kWh/km'}
+                answer21={`Eficiência: ${(capacidade/autonomia).toFixed(2)} kWh/km`}
                 information3={'Autonomia:'}
                 answer3={`${autonomia} Km`}
                 buttonTextLoading={"teste"}
