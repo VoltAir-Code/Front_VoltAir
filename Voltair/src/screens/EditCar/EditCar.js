@@ -15,9 +15,6 @@ import { useDecodeToken } from "../../utils/Auth";
 
 
 
-
-
-
 export const EditCar = ({ navigation, route, photoUri }) => {
     const [user, setUser] = useState();
 
@@ -31,25 +28,36 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [editable, setEditable] = useState(true)
 
     useEffect(() => {
-        ListCar(selectedBrand);
-    }, [selectedBrand]);
+        ListCarBrand();
+    }, [])
 
     useEffect(() => {
         profileLoad()
     }, [])
 
+    useEffect(() => {
+        setSelectedModel(null);
+        ListCar(selectedBrand);
+    }, [selectedBrand]);
+
+    useEffect(() => {
+        if (photoUri != {}) {
+            console.log(photoUri);
+            OCR();
+        }
+    }, [photoUri]);
+
 
     
     async function RegisterCar() {
         try {
-            await api.put('Usuario/AlterarPerfil', {
-                Nome: user.nome,
-                Email: user.email,
-                Senha: user.senha,
-                IdCarro: selectedModel,
-                Foto: null,
-                Arquivo: plate,
+            await api.put(`Carro?idUsuario=${user.id}`, {
+                idUsuario: user.idUsuario,
+                idModelo: selectedModel,
+                placa: plate,
+                bateriaAtual: carData.durBateria
             })
+            setEditable(false)
         } catch (error) {
             console.log("RegisterCar");
             console.log(error);
@@ -87,7 +95,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     async function ListCar(idMarca) {
         await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
             .then((response) => {
-                console.log("response.data", response.data);
+                console.log("response.data", response.data.modelos);
                 setCarData(response.data.modelos);
             })
             .catch((error) => {
@@ -117,15 +125,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             return [];
         }
     }
-
-    useEffect(() => {
-        ListCarBrand();
-    }, [])
-
-    useEffect(() => {
-        setSelectedModel(null);
-        ListCar(selectedBrand);
-    }, [selectedBrand])
 
     async function Logout() {
         try {
@@ -168,13 +167,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
         }
     }
 
-    useEffect(() => {
-        if (photoUri != {}) {
-            console.log(photoUri);
-            OCR();
-        }
-    }, [photoUri]);
-
 
     return (
         <ContainerHome>
@@ -198,6 +190,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     item={FoundBrand}
                                     setSelected={(value) => setSelectedBrand(value)}
                                     save='key'
+                                    placeholder={selectedBrand != null ? `${selectedBrand}` : 'Selecione uma marca'}
                                 />
 
 
@@ -209,6 +202,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     item={FoundCar}
                                     setSelected={(value) => setSelectedModel(value)}
                                     save='key'
+                                    placeholder={selectedModel != null ? `${selectedModel}` : 'Selecione um modelo'}
                                 />
 
                                 <ContainerLabelInput>
@@ -270,7 +264,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                         text={editable ? "Confirmar" : "Editar"}
                         height={"58px"}
                         margin={"45px 0px 0px 0px"}
-                        onPress={() => { editable ? setEditable(false) : setEditable(true) }}
+                        onPress={() => { editable ? RegisterCar() : setEditable(true) }}
                     />
 
                     <ButtonLogOut onPress={() => Logout()} margin={"35px 0px 145px 0px"}>
