@@ -21,8 +21,8 @@ export const Login = ({ navigation }) => {
         try {
             // Chamando a API
             const response = await api.post('Login', {
-                email: email,
-                password: password
+                email: "richardfpassarelli@gmail.com",
+                password: "teste123"
             });
 
             console.log(response.data);
