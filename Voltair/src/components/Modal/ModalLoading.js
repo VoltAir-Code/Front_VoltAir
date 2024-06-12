@@ -13,7 +13,7 @@ const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setM
                     </Title>
 
                     <BatteryPercentage color={"#FFFFFF"} margin={"20px 0px 20px 0px"}>
-                        {Percentage}
+                        {`${(Percentage * 100).toFixed(0)}%`}
                     </BatteryPercentage>
 
                     <ButtonLoading
@@ -29,7 +29,6 @@ const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setM
                         margin={"0px 0px 10px 0px"}
                         onPress={() => onClose()}
                     />
-
 
                     <TextLink margin={"16px 0px 0px 0px"}>
                         {textLink}

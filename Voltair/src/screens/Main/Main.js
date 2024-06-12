@@ -14,6 +14,7 @@ export const Main = ({ navigation, route }) => {
     const [color, setColor] = useState("#FFFFFF")
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [photoUri, setPhotoUri] = useState(null);
+    const [progressValue, setProgressValue] = useState(null);
 
 
     useEffect(() => {
@@ -41,7 +42,10 @@ export const Main = ({ navigation, route }) => {
         if (route.params?.photoUri) {
             setPhotoUri(route.params.photoUri);
         }
-    }, [route.params?.photoUri]);
+        else if (route.params?.progressValue) {
+            setProgressValue(route.params?.progressValue)
+        }
+    }, [route.params?.photoUri || route.params?.progressValue]);
 
     return (
         <BottomTab.Navigator
@@ -91,7 +95,7 @@ export const Main = ({ navigation, route }) => {
         >
             <BottomTab.Screen
                 name="Home"
-                component={Home}
+                children={() => <Home progressValue={progressValue} />}
                 listeners={{
                     focus: () => {
                         setColor("#FFFFFF")
