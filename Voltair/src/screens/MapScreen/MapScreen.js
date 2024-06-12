@@ -9,10 +9,14 @@ import { ContainerBlackMap } from "../../components/Container/Style";
 import Timer from "../../components/Timer/Timer";
 import { ButtonDefaultCircle } from "../../components/Button/Button";
 import { Ionicons } from "@expo/vector-icons";
+import api from "../../services/Service";
 import * as Notifications from "expo-notifications";
+import { useDecodeToken } from "../../utils/Auth";
 
-// Requesting notification permissions
+
+
 const requestNotificationPermissions = async () => {
+    const token = await useDecodeToken();
     const { status } = await Notifications.requestPermissionsAsync();
     if (status !== 'granted') {
         alert('Permissão de notificação está desativada');
@@ -81,9 +85,14 @@ export const MapScreen = ({ navigation }) => {
         return () => clearInterval(interval);
     }, [run, exibiu]);
 
-    useEffect(() => {
+
+
+
+      useEffect(() => {
         requestNotificationPermissions();
+
     }, []);
+
 
     const timeRemaining = duration * progressValue;
 

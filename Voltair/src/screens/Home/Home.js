@@ -10,17 +10,8 @@ export const Home = () => {
   const [user, setUser] = useState({});
   const [userCar, setUserCar] = useState({});
 
-  async function profileLoad() {
-    const token = await useDecodeToken();
-    try {
-      const response = await api.get(`Usuario/BuscarPorId?id=${token.id}`);
-      setUser(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
+  
+  
   async function userCarLoad() {
     try {
       const car = await api.get(`Carro/BuscarPorId?idCarro=${user.idCarro}`);
@@ -29,7 +20,17 @@ export const Home = () => {
       console.log(error);
     }
   }
-
+  
+  async function profileLoad() {
+    const token = await useDecodeToken();
+    try {
+   
+      const response = await api.get(`Usuario/BuscarPorId?id=${token.id}`);
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     profileLoad();
   }, []);
