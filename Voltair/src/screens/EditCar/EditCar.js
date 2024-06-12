@@ -3,7 +3,7 @@ import { ButtonDefault, ButtonInput, ImageInput } from "../../components/Button/
 import { ContainerBlack, ContainerBlackMap, ContainerHome, ContainerLabelInput, ContainerScroll } from "../../components/Container/Style"
 import { InputSelect } from "../../components/Input/InputSelect"
 import { InputBlack, ViewInput } from "../../components/Input/Style"
-import { TextInput, TextLink, Title } from "../../components/Title/Style"
+import { SubTitle, TextInput, TextLink, TextWarning, Title } from "../../components/Title/Style"
 import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
@@ -39,6 +39,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     }, [])
 
 
+    
     async function RegisterCar() {
         try {
             await api.put('Usuario/AlterarPerfil', {
@@ -54,6 +55,8 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             console.log(error);
         }
     }
+
+
 
     async function profileLoad() {
         const token = await useDecodeToken();
@@ -84,7 +87,8 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     async function ListCar(idMarca) {
         await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
             .then((response) => {
-                setCarData(response.data.carros);
+                console.log("response.data", response.data);
+                setCarData(response.data.modelos);
             })
             .catch((error) => {
                 console.log("ListCar");
@@ -95,8 +99,8 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     function FoundCar() {
         if (carData != null) {
             return carData.map((car) => ({
-                key: car.idCarro,
-                value: car.modelo,
+                key: car.idModelo,
+                value: car.nomeModelo,
             }));
         } else {
             return [];
@@ -115,9 +119,13 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     }
 
     useEffect(() => {
-        //ListCarBrand();
-        //ListCar();
+        ListCarBrand();
     }, [])
+
+    useEffect(() => {
+        setSelectedModel(null);
+        ListCar(selectedBrand);
+    }, [selectedBrand])
 
     async function Logout() {
         try {
@@ -175,6 +183,10 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                     <Title color={"#FFF"} margin={"45px 0px 10px 0px"}>
                         Informe os dados do seu carro
                     </Title>
+
+                    <TextWarning color={"#FFF"} margin={"5px 0px 15px 0px"}>
+                        Cadastre com 100% de bateria!
+                    </TextWarning>
 
                     {
                         editable ?
