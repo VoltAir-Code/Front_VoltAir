@@ -1,15 +1,18 @@
 import { StyleSheet, Text, View } from "react-native"
 import { CardImagens, CardInformation, ContainerCard, ImageCard } from "./Style"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalLoading from "../Modal/ModalLoading";
 import ModalInformations from "../Modal/ModalInformations";
 
-export const Card = ({ navigation, autonomia, capacidade }) => {
+export const Card = ({ navigation, autonomia, capacidade, progressValue}) => {
 
     const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
     const [modalInformationsVisible, setModalInformationsVisible] = useState(false);
 
-
+    useEffect(() => {
+        console.log("Bateria: ", progressValue);
+    }, [])
+    
     return (
         <ContainerCard>
             <CardImagens onPress={() => setModalLoadingVisible(true)} >
@@ -33,10 +36,11 @@ export const Card = ({ navigation, autonomia, capacidade }) => {
                 onClose={() => setModalLoadingVisible(false)}
                 setModalVisible={setModalLoadingVisible}
                 title={"Carga da bateria:"}
-                Percentage={"50%"}
+                Percentage={progressValue}
                 buttonTextLoading={"Estou carregando"}
                 buttonText={"Confirmar"}
             />
+
             <ModalInformations
                 visible={modalInformationsVisible}
                 navigation={navigation}

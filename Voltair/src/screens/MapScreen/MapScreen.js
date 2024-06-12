@@ -12,7 +12,8 @@ import { Ionicons } from "@expo/vector-icons";
 import api from "../../services/Service";
 import * as Notifications from "expo-notifications";
 import { useDecodeToken } from "../../utils/Auth";
-
+import ModalLoading from "../../components/Modal/ModalLoading";
+import { Card } from "../../components/Card/Card";
 
 
 const requestNotificationPermissions = async () => {
@@ -53,7 +54,7 @@ export const MapScreen = ({ navigation }) => {
                 body: 'É necessário carregar o automóvel',
                 sound: true,
             },
-            trigger: { seconds: 1 }, 
+            trigger: { seconds: 1 },
         });
     };
 
@@ -99,7 +100,7 @@ export const MapScreen = ({ navigation }) => {
     return (
         <>
             <View style={{ flex: 1 }}>
-                <MapHeader navigation={navigation} />
+                <MapHeader navigation={navigation} progressValue={progressValue} />
                 <Map getDirection={getDirection} />
                 <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"} >
                     <Timer key={Math.random()} progressValue={progressValue} />
@@ -120,7 +121,9 @@ export const MapScreen = ({ navigation }) => {
                     setChargingStation={setChargingStation}
                     setGetDirection={setGetDirection}
                 />
+
             </View>
+
         </>
     );
 };

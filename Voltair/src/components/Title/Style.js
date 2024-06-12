@@ -14,7 +14,17 @@ export const SubTitle = styled.Text`
     font-family: "Poppins_400Regular";
     margin: ${props => `${props.margin}`};
     text-align: center;
-    
+`
+
+export const TextWarning = styled.Text`
+    font-size: 14px;
+    background-color: rgba(152, 33, 33, 0.9);
+    color: ${props => `${props.color}`};
+    font-family: "Poppins_400Regular";
+    margin: ${props => `${props.margin}`};
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
 `
 
 export const TextLink = styled.Text`    
