@@ -52,6 +52,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
 
+      <Stack.Screen
+          name="Main"
+          component={Main}
+        />
 
         <Stack.Screen
           name='Login'
@@ -66,10 +70,7 @@ export default function App() {
           options={{ title: "EditCar" }}
         />
         
-        <Stack.Screen
-          name="Main"
-          component={Main}
-        />
+        
 
         <Stack.Screen
           name="MapScreen"
