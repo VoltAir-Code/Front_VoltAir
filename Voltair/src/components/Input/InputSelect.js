@@ -6,7 +6,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-export const InputSelect = ({ item, save, setSelected }) => {
+export const InputSelect = ({ item, save, setSelected, placeholder }) => {
 
 
     return (
@@ -14,7 +14,7 @@ export const InputSelect = ({ item, save, setSelected }) => {
             data={item}
             boxStyles={{ width: "81.6%", height: 60, alignItems: "center", marginTop: 5, borderWidth: 1, borderRadius: 5, borderColor: '#F2732E' }}
             fontFamily="Poppins_400Regular"
-            placeholder="Selecione uma marca"
+            placeholder= {placeholder}
             maxHeight={95}
             dropdownTextStyles={{ fontSize: 15, color: '#FFF' }}
             dropdownItemStyles={{ marginHorizontal: 5, marginBottom: 3 }}
