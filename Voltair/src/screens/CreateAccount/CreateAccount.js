@@ -9,6 +9,7 @@ import { useState } from "react"
 import api from "../../services/Service"
 import { err } from "react-native-svg"
 import { ScrollView } from "react-native"
+import Raio from "../../components/icons/Raio"
 
 export const CreateAccount = ({ navigation }) => {
 
@@ -49,7 +50,14 @@ export const CreateAccount = ({ navigation }) => {
         <>
             <ScrollView style={{ flex: 1 }}>
                 <ContainerBlack height={`${screenHeight}px`}>
-                    <LogoRayOrange margin={"10px 0px 5px 0px"} source={require("../../../assets/Logo/LogoRay.png")} />
+
+                    <Raio
+                        color={'#F2732E'}
+                        size={50}
+                        margin={10}
+                    />
+
+                    {/* <LogoRayOrange margin={"10px 0px 5px 0px"} source={require("../../../assets/Logo/LogoRay.png")} /> */}
 
                     <ContainerWhite height={"91.41%"}>
                         <Title color={"#313131"} margin={"45px 0px 35px 0px"}>
@@ -66,8 +74,8 @@ export const CreateAccount = ({ navigation }) => {
 
                         <InputWhite value={nome} onChangeText={setNome} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu nome"} />
                         <InputWhite value={email} onChangeText={setEmail} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu e-mail"} />
-                        <InputWhite value={senha} onChangeText={setSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} />
-                        <InputWhite value={confirmeSenha} onChangeText={setConfimeSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"confirme sua senha"} />
+                        <InputWhite value={senha} onChangeText={setSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} secureTextEntry />
+                        <InputWhite value={confirmeSenha} onChangeText={setConfimeSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"confirme sua senha"} secureTextEntry />
                         <ButtonDefault
                             text={"Cadastrar"}
                             height={"58px"}

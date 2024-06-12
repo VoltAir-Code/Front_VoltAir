@@ -8,6 +8,7 @@ import { Alert, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import api from '../../services/Service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { token } from 'stylis';
+import Raio from '../../components/icons/Raio';
 
 export const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -20,8 +21,8 @@ export const Login = ({ navigation }) => {
         try {
             // Chamando a API
             const response = await api.post('Login', {
-                email: email,
-                password: password
+                email: "bielgvsa@gmail.com",
+                password: "biel1234"
             });
 
             console.log(response.data);
@@ -43,12 +44,21 @@ export const Login = ({ navigation }) => {
 
     return (
         <ScrollView style={{ flex: 1}}>
-            <ContainerBlack height={`${screenHeight}px`}>
 
-                <LogoRayOrange
+            <ContainerBlack height={`${screenHeight}px`}
+            >
+
+                
+                <Raio 
+                color={'#F2732E'}
+                size={50}
+                margin={10}
+                />
+
+                {/* <LogoRayOrange
                     source={require("../../../assets/Logo/LogoRay.png")}
                     margin={"15px 0px 5px 0px"}
-                />
+                /> */}
 
                 <ContainerWhite height={"91.41%"}>
                     <Title color={"#313131"} margin={"45px 0px 35px 0px"}>

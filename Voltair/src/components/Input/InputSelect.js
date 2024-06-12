@@ -12,7 +12,7 @@ export const InputSelect = ({ item, save, setSelected }) => {
     return (
         <SelectList
             data={item}
-            boxStyles={{ width: "82%", height: 60, alignItems: "center", marginTop: 5, borderWidth: 1, borderRadius: 5, borderColor: '#F2732E' }}
+            boxStyles={{ width: "81.6%", height: 60, alignItems: "center", marginTop: 5, borderWidth: 1, borderRadius: 5, borderColor: '#F2732E' }}
             fontFamily="Poppins_400Regular"
             placeholder="Selecione uma marca"
             maxHeight={95}
