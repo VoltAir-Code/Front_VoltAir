@@ -62,6 +62,7 @@ export const Login = ({ navigation }) => {
                         height={"53px"}
                         margin={"39px 0px 0px 0px"}
                         placeholder={"Digite seu e-mail"}
+                        autoCapitalize="none"
                         onChangeText={(txt) => setEmail(txt)}
                         value={email}
                     />
@@ -69,6 +70,7 @@ export const Login = ({ navigation }) => {
                     <InputWhite
                         height={"53px"}
                         margin={"39px 0px 0px 0px"}
+                        autoCapitalize="none"
                         placeholder={"Digite sua senha"}
                         secureTextEntry
                         onChangeText={(txt) => setPassword(txt)}
