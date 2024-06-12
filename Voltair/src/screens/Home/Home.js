@@ -3,7 +3,7 @@ import { Card } from "../../components/Card/Card";
 import { ContainerHome } from "../../components/Container/Style";
 import { Footer } from "../../components/Footer/Footer";
 import { Header } from "../../components/Header/Header";
-import { useDecodeToken } from "../../utils/Auth";
+import { Token, useDecodeToken } from "../../utils/Auth";
 import api from "../../services/Service";
 
 export const Home = () => {
