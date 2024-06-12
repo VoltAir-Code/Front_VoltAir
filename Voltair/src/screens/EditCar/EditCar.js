@@ -8,22 +8,116 @@ import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../services/Service"
+import { useEffect, useState } from "react";
+import { useDecodeToken } from "../../utils/Auth";
 
 
 
-export const EditCar = ({ navigation }) => {
 
-    const carBrands = [
-        { label: "Ford", value: "Ford" },
-        { label: "Chevrolet", value: "Chevrolet" },
-        { label: "Toyota", value: "Toyota" },
 
-    ];
-    const electricCarModels = [
-        { label: "Mustang Mach-E", value: "Mustang Mach-E" },
-        { label: "Bolt EV", value: "Bolt EV" },
-        { label: "bZ4X", value: "bZ4X" },
-    ]
+
+
+export const EditCar = ({ navigation, route, photoUri }) => {
+    const [user, setUser] = useState();
+
+    const [selectedBrand, setSelectedBrand] = useState(null);
+    const [selectedModel, setSelectedModel] = useState(null);
+
+    const [carData, setCarData] = useState();
+    const [carBrandData, setCarBrandData] = useState();
+
+    const [plate, setPlate] = useState("");
+    const [editable, setEditable] = useState(true)
+
+    useEffect(() => {
+        ListCar(selectedBrand);
+    }, [selectedBrand]);
+
+    useEffect(() => {
+        profileLoad()
+    }, [])
+
+
+    async function RegisterCar() {
+        try {
+            await api.put('Usuario/AlterarPerfil', {
+                Nome: user.nome,
+                Email: user.email,
+                Senha: user.senha,
+                IdCarro: selectedModel,
+                Foto: null,
+                Arquivo: plate,
+            })
+        } catch (error) {
+            console.log("RegisterCar");
+            console.log(error);
+        }
+    }
+
+    async function profileLoad() {
+        const token = await useDecodeToken();
+        try {
+            const response = await api.get(`Usuario/BuscarPorId?id=${token.id}`);
+            setUser(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log("ProfileLoad");
+            console.log(error);
+        }
+    }
+
+
+    async function ListCarBrand() {
+        await api.get('Marca')
+            .then((response) => {
+                setCarBrandData(response.data)
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log("ListCarBrand");
+                console.log(error);
+            }
+            )
+    }
+
+    async function ListCar(idMarca) {
+        await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
+            .then((response) => {
+                setCarData(response.data.carros);
+            })
+            .catch((error) => {
+                console.log("ListCar");
+                console.log(error);
+            });
+    }
+
+    function FoundCar() {
+        if (carData != null) {
+            return carData.map((car) => ({
+                key: car.idCarro,
+                value: car.modelo,
+            }));
+        } else {
+            return [];
+        }
+    }
+
+    function FoundBrand() {
+        if (carBrandData != null) {
+            return carBrandData.map((brand) => ({
+                key: brand.idMarca,
+                value: brand.nomeMarca,
+            }));
+        } else {
+            return [];
+        }
+    }
+
+    useEffect(() => {
+        //ListCarBrand();
+        //ListCar();
+    }, [])
 
     async function Logout() {
         try {
@@ -33,64 +127,141 @@ export const EditCar = ({ navigation }) => {
         }
     }
 
+    async function OCR() {
+        const formData = new FormData();
+        formData.append("Image", {
+            uri: photoUri,
+            name: `image.jpg`,
+            type: `image/jpeg`
+        })
+
+        await api.post(`Orc`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            console.log(response.data);
+            setPlate(response.data)
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    function ValidationPlate(plate) {
+        const plateArray = plate.split(" ")
+        for (var i = 0; i < plateArray.length; i++) {
+            const lastStr = plateArray[plateArray.length - (i + 1)]
+            if (lastStr.trim() == "") {
+
+            }
+            else {
+                return lastStr;
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (photoUri != {}) {
+            console.log(photoUri);
+            OCR();
+        }
+    }, [photoUri]);
+
+
     return (
         <ContainerHome>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ContainerBlackMap radius={"0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
-                    <Title color={"#FFF"} margin={"25px 0px 10px 0px"}>
+                    <Title color={"#FFF"} margin={"45px 0px 10px 0px"}>
                         Informe os dados do seu carro
                     </Title>
 
-                    <ContainerLabelInput>
-                        <TextInput margin={"10px 0px 0px 15px"}>Marca</TextInput>
-                    </ContainerLabelInput>
-                    <InputSelect
-                        item={carBrands}
-                    />
-
-                    <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Modelo</TextInput>
-                    </ContainerLabelInput>
-                    <InputSelect
-                        item={electricCarModels}
-                    />
-
-                    <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Duração da bateria</TextInput>
-                    </ContainerLabelInput>
-                    <InputBlack
-                        height={"53px"}
-                        margin={"5px 0px 0px 0px"}
-                        placeholder={"Duração"}
-                    />
-
-                    <ContainerLabelInput>
-                        <TextInput margin={"20px 0px 0px 15px"}>Número da placa</TextInput>
-                    </ContainerLabelInput>
-
-                    <ViewInput>
-                        <InputBlack
-                            height={"53px"}
-                            margin={"5px 0px 25px 0px"}
-                            editable={false}
-                        />
+                    {
+                        editable ?
+                            <>
+                                <ContainerLabelInput>
+                                    <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
+                                </ContainerLabelInput>
+                                <InputSelect
+                                    item={FoundBrand}
+                                    setSelected={(value) => setSelectedBrand(value)}
+                                    save='key'
+                                />
 
 
-                        <ButtonInput onPress={() => { navigation.navigate("Camera"); console.log("Cam"); }}>
-                            <Feather name="camera" size={24} color="#F2732E" />
-                        </ButtonInput>
+                                <ContainerLabelInput>
+                                    <TextInput margin={"35px 0px 0px 15px"}>Modelo</TextInput>
+                                </ContainerLabelInput>
+                                
+                                <InputSelect
+                                    item={FoundCar}
+                                    setSelected={(value) => setSelectedModel(value)}
+                                    save='key'
+                                />
 
-                    </ViewInput>
+                                <ContainerLabelInput>
+                                    <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
+                                </ContainerLabelInput>
+
+                                <ViewInput>
+                                    <InputBlack
+                                        height={"60px"}
+                                        margin={"5px 0px 25px 0px"}
+                                        editable={false}
+                                        placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
+                                    />
+
+                                    <ButtonInput onPress={() => { editable ? navigation.navigate("Camera") : null }}>
+                                        <Feather name="camera" size={24} color="#F2732E" />
+                                    </ButtonInput>
+                                </ViewInput>
+
+                            </>
+                            :
+                            <>
+                                <ContainerLabelInput>
+                                    <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
+                                </ContainerLabelInput>
+                                <InputBlack
+                                    height={"60px"}
+                                    margin={"5px 0px 0px 0px"}
+                                    editable={false}
+                                />
+
+                                <ContainerLabelInput>
+                                    <TextInput margin={"35px 0px 0px 15px"}>Modelo</TextInput>
+                                </ContainerLabelInput>
+                                <InputBlack
+                                    height={"60px"}
+                                    margin={"5px 0px 0px 0px"}
+                                    editable={false}
+                                />
+
+                                <ContainerLabelInput>
+                                    <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
+                                </ContainerLabelInput>
+                                <InputBlack
+                                    height={"60px"}
+                                    margin={"5px 0px 25px 0px"}
+                                    editable={false}
+                                    placeholder={plate != "" ? ValidationPlate(plate) : ""}
+                                />
+                            </>
+
+                    }
+
+
 
 
 
                     <ButtonDefault
-                        text={"Confirmar"}
+                        text={editable ? "Confirmar" : "Editar"}
                         height={"58px"}
-                        margin={"25px 0px 0px 0px"}
+                        margin={"45px 0px 0px 0px"}
+                        onPress={() => { editable ? setEditable(false) : setEditable(true) }}
                     />
 
-                    <ButtonLogOut onPress={() => Logout()} margin={"20px 0px 145px 0px"}>
+                    <ButtonLogOut onPress={() => Logout()} margin={"35px 0px 145px 0px"}>
                         <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
                             Sair do app
                         </TextLink>

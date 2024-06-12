@@ -1,10 +1,10 @@
-import { StyleSheet, Text } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { CardImagens, CardInformation, ContainerCard, ImageCard } from "./Style"
 import { useState } from "react";
 import ModalLoading from "../Modal/ModalLoading";
 import ModalInformations from "../Modal/ModalInformations";
 
-export const Card = ({ navigation }) => {
+export const Card = ({ navigation, autonomia, capacidade }) => {
 
     const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
     const [modalInformationsVisible, setModalInformationsVisible] = useState(false);
@@ -45,10 +45,10 @@ export const Card = ({ navigation }) => {
                 information1={"Ciclo de vida:"}
                 answer1={"98% de capacidade restante"}
                 information2={"Degradação:"}
-                answer2={'Capacidade: 75 kWh'}
+                answer2={`Capacidade: ${capacidade} kWh`}
                 answer21={'Eficiência: 0,15 kWh/km'}
                 information3={'Autonomia:'}
-                answer3={'500km'}
+                answer3={`${autonomia} Km`}
                 buttonTextLoading={"teste"}
                 buttonText={"Confirmar"}
             />

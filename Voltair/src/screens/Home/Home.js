@@ -3,7 +3,7 @@ import { Card } from "../../components/Card/Card";
 import { ContainerHome } from "../../components/Container/Style";
 import { Footer } from "../../components/Footer/Footer";
 import { Header } from "../../components/Header/Header";
-import { useDecodeToken } from "../../utils/Auth";
+import { Token, useDecodeToken } from "../../utils/Auth";
 import api from "../../services/Service";
 
 export const Home = () => {
@@ -20,7 +20,6 @@ export const Home = () => {
     }
   }
 
-  console.log(user);
 
   async function userCarLoad() {
     try {
@@ -33,17 +32,23 @@ export const Home = () => {
 
   useEffect(() => {
     profileLoad();
+  }, []);
+
+  useEffect(() => {
     userCarLoad();
-    console.log(userCar);
   }, []);
 
   return (
     <ContainerHome>
       <Header 
       nome={user.nome}
+      marca={userCar?.idMarcaNavigation?.nomeMarca}
       modelo={userCar.modelo}
       />
-      <Card />
+      <Card
+      autonomia={userCar.autonomia}
+      capacidade={userCar.capacidade}
+       />
       {/* <Footer/> */}
     </ContainerHome>
   );

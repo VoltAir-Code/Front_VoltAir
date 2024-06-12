@@ -8,6 +8,7 @@ import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import { ContentVerify } from "./Style";
 import api from "../../services/Service";
 import { ButtonLogOut } from "../../components/Button/Style";
+import Raio from "../../components/icons/Raio";
 
 export const EmailVerify = ({ navigation, route }) => {
     const [codigo, setCodigo] = useState(['', '', '', '']);
@@ -51,9 +52,16 @@ export const EmailVerify = ({ navigation, route }) => {
 
     return (
         <ContainerBlack height={`${screenHeight}px`}>
-            <LogoRayOrange
-                source={require("../../../assets/Logo/LogoRay.png")} margin={"0px 0px 20px 0px"}
+
+            <Raio
+                color={'#F2732E'}
+                size={50}
+                margin={10}
             />
+
+            {/* <LogoRayOrange
+                source={require("../../../assets/Logo/LogoRay.png")} margin={"0px 0px 20px 0px"}
+            /> */}
             <ContainerWhite height={"88%"}>
                 <Title color={"#313131"} margin={"65px 0px 35px 0px"}>
                     Digite o código enviado:
