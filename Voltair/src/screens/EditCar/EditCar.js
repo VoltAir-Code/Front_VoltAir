@@ -16,7 +16,7 @@ import ModalOcr from "../../components/Modal/ModalOcr";
 
 
 
-export const EditCar = ({ navigation, route, photoUri }) => {
+export const EditCar = ({ navigation, route, photoUri}) => {
     const [user, setUser] = useState();
     const [userCarData, setUserCarData] = useState(null);
 
@@ -31,9 +31,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [editable, setEditable] = useState(true);
 
     const [modalVisible, setModalVisible] = useState(false);
-
-    const [firstRender, setFirstRender] = useState(true);
-    const getUserCarMemoized = useMemo(() => GetUserCar, [editable]);
     
     useEffect(() => {
         profileLoad();
@@ -41,22 +38,15 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     }, [])
 
     useEffect(() => {
-        if (firstRender) {
             GetUserCar();
-            setFirstRender(false);
-        }
     }, []);
 
     useEffect(() => {
-        getUserCarMemoized();     
-    }, []);
-
-
-    useEffect(() => {
-        if (editable == false) {          
-            GetUserCar();
+        if (editable == false) {
+            GetUserCar();     
         }
-    }, [editable])
+    }, [editable]);
+
 
     useEffect(() => {
         setSelectedModel(null);
@@ -107,7 +97,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
             setUserCarData(response.data)
 
-            if (userCarData != null) {
+            if (response.data != '') {
                 setEditable(false)
             }
             
@@ -302,7 +292,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     height={"60px"}
                                     margin={"5px 0px 0px 0px"}
                                     editable={false}
-                                    placeholder={userCarData != null ? `${userCarData.idModeloNavigation.idMarcaNavigation.nomeMarca}` : 'Not Found'}
+                                    placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.idMarcaNavigation?.nomeMarca}` : 'Not Found'}
                                 />
 
                                 <ContainerLabelInput>
@@ -312,7 +302,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     height={"60px"}
                                     margin={"5px 0px 0px 0px"}
                                     editable={false}
-                                    placeholder={userCarData != null ? `${userCarData.idModeloNavigation.nomeModelo}` : 'Not Found'}
+                                    placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.nomeModelo}` : 'Not Found'}
                                 />
 
                                 <ContainerLabelInput>

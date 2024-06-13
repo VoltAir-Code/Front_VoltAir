@@ -10,6 +10,7 @@ import { Keyboard } from "react-native"
 import Mapa from "../../components/icons/Mapa"
 import Raio from "../../components/icons/Raio"
 import Volante from "../../components/icons/Volante"
+import { useDecodeToken } from "../../utils/Auth"
 
 
 
@@ -20,6 +21,7 @@ export const Main = ({ navigation, route }) => {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [photoUri, setPhotoUri] = useState(null);
     const [progressValue, setProgressValue] = useState(null);
+    const token = useDecodeToken();
 
 
     useEffect(() => {
@@ -138,7 +140,7 @@ export const Main = ({ navigation, route }) => {
 
             <BottomTab.Screen
                 name="Meu Carro"
-                children={() => <EditCar photoUri={photoUri} navigation={navigation} />}
+                children={() => <EditCar photoUri={photoUri} navigation={navigation}/>}
                 listeners={{
                     focus: () => {
                         setColor("#313131")
