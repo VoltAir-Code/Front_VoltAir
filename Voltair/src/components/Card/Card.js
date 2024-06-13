@@ -69,7 +69,7 @@ export const Card = ({ navigation, autonomia, capacidade, progressValue }) => {
                 onClose={() => setModalInformationsVisible(false)}
                 setModalVisible={setModalInformationsVisible}
                 information1={"Ciclo de vida:"}
-                answer1={"98% de capacidade restante"}
+                answer1={"100% de capacidade restante"}
                 information2={"Degradação:"}
                 answer2={`Capacidade: ${capacidade} kWh`}
                 answer21={`Eficiência: ${(capacidade/autonomia).toFixed(2)} kWh/km`}

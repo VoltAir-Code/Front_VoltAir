@@ -16,10 +16,11 @@ export const Home = ({progressValue}) => {
   
   async function userCarLoad() {
     try {
-      const car = await api.get(`Carro/BuscarPorId?idCarro=${user.idCarro}`);
+      const car = await api.get(`Carro/BuscarPorId?idUser=${user.idUsuario}`);
+      console.log(car.data);
       setUserCar(car.data);
-      setCapacidadeAtual(parseInt(new Date(car.data.capacidadeAtual).toLocaleTimeString('pt-br', { hour: "2-digit"})));
-      setDuracao(parseInt(new Date(car.data.durBateria).getHours()));
+      setCapacidadeAtual(parseInt(new Date(car.data.bateriaAtual).toLocaleTimeString('pt-br', { hour: "2-digit"})));
+      setDuracao(parseInt(new Date(car.data.idModeloNavigation?.durBateria).getHours()));
     } catch (error) {
       console.log(error);
     }
@@ -37,6 +38,7 @@ export const Home = ({progressValue}) => {
   }
   useEffect(() => {
     profileLoad();
+    console.log(user);
   }, []);
 
   useEffect(() => {
@@ -49,12 +51,12 @@ export const Home = ({progressValue}) => {
     <ContainerHome>
       <Header
         nome={user.nome}
-        marca={userCar?.idMarcaNavigation?.nomeMarca}
-        modelo={userCar.modelo}
+        marca={userCar?.idModeloNavigation?.idMarcaNavigation?.nomeMarca}
+        modelo={userCar.idModeloNavigation?.nomeModelo}
       />
       <Card
-        autonomia={userCar.autonomia}
-        capacidade={userCar.capacidade}
+        autonomia={userCar.idModeloNavigation?.autonomia}
+        capacidade={userCar.idModeloNavigation?.capacidade}
         progressValue={progressValue}
       />
       {/* <Footer/> */}
