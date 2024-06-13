@@ -9,7 +9,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { Keyboard } from "react-native"
 import Mapa from "../../components/icons/Mapa"
 import Raio from "../../components/icons/Raio"
-import Volante from "../../components/icons/volante"
+import Volante from "../../components/icons/Volante"
+
+
 
 const BottomTab = createBottomTabNavigator()
 
@@ -82,8 +84,10 @@ export const Main = ({ navigation, route }) => {
                         return (
                             <>
                                 <ButtonProfile borderColor={color}>
-                                <Volante color={"#F2732E"} size={28} margin={10}/>
+
+                                    <Volante color={"#F2732E"} size={28} margin={10} />
                                     {/* <ImageCar source={require("../../../assets/Img/Volante.png")} /> */}
+
 
                                 </ButtonProfile>
                                 <SubTitle color={color} margin={"5px -5% 0px 0px "}>Meu Carro</SubTitle>
@@ -120,11 +124,10 @@ export const Main = ({ navigation, route }) => {
                         return (
                             <>
 
-                                <ButtonMaps onPress={() => navigation.replace("MapScreen")}>
 
+                                <ButtonMaps onPress={() => navigation.navigate("MapScreen")}>
                                     <Mapa size={60} color={"#313131"} margin={10} />
                                     {/* <ImageMap source={require("../../../assets/Img/MapPoint.png")} /> */}
-
                                 </ButtonMaps>
                                 <SubTitle color={color} margin={"60px 0px 0px 0px"}>Mapa</SubTitle>
                             </>
