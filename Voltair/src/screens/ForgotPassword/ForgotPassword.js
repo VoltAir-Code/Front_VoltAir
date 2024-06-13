@@ -18,14 +18,17 @@ export const ForgotPassword = ({ navigation }) => {
 
   async function sendEmail() {
     if (email != null) {
-      console.log(email);
-      await api.post(`RecuperarSenha?email=${email}`)
-        .then(() => {
-          navigation.navigate("EmailVerify", { recoveryEmail: email });
-        }).catch(error => {
-          console.log(error);
-          Alert.alert('Email invalido ou tente novamente mais tarde!');
-        })
+
+      console.log(`RecuperarSenha?email=${email}`);
+      try {
+        const response = await api.post(`RecuperarSenha?email=${email}`);
+        navigation.navigate("EmailVerify", { recoveryEmail: email });
+        alert("teste")
+      } catch (error) {
+        console.log(error);
+      }
+
+
     } else {
       Alert.alert('Insira um email válido ou tente novamente mais tarde!')
     }

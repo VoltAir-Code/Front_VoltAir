@@ -11,8 +11,8 @@ import { token } from 'stylis';
 import Raio from '../../components/icons/Raio';
 
 export const Login = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('afiorentino1415@gmail.com');
+    const [password, setPassword] = useState('1234');
     const { height: screenHeight } = Dimensions.get('window');
 
 
@@ -21,8 +21,8 @@ export const Login = ({ navigation }) => {
         try {
             // Chamando a API
             const response = await api.post('Login', {
-                email: "bielgvsa@gmail.com",
-                password: "biel1234"
+                email: "richardfpassarelli@gmail.com",
+                password: "teste123"
             });
 
             console.log(response.data);

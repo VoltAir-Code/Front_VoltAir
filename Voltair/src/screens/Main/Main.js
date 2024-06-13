@@ -7,6 +7,9 @@ import { SubTitle } from "../../components/Title/Style"
 import { useEffect, useState } from "react"
 import { Ionicons } from '@expo/vector-icons';
 import { Keyboard } from "react-native"
+import Mapa from "../../components/icons/Mapa"
+import Raio from "../../components/icons/Raio"
+import Volante from "../../components/icons/volante"
 
 const BottomTab = createBottomTabNavigator()
 
@@ -14,6 +17,7 @@ export const Main = ({ navigation, route }) => {
     const [color, setColor] = useState("#FFFFFF")
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [photoUri, setPhotoUri] = useState(null);
+    const [progressValue, setProgressValue] = useState(null);
 
 
     useEffect(() => {
@@ -41,7 +45,10 @@ export const Main = ({ navigation, route }) => {
         if (route.params?.photoUri) {
             setPhotoUri(route.params.photoUri);
         }
-    }, [route.params?.photoUri]);
+        else if (route.params?.progressValue) {
+            setProgressValue(route.params?.progressValue)
+        }
+    }, [route.params?.photoUri || route.params?.progressValue]);
 
     return (
         <BottomTab.Navigator
@@ -64,7 +71,8 @@ export const Main = ({ navigation, route }) => {
                             <>
                                 <ButtonHome borderColor={color}>
                                     {/* <ImageRay source={require("../../../assets/Logo/LogoRay.png")} /> */}
-                                    <Ionicons name="flash" size={28} color="#F2732E" />
+                                    {/* <Ionicons name="flash" size={28} color="#F2732E" /> */}
+                                    <Raio size={28} color={"#F2732E"} />
                                 </ButtonHome>
                                 <SubTitle color={color} margin={"5px 0px 0px -5% "}>Home</SubTitle>
                             </>
@@ -74,7 +82,9 @@ export const Main = ({ navigation, route }) => {
                         return (
                             <>
                                 <ButtonProfile borderColor={color}>
-                                    <ImageCar source={require("../../../assets/Img/Volante.png")} />
+                                <Volante color={"#F2732E"} size={28} margin={10}/>
+                                    {/* <ImageCar source={require("../../../assets/Img/Volante.png")} /> */}
+
                                 </ButtonProfile>
                                 <SubTitle color={color} margin={"5px -5% 0px 0px "}>Meu Carro</SubTitle>
                             </>
@@ -91,7 +101,7 @@ export const Main = ({ navigation, route }) => {
         >
             <BottomTab.Screen
                 name="Home"
-                component={Home}
+                children={() => <Home progressValue={progressValue} />}
                 listeners={{
                     focus: () => {
                         setColor("#FFFFFF")
@@ -109,8 +119,12 @@ export const Main = ({ navigation, route }) => {
                         }
                         return (
                             <>
-                                <ButtonMaps onPress={() => navigation.navigate("MapScreen")}>
-                                    <ImageMap source={require("../../../assets/Img/MapPoint.png")} />
+
+                                <ButtonMaps onPress={() => navigation.replace("MapScreen")}>
+
+                                    <Mapa size={60} color={"#313131"} margin={10} />
+                                    {/* <ImageMap source={require("../../../assets/Img/MapPoint.png")} /> */}
+
                                 </ButtonMaps>
                                 <SubTitle color={color} margin={"60px 0px 0px 0px"}>Mapa</SubTitle>
                             </>

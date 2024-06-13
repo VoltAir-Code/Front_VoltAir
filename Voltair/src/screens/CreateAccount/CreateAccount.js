@@ -17,7 +17,7 @@ export const CreateAccount = ({ navigation }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [nome, setNome] = useState();
-    const [email, setEmail] = useState("richardfpassarelli@gmail.com");
+    const [email, setEmail] = useState("");
     const [senha, setSenha] = useState();
     const [confirmeSenha, setConfimeSenha] = useState();
     const [spinner, setSpinner] = useState(false);

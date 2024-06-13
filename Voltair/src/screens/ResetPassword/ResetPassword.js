@@ -7,7 +7,7 @@ import { InputWhite } from "../../components/Input/Style";
 import { SubTitle, TextLink, Title } from "../../components/Title/Style";
 import { ButtonDefault } from "../../components/Button/Button";
 import { LogoRayOrange } from "../../components/Logo/Style";
-import { TouchableOpacity } from "react-native";
+import { Dimensions, TouchableOpacity } from "react-native";
 import api from "../../services/Service";
 import Raio from "../../components/icons/Raio";
 
@@ -19,7 +19,7 @@ export const ResetPassword = ({ navigation, route }) => {
   const { height: screenHeight } = Dimensions.get('window');
 
   async function UpdatePassword() {
-    if (pass === confirmPass && pass.length > 4) {
+    if (pass === confirmPass && pass.length > 3) {
       try {
         const response = await api.put(`Usuario/AlterarSenha?email=${route.params.email}`, {
           senhaNova: pass
