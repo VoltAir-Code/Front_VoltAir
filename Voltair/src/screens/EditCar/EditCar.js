@@ -35,9 +35,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     }, [])
 
     useEffect(() => {
-
-            GetUserCar();
-            
+            GetUserCar();     
     }, [])
 
     useEffect(() => {
