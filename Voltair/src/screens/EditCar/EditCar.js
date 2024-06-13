@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity } from "react-native";
+import { Alert, ScrollView, TouchableOpacity } from "react-native";
 import { ButtonDefault, ButtonInput, ImageInput } from "../../components/Button/Button";
 import { ContainerBlack, ContainerBlackMap, ContainerHome, ContainerLabelInput, ContainerScroll } from "../../components/Container/Style"
 import { InputSelect } from "../../components/Input/InputSelect"
@@ -9,15 +9,16 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/Service"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDecodeToken } from "../../utils/Auth";
+import ModalOcr from "../../components/Modal/ModalOcr";
 
 
 
 
-export const EditCar = ({ navigation, route, photoUri }) => {
+export const EditCar = ({ navigation, route, photoUri}) => {
     const [user, setUser] = useState();
-    const [userCarData, setUserCarData] = useState();
+    const [userCarData, setUserCarData] = useState(null);
 
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedModel, setSelectedModel] = useState(null);
@@ -27,7 +28,9 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [carModelData, setCarModelData] = useState();
 
     const [plate, setPlate] = useState("");
-    const [editable, setEditable] = useState(true)
+    const [editable, setEditable] = useState(true);
+
+    const [modalVisible, setModalVisible] = useState(false);
     
     useEffect(() => {
         profileLoad();
@@ -35,14 +38,15 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     }, [])
 
     useEffect(() => {
-            GetUserCar();     
-    }, [])
+            GetUserCar();
+    }, []);
 
     useEffect(() => {
-        if (editable == false) {          
-            GetUserCar();
+        if (editable == false) {
+            GetUserCar();     
         }
-    }, [editable])
+    }, [editable]);
+
 
     useEffect(() => {
         setSelectedModel(null);
@@ -63,17 +67,26 @@ export const EditCar = ({ navigation, route, photoUri }) => {
 
     
     async function RegisterCar() {
-        try {
-            await api.put(`Carro?idUsuario=${user.idUsuario}`, {
-                idUsuario: user.idUsuario,
-                idModelo: selectedModel,
-                placa: plate,
-                bateriaAtual: carModelData.durBateria
-            })
-            setEditable(false)
-        } catch (error) {
-            console.log("RegisterCar");
-            console.log(error);
+
+        if (selectedBrand || selectedModel != null || plate != "") {
+            
+            try {
+                await api.put(`Carro?idUsuario=${user.idUsuario}`, {
+                    idUsuario: user.idUsuario,
+                    idModelo: selectedModel,
+                    placa: ValidationPlate(plate),
+                    bateriaAtual: carModelData.durBateria
+                })
+                setEditable(false)
+            } catch (error) {
+                console.log("RegisterCar");
+                console.log(error);
+            }
+
+        }
+
+        else {
+            Alert.alert("Informe os dados corretamente!")
         }
     }
 
@@ -84,7 +97,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
             setUserCarData(response.data)
 
-            if (userCarData != '') {
+            if (response.data != '') {
                 setEditable(false)
             }
             
@@ -190,6 +203,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
         }).then(response => {
             console.log("OCRDATA: ",response.data);
             setPlate(response.data)
+            setModalVisible(true);
         }).catch((err) => {
             console.log("OCR");
             console.log(err);
@@ -211,6 +225,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
 
 
     return (
+        <>
         <ContainerHome>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <ContainerBlackMap radius={"0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
@@ -255,8 +270,11 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     <InputBlack
                                         height={"60px"}
                                         margin={"5px 0px 25px 0px"}
-                                        editable={false}
+                                        editable={true}
                                         placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
+                                        autoCapitalize="UPPERCASE"
+                                        onChangeText={setPlate}
+                                        value={plate}
                                     />
 
                                     <ButtonInput onPress={() => { editable ? navigation.navigate("Camera") : null }}>
@@ -274,7 +292,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     height={"60px"}
                                     margin={"5px 0px 0px 0px"}
                                     editable={false}
-                                    placeholder={userCarData != null ? `${userCarData.idModeloNavigation.idMarcaNavigation.nomeMarca}` : 'Not Found'}
+                                    placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.idMarcaNavigation?.nomeMarca}` : 'Not Found'}
                                 />
 
                                 <ContainerLabelInput>
@@ -284,7 +302,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     height={"60px"}
                                     margin={"5px 0px 0px 0px"}
                                     editable={false}
-                                    placeholder={userCarData != null ? `${userCarData.idModeloNavigation.nomeModelo}` : 'Not Found'}
+                                    placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.nomeModelo}` : 'Not Found'}
                                 />
 
                                 <ContainerLabelInput>
@@ -322,5 +340,18 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             </ScrollView>
         </ContainerHome>
 
+        <ModalOcr
+                visible={modalVisible}
+                height={'41.5%'}
+                navigation={navigation}
+                onConfirm={() => { setModalVisible(false) }}
+                onClose={() => {setModalVisible(false), setPlate("")}}
+                setModalVisible={setModalVisible}
+                title={"Esta e sua placa?"}
+                subTitle={ValidationPlate(plate)}
+                buttonText={"Confirmar placa"}
+                buttonText2={"Não, quero escrever"}
+            />
+                    </>
     )
 }
