@@ -52,17 +52,17 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-
-        
-        <Stack.Screen
+      <Stack.Screen
           name='Login'
           component={Login}
           options={{ title: 'Login' }}
         />
+
         <Stack.Screen
           name="Main"
           component={Main}
         />
+
         <Stack.Screen
           name="EditCar"
           component={EditCar}

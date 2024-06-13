@@ -9,7 +9,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/Service"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDecodeToken } from "../../utils/Auth";
 
 
@@ -17,28 +17,41 @@ import { useDecodeToken } from "../../utils/Auth";
 
 export const EditCar = ({ navigation, route, photoUri }) => {
     const [user, setUser] = useState();
+    const [userCarData, setUserCarData] = useState();
 
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedModel, setSelectedModel] = useState(null);
 
     const [carData, setCarData] = useState();
     const [carBrandData, setCarBrandData] = useState();
+    const [carModelData, setCarModelData] = useState();
 
     const [plate, setPlate] = useState("");
     const [editable, setEditable] = useState(true)
-
+    
     useEffect(() => {
+        profileLoad();
         ListCarBrand();
     }, [])
 
     useEffect(() => {
-        profileLoad()
+            GetUserCar();     
     }, [])
+
+    useEffect(() => {
+        if (editable == false) {          
+            GetUserCar();
+        }
+    }, [editable])
 
     useEffect(() => {
         setSelectedModel(null);
         ListCar(selectedBrand);
     }, [selectedBrand]);
+
+    useEffect(() => {
+        GetModelData();
+    }, [selectedModel])
 
     useEffect(() => {
         if (photoUri != {}) {
@@ -51,15 +64,32 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     
     async function RegisterCar() {
         try {
-            await api.put(`Carro?idUsuario=${user.id}`, {
+            await api.put(`Carro?idUsuario=${user.idUsuario}`, {
                 idUsuario: user.idUsuario,
                 idModelo: selectedModel,
                 placa: plate,
-                bateriaAtual: carData.durBateria
+                bateriaAtual: carModelData.durBateria
             })
             setEditable(false)
         } catch (error) {
             console.log("RegisterCar");
+            console.log(error);
+        }
+    }
+
+
+    async function GetUserCar() {
+        const token = await useDecodeToken();
+        try {
+            const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
+            setUserCarData(response.data)
+
+            if (userCarData != '') {
+                setEditable(false)
+            }
+            
+        } catch (error) {
+            console.log("GetUserCar");
             console.log(error);
         }
     }
@@ -71,7 +101,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
         try {
             const response = await api.get(`Usuario/BuscarPorId?id=${token.id}`);
             setUser(response.data);
-            console.log(response.data);
+
         } catch (error) {
             console.log("ProfileLoad");
             console.log(error);
@@ -95,13 +125,24 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     async function ListCar(idMarca) {
         await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
             .then((response) => {
-                console.log("response.data", response.data.modelos);
                 setCarData(response.data.modelos);
             })
             .catch((error) => {
                 console.log("ListCar");
                 console.log(error);
             });
+    }
+
+    async function GetModelData() {
+        await api.get(`Model/BuscarPorId?idModelo=${selectedModel}`)
+        .then((response) => {
+            console.log("Modelo Data: ", response.data);
+            setCarModelData(response.data)
+        })
+        .catch((error) => {
+            console.log("GetModelData");
+                console.log(error);
+        })
     }
 
     function FoundCar() {
@@ -147,9 +188,10 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
-            console.log(response.data);
+            console.log("OCRDATA: ",response.data);
             setPlate(response.data)
-        }).catch(err => {
+        }).catch((err) => {
+            console.log("OCR");
             console.log(err);
         })
     }
@@ -190,7 +232,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     item={FoundBrand}
                                     setSelected={(value) => setSelectedBrand(value)}
                                     save='key'
-                                    placeholder={selectedBrand != null ? `${selectedBrand}` : 'Selecione uma marca'}
+                                    placeholder='Selecione uma Marca'
                                 />
 
 
@@ -202,7 +244,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     item={FoundCar}
                                     setSelected={(value) => setSelectedModel(value)}
                                     save='key'
-                                    placeholder={selectedModel != null ? `${selectedModel}` : 'Selecione um modelo'}
+                                    placeholder='Selecione um modelo'
                                 />
 
                                 <ContainerLabelInput>
@@ -232,6 +274,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     height={"60px"}
                                     margin={"5px 0px 0px 0px"}
                                     editable={false}
+                                    placeholder={userCarData != null ? `${userCarData.idModeloNavigation.idMarcaNavigation.nomeMarca}` : 'Not Found'}
                                 />
 
                                 <ContainerLabelInput>
@@ -241,6 +284,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     height={"60px"}
                                     margin={"5px 0px 0px 0px"}
                                     editable={false}
+                                    placeholder={userCarData != null ? `${userCarData.idModeloNavigation.nomeModelo}` : 'Not Found'}
                                 />
 
                                 <ContainerLabelInput>
@@ -250,7 +294,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     height={"60px"}
                                     margin={"5px 0px 25px 0px"}
                                     editable={false}
-                                    placeholder={plate != "" ? ValidationPlate(plate) : ""}
+                                    placeholder={userCarData != null ? `${userCarData.placa}` : 'Not Found'}
                                 />
                             </>
 
