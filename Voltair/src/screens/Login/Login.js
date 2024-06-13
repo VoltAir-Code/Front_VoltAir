@@ -9,15 +9,20 @@ import api from '../../services/Service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { token } from 'stylis';
 import Raio from '../../components/icons/Raio';
+import { StyleSheet } from 'react-native';
+
 
 export const Login = ({ navigation }) => {
     const [email, setEmail] = useState('afiorentino1415@gmail.com');
-    const [password, setPassword] = useState('1234');
+    const [password, setPassword] = useState('1234'); 
+    const [loading, setLoading] = useState (false)
     const { height: screenHeight } = Dimensions.get('window');
+
 
 
     // Função de login
     async function Login() {
+        setLoading(true);
         try {
             // Chamando a API
             const response = await api.post('Login', {
@@ -34,7 +39,7 @@ export const Login = ({ navigation }) => {
                 navigation.replace("Main");
             }
         } catch (error) {
-            console.log(error); 
+            console.log(error);
             Alert.alert('Falha no Login!', 'Verifique seus dados e aguarde um momento.');
         }
     }
@@ -43,16 +48,16 @@ export const Login = ({ navigation }) => {
 
 
     return (
-        <ScrollView style={{ flex: 1}}>
+        <ScrollView style={{ flex: 1 }}>
 
             <ContainerBlack height={`${screenHeight}px`}
             >
 
-                
-                <Raio 
-                color={'#F2732E'}
-                size={50}
-                margin={10}
+
+                <Raio
+                    color={'#F2732E'}
+                    size={50}
+                    margin={10}
                 />
 
                 {/* <LogoRayOrange
@@ -98,10 +103,11 @@ export const Login = ({ navigation }) => {
                     </TouchableOpacity>
 
                     <ButtonDefault
-                        text={"Entrar"}
-                        height={"58px"}
-                        margin={"0px 0px 0px 0px"}
-                        onPress={() => Login()}
+                       text={"Entrar"}
+                       height={"58px"}
+                       margin={"0px 0px 0px 0px"}
+                       onPress={Login}
+                       loading={loading}
                     />
 
                     <TouchableOpacity onPress={() => navigation.navigate("CreateAccount")}>
@@ -117,3 +123,14 @@ export const Login = ({ navigation }) => {
 
     );
 };
+
+const styles = StyleSheet.create({
+    ButtonModal: {
+        borderColor: '#F2732E',
+        borderWidth: 1,
+        backgroundColor: 'transparent',
+    },
+    TextModal: {
+        color: 'white'
+    },
+});

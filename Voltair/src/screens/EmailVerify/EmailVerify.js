@@ -13,10 +13,12 @@ import Raio from "../../components/icons/Raio";
 export const EmailVerify = ({ navigation, route }) => {
     const [codigo, setCodigo] = useState(['', '', '', '']);
     const inputs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+    const [loading, setLoading] = useState(false)
 
     const { height: screenHeight } = Dimensions.get('window');
 
     async function SendEmail() {
+        setLoading(true)
         try {
             await api.post(`RecuperarSenha?email=${route.params.email}`);
         } catch (error) {
@@ -42,6 +44,8 @@ export const EmailVerify = ({ navigation, route }) => {
             navigation.replace("ResetPassword", { email: route.params.recoveryEmail });
         } catch (error) {
             console.log(error);
+        }finally{
+            setLoading(true)
         }
     }
 
@@ -98,6 +102,7 @@ export const EmailVerify = ({ navigation, route }) => {
                     text={"Resetar senha"}
                     height={"58px"}
                     margin={"0px 0px 0px 0px"}
+                    loading={loading}
                     onPress={() => validarCodigo()}
                 />
 

@@ -13,17 +13,19 @@ import Raio from "../../components/icons/Raio";
 export const ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const { height: screenHeight } = Dimensions.get('window');
 
   async function sendEmail() {
+    setLoading(true);
     if (email != null) {
 
       console.log(`RecuperarSenha?email=${email}`);
       try {
         const response = await api.post(`RecuperarSenha?email=${email}`);
         navigation.navigate("EmailVerify", { recoveryEmail: email });
-        alert("teste")
+       
       } catch (error) {
         console.log(error);
       }
@@ -31,6 +33,7 @@ export const ForgotPassword = ({ navigation }) => {
 
     } else {
       Alert.alert('Insira um email válido ou tente novamente mais tarde!')
+      setLoading(false);
     }
   }
 
@@ -77,9 +80,10 @@ export const ForgotPassword = ({ navigation }) => {
             />
 
             <ButtonDefault
-              text={"Enviar e-mail"}
+              text={"Enviar um e-mail"}
               height={"58px"}
               margin={"0px 0px 0px 0px"}
+              loading={loading}
               onPress={() => verifyEmail()}
             />
 
