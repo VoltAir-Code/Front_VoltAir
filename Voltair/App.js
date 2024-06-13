@@ -52,25 +52,15 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-      <Stack.Screen
-          name='Login'
-          component={Login}
-          options={{ title: 'Login' }}
-        />
-        
-        <Stack.Screen
-          name='Login'
-          component={Login}
-          options={{ title: 'Login' }}
-        />
         <Stack.Screen
           name="Main"
           component={Main}
         />
+
         <Stack.Screen
-          name="EditCar"
-          component={EditCar}
-          options={{ title: "EditCar" }}
+          name='Login'
+          component={Login}
+          options={{ title: 'Login' }}
         />
 
         <Stack.Screen
@@ -78,8 +68,6 @@ export default function App() {
           component={EditCar}
           options={{ title: "EditCar" }}
         />
-
-
 
         <Stack.Screen
           name="MapScreen"
