@@ -68,10 +68,6 @@ export default function App() {
           component={EditCar}
           options={{ title: "EditCar" }}
         />
-
-
-
-
         <Stack.Screen
           name="MapScreen"
           component={MapScreen}

@@ -21,6 +21,7 @@ export const CreateAccount = ({ navigation }) => {
     const [senha, setSenha] = useState();
     const [confirmeSenha, setConfimeSenha] = useState();
     const [spinner, setSpinner] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const { height: screenHeight } = Dimensions.get('window');
 
@@ -30,6 +31,7 @@ export const CreateAccount = ({ navigation }) => {
         return regex.test(String(email).toLowerCase());
     }
     async function Register() {
+        setLoading(true)
         if (nome != null && email != null && senha != null && confirmeSenha != null) {
 
             if (!validarEmail(email)) {
@@ -38,7 +40,7 @@ export const CreateAccount = ({ navigation }) => {
             }
 
             if (senha != confirmeSenha) {
-                alert("Senhas diferentas!");
+                alert("Senhas diferentes!");
                 return;
             }
 
@@ -62,7 +64,7 @@ export const CreateAccount = ({ navigation }) => {
                     console.log(error.message);
                 }
             }
-            setSpinner(false);
+            setLoading(false);
 
         } else {
             alert("Preencha todos os campos!")
@@ -102,18 +104,13 @@ export const CreateAccount = ({ navigation }) => {
                         <InputWhite secureTextEntry={true} autoCapitalize="none" value={senha} onChangeText={setSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} />
                         <InputWhite secureTextEntry={true} autoCapitalize="none" value={confirmeSenha} onChangeText={setConfimeSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"confirme sua senha"} />
 
-                        <Button
+                        <ButtonDefault
+                            text={'Cadastrar'}
                             onPress={() => Register()}
                             height={"58px"}
                             margin={"50px 0px 0px 0px"}
-                        >
-                            {spinner ?
-                                <ActivityIndicator size="large" color="#AAA" />
-                                : <TextButton>{`Cadastrar`}</TextButton>}
-                        </Button>
-
-
-
+                            loading={loading}
+                        />
 
                         <TouchableOpacity
                             onPress={() => navigation.replace("Login")}>

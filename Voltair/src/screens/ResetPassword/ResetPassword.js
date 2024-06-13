@@ -16,9 +16,12 @@ export const ResetPassword = ({ navigation, route }) => {
 
   const [confirmPass, setConfirmPass] = useState("");
 
+  const [loading, setLoading] = useState(false)
+
   const { height: screenHeight } = Dimensions.get('window');
 
   async function UpdatePassword() {
+    setLoading(true)
     if (pass === confirmPass && pass.length > 3) {
       try {
         const response = await api.put(`Usuario/AlterarSenha?email=${route.params.email}`, {
@@ -32,6 +35,7 @@ export const ResetPassword = ({ navigation, route }) => {
       }
     } else {
       alert("Insira uma senha valida")
+      setLoading(false)
     }
   }
   return (
@@ -74,10 +78,11 @@ export const ResetPassword = ({ navigation, route }) => {
         />
 
         <ButtonDefault
-          text={"Confirmar nova senha"}
-          onPress={() => UpdatePassword()}
-          height={"58px"}
-          margin={"0px 0px 0px 0px"}
+         text={"Confirmar nova senha"}
+         height={"58px"}
+         margin={"0px 0px 0px 0px"}
+         loading={loading}
+        onPress={() => UpdatePassword()}
         />
 
         <TouchableOpacity onPress={() => navigation.replace("Login")}>

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from "react-native"
+import { ActivityIndicator, Image, StyleSheet, View } from "react-native"
 import { Button, ButtonCircleFooter, ButtonSideFooter, ContentDefaultButtonCircle, TextButton } from "./Style"
 import { TextBtnFooter, TextLink } from "../Title/Style"
 import styled from "styled-components"
@@ -11,13 +11,17 @@ export const ButtonLoading = ({ text, height, margin, onPress }) => {
     )
 }
 
-export const ButtonDefault = ({ text, height, margin, onPress }) => {
+export const ButtonDefault = ({ text, height, margin, onPress, loading }) => {
     return (
-        <Button height={height} margin={margin} onPress={onPress}>
-            <TextButton>{text}</TextButton>
+        <Button height={height} margin={margin} onPress={onPress} disabled={loading}>
+            {loading ? (
+                <ActivityIndicator color="#FFF" />
+            ) : (
+                <TextButton>{text}</TextButton>
+            )}
         </Button>
-    )
-}
+    );
+};
 
 export const ButtonDefaultCircle = ({ text, icon, onPress }) => {
     return (
