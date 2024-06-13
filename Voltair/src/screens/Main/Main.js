@@ -21,8 +21,6 @@ export const Main = ({ navigation, route }) => {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [photoUri, setPhotoUri] = useState(null);
     const [progressValue, setProgressValue] = useState(null);
-    const token = useDecodeToken();
-
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(

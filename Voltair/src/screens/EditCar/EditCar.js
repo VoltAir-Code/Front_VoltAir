@@ -68,21 +68,23 @@ export const EditCar = ({ navigation, route, photoUri}) => {
     
     async function RegisterCar() {
 
-        if (selectedBrand || selectedModel != null || plate != "") {
-            
-            try {
-                await api.put(`Carro?idUsuario=${user.idUsuario}`, {
-                    idUsuario: user.idUsuario,
-                    idModelo: selectedModel,
-                    placa: ValidationPlate(plate),
-                    bateriaAtual: carModelData.durBateria
-                })
-                setEditable(false)
-            } catch (error) {
-                console.log("RegisterCar");
-                console.log(error);
+        if (selectedBrand || selectedModel != null ) {
+            if (plate != "") {
+                try {
+                    await api.put(`Carro?idUsuario=${user.idUsuario}`, {
+                        idUsuario: user.idUsuario,
+                        idModelo: selectedModel,
+                        placa: ValidationPlate(plate),
+                        bateriaAtual: carModelData.durBateria
+                    })
+                    setEditable(false)
+                } catch (error) {
+                    console.log("RegisterCar");
+                    console.log(error);
+                }
+            } else {
+                Alert.alert("Informe a placa corretamente!")
             }
-
         }
 
         else {
@@ -203,6 +205,7 @@ export const EditCar = ({ navigation, route, photoUri}) => {
         }).then(response => {
             console.log("OCRDATA: ",response.data);
             setPlate(response.data)
+
             setModalVisible(true);
         }).catch((err) => {
             console.log("OCR");
@@ -240,8 +243,29 @@ export const EditCar = ({ navigation, route, photoUri}) => {
                     {
                         editable ?
                             <>
+                                
                                 <ContainerLabelInput>
-                                    <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
+                                    <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
+                                </ContainerLabelInput>
+
+                                <ViewInput>
+                                    <InputBlack
+                                        height={"60px"}
+                                        margin={"5px 0px 25px 0px"}
+                                        editable={true}
+                                        placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
+                                        autoCapitalize="characters"
+                                        onChangeText={txt => setPlate(txt.toUpperCase())}
+                                        value={plate}
+                                    />
+
+                                    <ButtonInput onPress={() => { editable ? navigation.navigate("Camera") : null }}>
+                                        <Feather name="camera" size={24} color="#F2732E" />
+                                    </ButtonInput>
+                                </ViewInput>
+
+                                <ContainerLabelInput>
+                                    <TextInput margin={"5px 0px 0px 15px"}>Marca</TextInput>
                                 </ContainerLabelInput>
                                 <InputSelect
                                     item={FoundBrand}
@@ -261,26 +285,6 @@ export const EditCar = ({ navigation, route, photoUri}) => {
                                     save='key'
                                     placeholder='Selecione um modelo'
                                 />
-
-                                <ContainerLabelInput>
-                                    <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
-                                </ContainerLabelInput>
-
-                                <ViewInput>
-                                    <InputBlack
-                                        height={"60px"}
-                                        margin={"5px 0px 25px 0px"}
-                                        editable={true}
-                                        placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
-                                        autoCapitalize="UPPERCASE"
-                                        onChangeText={setPlate}
-                                        value={plate}
-                                    />
-
-                                    <ButtonInput onPress={() => { editable ? navigation.navigate("Camera") : null }}>
-                                        <Feather name="camera" size={24} color="#F2732E" />
-                                    </ButtonInput>
-                                </ViewInput>
 
                             </>
                             :
@@ -344,8 +348,8 @@ export const EditCar = ({ navigation, route, photoUri}) => {
                 visible={modalVisible}
                 height={'41.5%'}
                 navigation={navigation}
-                onConfirm={() => { setModalVisible(false) }}
-                onClose={() => {setModalVisible(false), setPlate("")}}
+                onConfirm={() => { setModalVisible(false), setEditable(true)}}
+                onClose={() => {setModalVisible(false), setPlate(""), setEditable(true)}}
                 setModalVisible={setModalVisible}
                 title={"Esta e sua placa?"}
                 subTitle={ValidationPlate(plate)}

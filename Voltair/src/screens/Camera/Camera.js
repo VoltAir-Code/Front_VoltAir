@@ -17,6 +17,7 @@ import GaleriaCamera from "../../components/icons/GaleriaCamera";
 
 
 export const Camera = ({ navigation, route }) => {
+
     const cameraRef = useRef(null);
     const [photo, setPhoto] = useState(null);
     const [tipoCamera, setTipoCamera] = useState('back');
@@ -71,7 +72,9 @@ export const Camera = ({ navigation, route }) => {
     async function SendPhoto() {
         if (photo) {
             setOpenModal(false);
-            navigation.replace('Main', { photoUri: photo });
+            navigation.replace('Main', { 
+                photoUri: photo, 
+            });
         }
     }
 
