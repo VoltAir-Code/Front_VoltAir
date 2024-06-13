@@ -6,11 +6,7 @@ import ModalInformations from "../Modal/ModalInformations";
 import api from "../../services/Service";
 import { useDecodeToken } from "../../utils/Auth";
 
-<<<<<<< HEAD
-export const Card = ({ navigation, autonomia, capacidade, porcetagem}) => {
-=======
 export const Card = ({ navigation, autonomia, capacidade, progressValue }) => {
->>>>>>> c585af80c104dec8a8a28f41e558de9fc49b0d52
 
     const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
     const [modalInformationsVisible, setModalInformationsVisible] = useState(false);
@@ -60,11 +56,7 @@ export const Card = ({ navigation, autonomia, capacidade, progressValue }) => {
                 onClose={() => setModalLoadingVisible(false)}
                 setModalVisible={setModalLoadingVisible}
                 title={"Carga da bateria:"}
-<<<<<<< HEAD
-                Percentage={`${porcetagem}%`}
-=======
                 Percentage={progressValue}
->>>>>>> c585af80c104dec8a8a28f41e558de9fc49b0d52
                 buttonTextLoading={"Estou carregando"}
                 buttonText={"Confirmar"}
             />
