@@ -3,12 +3,14 @@ import { ButtonDefault, ButtonLoading } from "../Button/Button"
 import { SubTitle, TextLink, Title } from "../Title/Style"
 import { ModalContainer} from "./Style"
 
-const ModalDefault = ({
+const ModalOcr = ({
     navigation,
     visible,
     onClose,
     buttonText,
+    buttonText2,
     title,
+    onConfirm,
     subTitle,
     height }) => {
 
@@ -28,6 +30,13 @@ const ModalDefault = ({
                     text={`${buttonText}`}
                     height={"58px"}
                     margin={"0px 0px 30px 0px"}
+                    onPress={() => onConfirm()}
+                />
+
+                <ButtonDefault
+                    text={`${buttonText2}`}
+                    height={"58px"}
+                    margin={"0px 0px 50px 0px"}
                     onPress={() => onClose()}
                 />
                 
@@ -36,4 +45,4 @@ const ModalDefault = ({
     )
 }
 
-export default ModalDefault;
+export default ModalOcr;
