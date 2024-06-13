@@ -3,7 +3,7 @@ import { ButtonDefault, ButtonInput, ImageInput } from "../../components/Button/
 import { ContainerBlack, ContainerBlackMap, ContainerHome, ContainerLabelInput, ContainerScroll } from "../../components/Container/Style"
 import { InputSelect } from "../../components/Input/InputSelect"
 import { InputBlack, ViewInput } from "../../components/Input/Style"
-import { TextInput, TextLink, Title } from "../../components/Title/Style"
+import { SubTitle, TextInput, TextLink, TextWarning, Title } from "../../components/Title/Style"
 import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ButtonLogOut } from "../../components/Button/Style";
@@ -11,9 +11,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/Service"
 import { useEffect, useState } from "react";
 import { useDecodeToken } from "../../utils/Auth";
-
-
-
 
 
 
@@ -31,29 +28,43 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [editable, setEditable] = useState(true)
 
     useEffect(() => {
-        ListCar(selectedBrand);
-    }, [selectedBrand]);
+        ListCarBrand();
+    }, [])
 
     useEffect(() => {
         profileLoad()
     }, [])
 
+    useEffect(() => {
+        setSelectedModel(null);
+        ListCar(selectedBrand);
+    }, [selectedBrand]);
 
+    useEffect(() => {
+        if (photoUri != {}) {
+            console.log(photoUri);
+            OCR();
+        }
+    }, [photoUri]);
+
+
+    
     async function RegisterCar() {
         try {
-            await api.put('Usuario/AlterarPerfil', {
-                Nome: user.nome,
-                Email: user.email,
-                Senha: user.senha,
-                IdCarro: selectedModel,
-                Foto: null,
-                Arquivo: plate,
+            await api.put(`Carro?idUsuario=${user.id}`, {
+                idUsuario: user.idUsuario,
+                idModelo: selectedModel,
+                placa: plate,
+                bateriaAtual: carData.durBateria
             })
+            setEditable(false)
         } catch (error) {
             console.log("RegisterCar");
             console.log(error);
         }
     }
+
+
 
     async function profileLoad() {
         const token = await useDecodeToken();
@@ -84,7 +95,8 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     async function ListCar(idMarca) {
         await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
             .then((response) => {
-                setCarData(response.data.carros);
+                console.log("response.data", response.data.modelos);
+                setCarData(response.data.modelos);
             })
             .catch((error) => {
                 console.log("ListCar");
@@ -95,8 +107,8 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     function FoundCar() {
         if (carData != null) {
             return carData.map((car) => ({
-                key: car.idCarro,
-                value: car.modelo,
+                key: car.idModelo,
+                value: car.nomeModelo,
             }));
         } else {
             return [];
@@ -113,11 +125,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             return [];
         }
     }
-
-    useEffect(() => {
-        //ListCarBrand();
-        //ListCar();
-    }, [])
 
     async function Logout() {
         try {
@@ -160,13 +167,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
         }
     }
 
-    useEffect(() => {
-        if (photoUri != {}) {
-            console.log(photoUri);
-            OCR();
-        }
-    }, [photoUri]);
-
 
     return (
         <ContainerHome>
@@ -175,6 +175,10 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                     <Title color={"#FFF"} margin={"45px 0px 10px 0px"}>
                         Informe os dados do seu carro
                     </Title>
+
+                    <TextWarning color={"#FFF"} margin={"5px 0px 15px 0px"}>
+                        Cadastre com 100% de bateria!
+                    </TextWarning>
 
                     {
                         editable ?
@@ -186,6 +190,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     item={FoundBrand}
                                     setSelected={(value) => setSelectedBrand(value)}
                                     save='key'
+                                    placeholder={selectedBrand != null ? `${selectedBrand}` : 'Selecione uma marca'}
                                 />
 
 
@@ -197,6 +202,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     item={FoundCar}
                                     setSelected={(value) => setSelectedModel(value)}
                                     save='key'
+                                    placeholder={selectedModel != null ? `${selectedModel}` : 'Selecione um modelo'}
                                 />
 
                                 <ContainerLabelInput>
@@ -258,7 +264,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                         text={editable ? "Confirmar" : "Editar"}
                         height={"58px"}
                         margin={"45px 0px 0px 0px"}
-                        onPress={() => { editable ? setEditable(false) : setEditable(true) }}
+                        onPress={() => { editable ? RegisterCar() : setEditable(true) }}
                     />
 
                     <ButtonLogOut onPress={() => Logout()} margin={"35px 0px 145px 0px"}>

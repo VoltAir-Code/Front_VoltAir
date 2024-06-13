@@ -1,4 +1,4 @@
-import { Alert, Dimensions, TouchableOpacity } from "react-native"
+import { ActivityIndicator, Alert, Dimensions, TouchableOpacity } from "react-native"
 import { ButtonDefault } from "../../components/Button/Button"
 import { ContainerBlack, ContainerWhite } from "../../components/Container/Style"
 import { InputWhite } from "../../components/Input/Style"
@@ -9,42 +9,67 @@ import { useState } from "react"
 import api from "../../services/Service"
 import { err } from "react-native-svg"
 import { ScrollView } from "react-native"
+import { Button, TextButton } from "../../components/Button/Style"
 import Raio from "../../components/icons/Raio"
+
 
 export const CreateAccount = ({ navigation }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [nome, setNome] = useState();
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState("");
     const [senha, setSenha] = useState();
     const [confirmeSenha, setConfimeSenha] = useState();
+    const [spinner, setSpinner] = useState(false);
 
     const { height: screenHeight } = Dimensions.get('window');
 
+
+    function validarEmail(email) {
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z]+\.+[a-zA-Z]{2,}$/;
+        return regex.test(String(email).toLowerCase());
+    }
     async function Register() {
         if (nome != null && email != null && senha != null && confirmeSenha != null) {
 
-            if (senha != null && confirmeSenha == senha && senha.length > 3) {
-
-                try {
-                    const response = await api.post('Usuario', {
-                        nome: nome,
-                        email: email,
-                        senha: senha
-
-                    })
-                    setModalVisible(true);
-                } catch (error) {
-                    console.log(error);
-                }
-            } else {
-                alert("Senha inválida")
+            if (!validarEmail(email)) {
+                alert("Email não segue o padrão do mercado!");
+                return;
             }
+
+            if (senha != confirmeSenha) {
+                alert("Senhas diferentas!");
+                return;
+            }
+
+            if (senha.length < 4) {
+                alert("É necessário ao menos 4 caracteres na senha!")
+                return;
+            }
+
+            setSpinner(true);
+            try {
+                const response = await api.post('Usuario', {
+                    nome: nome,
+                    email: email,
+                    senha: senha
+                })
+                setModalVisible(true);
+            } catch (error) {
+                if (error.response) {
+                    alert(error.response.data);
+                } else {
+                    console.log(error.message);
+                }
+            }
+            setSpinner(false);
+
+        } else {
+            alert("Preencha todos os campos!")
         }
-        else {
-            alert("Dados invalidos")
-        }
+
     }
+
 
     return (
         <>
@@ -72,16 +97,23 @@ export const CreateAccount = ({ navigation }) => {
                         </SubTitle>
 
 
-                        <InputWhite value={nome} onChangeText={setNome} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu nome"} />
-                        <InputWhite value={email} onChangeText={setEmail} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu e-mail"} />
-                        <InputWhite value={senha} onChangeText={setSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} secureTextEntry />
-                        <InputWhite value={confirmeSenha} onChangeText={setConfimeSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"confirme sua senha"} secureTextEntry />
-                        <ButtonDefault
-                            text={"Cadastrar"}
+                        <InputWhite autoCapitalize="none" value={nome} onChangeText={setNome} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu nome"} />
+                        <InputWhite autoCapitalize="none" value={email} onChangeText={setEmail} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite seu e-mail"} />
+                        <InputWhite secureTextEntry={true} autoCapitalize="none" value={senha} onChangeText={setSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"digite sua senha"} />
+                        <InputWhite secureTextEntry={true} autoCapitalize="none" value={confirmeSenha} onChangeText={setConfimeSenha} height={"53px"} margin={"39px 0px 0px 0px"} placeholder={"confirme sua senha"} />
+
+                        <Button
+                            onPress={() => Register()}
                             height={"58px"}
                             margin={"50px 0px 0px 0px"}
-                            onPress={() => Register()}
-                        />
+                        >
+                            {spinner ?
+                                <ActivityIndicator size="large" color="#AAA" />
+                                : <TextButton>{`Cadastrar`}</TextButton>}
+                        </Button>
+
+
+
 
                         <TouchableOpacity
                             onPress={() => navigation.replace("Login")}>

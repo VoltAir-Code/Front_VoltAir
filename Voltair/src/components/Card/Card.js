@@ -1,13 +1,40 @@
 import { StyleSheet, Text, View } from "react-native"
 import { CardImagens, CardInformation, ContainerCard, ImageCard } from "./Style"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalLoading from "../Modal/ModalLoading";
 import ModalInformations from "../Modal/ModalInformations";
+import api from "../../services/Service";
+import { useDecodeToken } from "../../utils/Auth";
 
+<<<<<<< HEAD
 export const Card = ({ navigation, autonomia, capacidade, porcetagem}) => {
+=======
+export const Card = ({ navigation, autonomia, capacidade, progressValue }) => {
+>>>>>>> c585af80c104dec8a8a28f41e558de9fc49b0d52
 
     const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
     const [modalInformationsVisible, setModalInformationsVisible] = useState(false);
+    const [car, setCar] = useState({})
+
+    async function InformationCar() {
+        const user = await useDecodeToken();
+
+        api.get(`Carro/BuscarPorId?idUser=${user.id}`)
+            .then(response => {
+                setCar(response.data.idModeloNavigation)
+            }).catch(err => {
+
+            })
+    }
+
+    async function LoadingCar() {
+        const batteryCapacity = car.capacidade
+        const fastChargingRate = 50; // kW
+        const domesticChargingRate = 7;
+
+        const tempChargingHour = batteryCapacity / fastChargingRate;
+        const tempChargingMinute = tempChargingHour * 60;
+    }
 
 
     return (
@@ -33,10 +60,15 @@ export const Card = ({ navigation, autonomia, capacidade, porcetagem}) => {
                 onClose={() => setModalLoadingVisible(false)}
                 setModalVisible={setModalLoadingVisible}
                 title={"Carga da bateria:"}
+<<<<<<< HEAD
                 Percentage={`${porcetagem}%`}
+=======
+                Percentage={progressValue}
+>>>>>>> c585af80c104dec8a8a28f41e558de9fc49b0d52
                 buttonTextLoading={"Estou carregando"}
                 buttonText={"Confirmar"}
             />
+
             <ModalInformations
                 visible={modalInformationsVisible}
                 navigation={navigation}

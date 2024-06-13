@@ -9,10 +9,15 @@ import { ContainerBlackMap } from "../../components/Container/Style";
 import Timer from "../../components/Timer/Timer";
 import { ButtonDefaultCircle } from "../../components/Button/Button";
 import { Ionicons } from "@expo/vector-icons";
+import api from "../../services/Service";
 import * as Notifications from "expo-notifications";
+import { useDecodeToken } from "../../utils/Auth";
+import ModalLoading from "../../components/Modal/ModalLoading";
+import { Card } from "../../components/Card/Card";
 
-// Requesting notification permissions
+
 const requestNotificationPermissions = async () => {
+    const token = await useDecodeToken();
     const { status } = await Notifications.requestPermissionsAsync();
     if (status !== 'granted') {
         alert('Permissão de notificação está desativada');
@@ -49,7 +54,7 @@ export const MapScreen = ({ navigation }) => {
                 body: 'É necessário carregar o automóvel',
                 sound: true,
             },
-            trigger: { seconds: 1 }, 
+            trigger: { seconds: 1 },
         });
     };
 
@@ -81,16 +86,21 @@ export const MapScreen = ({ navigation }) => {
         return () => clearInterval(interval);
     }, [run, exibiu]);
 
-    useEffect(() => {
+
+
+
+      useEffect(() => {
         requestNotificationPermissions();
+
     }, []);
+
 
     const timeRemaining = duration * progressValue;
 
     return (
         <>
             <View style={{ flex: 1 }}>
-                <MapHeader navigation={navigation} />
+                <MapHeader navigation={navigation} progressValue={progressValue} />
                 <Map getDirection={getDirection} />
                 <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"} >
                     <Timer key={Math.random()} progressValue={progressValue} />
@@ -111,7 +121,9 @@ export const MapScreen = ({ navigation }) => {
                     setChargingStation={setChargingStation}
                     setGetDirection={setGetDirection}
                 />
+
             </View>
+
         </>
     );
 };
