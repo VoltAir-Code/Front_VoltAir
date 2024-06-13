@@ -30,6 +30,8 @@ export const Card = ({ navigation, autonomia, capacidade, progressValue }) => {
 
         const tempChargingHour = batteryCapacity / fastChargingRate;
         const tempChargingMinute = tempChargingHour * 60;
+
+        
     }
 
 
