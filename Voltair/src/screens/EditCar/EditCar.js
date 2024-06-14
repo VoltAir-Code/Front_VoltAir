@@ -75,8 +75,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                     await api.put(`Carro?idUsuario=${user.idUsuario}`, {
                         idUsuario: user.idUsuario,
                         idModelo: selectedModel,
-                        placa: ValidationPlate(plate),
-                        bateriaAtual: carModelData.durBateria
+                        placa: ValidationPlate(plate)
                     })
                     setEditable(false)
                 } catch (error) {
