@@ -6,12 +6,13 @@ import { InputBlack, ViewInput } from "../../components/Input/Style"
 import { SubTitle, TextInput, TextLink, TextWarning, Title } from "../../components/Title/Style"
 import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { ButtonLogOut } from "../../components/Button/Style";
+import { ButtonLogOut, ButtonLogOutText } from "../../components/Button/Style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/Service"
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDecodeToken } from "../../utils/Auth";
 import ModalOcr from "../../components/Modal/ModalOcr";
+import { ActivityIndicator } from "react-native";
 
 
 
@@ -31,7 +32,9 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [editable, setEditable] = useState(true);
 
     const [modalVisible, setModalVisible] = useState(false);
-
+    const [loading, setLoading] = useState(false);
+    const [loadingLoggout, setLoadingLogout] = useState(false)
+ 
     useEffect(() => {
         profileLoad();
         ListCarBrand();
@@ -67,6 +70,9 @@ export const EditCar = ({ navigation, route, photoUri }) => {
 
 
     async function RegisterCar() {
+        setLoading(true);
+        
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         if (selectedBrand || selectedModel != null) {
             const plateRegex = /^(?=(?:.*[A-Za-z]){4})(?=(?:.*\d){3})[A-Za-z\d]{7}$/;
@@ -75,8 +81,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                     await api.put(`Carro?idUsuario=${user.idUsuario}`, {
                         idUsuario: user.idUsuario,
                         idModelo: selectedModel,
-                        placa: ValidationPlate(plate),
-                        bateriaAtual: carModelData.durBateria
+                        placa: ValidationPlate(plate)
                     })
                     setEditable(false)
                 } catch (error) {
@@ -91,6 +96,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
         else {
             Alert.alert("Informe os dados corretamente!")
         }
+        setLoading(false);
     }
 
 
@@ -184,10 +190,19 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     }
 
     async function Logout() {
+        setLoadingLogout(true); // Define o estado de carregamento como verdadeiro
+
         try {
-            await AsyncStorage.removeItem("token", navigation.replace("Login"))
+            // Aguarda 2 segundos antes de prosseguir com o logout
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Realiza o logout removendo o token e redirecionando para a tela de login
+            await AsyncStorage.removeItem("token");
+            navigation.replace("Login");
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoadingLogout(false); // Define o estado de carregamento como falso após o logout
         }
     }
 
@@ -257,7 +272,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                             placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
                                             autoCapitalize="characters"
                                             onChangeText={txt => setPlate(txt.toUpperCase())}
-                                            value={plate}
+                                            value={ValidationPlate(plate)}
                                             maxLength={7}
                                         />
 
@@ -332,13 +347,16 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                             text={editable ? "Confirmar" : "Editar"}
                             height={"58px"}
                             margin={"45px 0px 0px 0px"}
-                            onPress={() => { editable ? RegisterCar() : setEditable(true) }}
+                            loading={loading}
+                            onPress={() => editable ? RegisterCar() : setEditable(true)}
                         />
 
                         <ButtonLogOut onPress={() => Logout()} margin={"35px 0px 145px 0px"}>
-                            <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
-                                Sair do app
-                            </TextLink>
+                            {loadingLoggout ? (
+                                <ActivityIndicator color="#FFFFFF" /> // Mostra o indicador de atividade durante o carregamento
+                            ) : (
+                                <ButtonLogOutText>Sair do app</ButtonLogOutText> // Mostra o texto normal quando não está carregando
+                            )}
                         </ButtonLogOut>
 
 

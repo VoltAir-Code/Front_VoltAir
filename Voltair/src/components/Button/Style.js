@@ -43,7 +43,10 @@ export const ButtonLogOut = styled.TouchableOpacity`
     align-items: center;
     margin: ${props => `${props.margin}`};
 `
-
+export const ButtonLogOutText = styled.Text`
+    color: ${props => props.loading ? 'transparent' : '#FFFFFF'}; /* torna o texto invisível durante o carregamento */
+    font-size: 16px;
+`;
 export const ContentDefaultButtonCircle = styled.View`
    
     
