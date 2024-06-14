@@ -6,34 +6,10 @@ import ModalInformations from "../Modal/ModalInformations";
 import api from "../../services/Service";
 import { useDecodeToken } from "../../utils/Auth";
 
-export const Card = ({ navigation, autonomia, capacidade, progressValue }) => {
+export const Card = ({ navigation, autonomia, capacidade, progressValue, setProgressValue }) => {
 
     const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
-    const [modalInformationsVisible, setModalInformationsVisible] = useState(false);
-    const [car, setCar] = useState({})
-
-    async function InformationCar() {
-        const user = await useDecodeToken();
-
-        api.get(`Carro/BuscarPorId?idUser=${user.id}`)
-            .then(response => {
-                setCar(response.data.idModeloNavigation)
-            }).catch(err => {
-
-            })
-    }
-
-    async function LoadingCar() {
-        const batteryCapacity = car.capacidade
-        const fastChargingRate = 50; // kW
-        const domesticChargingRate = 7;
-
-        const tempChargingHour = batteryCapacity / fastChargingRate;
-        const tempChargingMinute = tempChargingHour * 60;
-
-        
-    }
-
+    const [modalInformationsVisible, setModalInformationsVisible] = useState(false);    
 
     return (
         <ContainerCard>
@@ -59,8 +35,9 @@ export const Card = ({ navigation, autonomia, capacidade, progressValue }) => {
                 setModalVisible={setModalLoadingVisible}
                 title={"Carga da bateria:"}
                 Percentage={progressValue}
-                buttonTextLoading={"Estou carregando"}
+                buttonTextLoading={"Carregar Bateria"}
                 buttonText={"Confirmar"}
+                setProgressValue={setProgressValue}
             />
 
             <ModalInformations

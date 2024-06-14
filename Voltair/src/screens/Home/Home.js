@@ -6,7 +6,7 @@ import { Header } from "../../components/Header/Header";
 import { Token, useDecodeToken } from "../../utils/Auth";
 import api from "../../services/Service";
 
-export const Home = ({progressValue}) => {
+export const Home = ({progressValue, setProgressValue}) => {
   const [user, setUser] = useState({});
   const [userCar, setUserCar] = useState({});
   const [capacidadeAtual, setCapacidadeAtual] = useState();
@@ -61,6 +61,7 @@ export const Home = ({progressValue}) => {
         autonomia={userCar.idModeloNavigation?.autonomia}
         capacidade={userCar.idModeloNavigation?.capacidade}
         progressValue={progressValue}
+        setProgressValue={setProgressValue}
       />
       {/* <Footer/> */}
     </ContainerHome>
