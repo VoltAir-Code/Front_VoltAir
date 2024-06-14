@@ -16,6 +16,7 @@ export const Login = ({ navigation }) => {
     const [email, setEmail] = useState(email);
     const [password, setPassword] = useState(password);
     const { height: screenHeight } = Dimensions.get('window');
+    const [loading, setLoading] = useState();
 
 
 
@@ -37,9 +38,11 @@ export const Login = ({ navigation }) => {
                 await AsyncStorage.setItem('token', response.data.token);
 
                 navigation.replace("Main");
+                setLoading(false);
             }
         } catch (error) {
             console.log(error);
+            setLoading(false);
             Alert.alert('Falha no Login!', 'Verifique seus dados e aguarde um momento.');
         }
     }

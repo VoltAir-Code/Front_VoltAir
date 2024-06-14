@@ -23,9 +23,10 @@ const ModalLoading = ({
 }) => {
     const [timer, setTimer] = useState(false)
     const [car, setCar] = useState({})
-    const [battery, setBattery] = useState(0.5)
+    const [battery, setBattery] = useState()
     const batteryCapacity = car.capacidade
     const [progressValue, setProgressValue] = useState(0);
+    const [notificationScheduled, setNotificationScheduled] = useState(false);
 
     useEffect(() => {
         InformationCar();
@@ -33,6 +34,11 @@ const ModalLoading = ({
 
     useEffect(() => {
         setBattery(progressValue);
+        if (progressValue >= 1 && !notificationScheduled) {
+            setNotificationScheduled(true);
+            scheduleNotification();
+        }
+
     }, [progressValue]);
 
 
@@ -43,8 +49,7 @@ const ModalLoading = ({
                 if (newValue >= 1) {
                     clearInterval(intervalCharging);
                     setTimer(false);
-                    scheduleNotification();
-                }
+                }   
                 return newValue;
             });
         }, 1000);
@@ -57,7 +62,7 @@ const ModalLoading = ({
             .then(response => {
                 console.log(response.data);
                 setCar(response.data.idModeloNavigation)
-                // setBattery(response.data.bateriaAtual)
+                setBattery(response.data.bateriaAtual)
             }).catch(err => {
 
             })
