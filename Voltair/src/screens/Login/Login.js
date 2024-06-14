@@ -11,8 +11,8 @@ import { token } from 'stylis';
 import Raio from '../../components/icons/Raio';
 
 export const Login = ({ navigation }) => {
-    const [email, setEmail] = useState('afiorentino1415@gmail.com');
-    const [password, setPassword] = useState('1234');
+    const [email, setEmail] = useState(email);
+    const [password, setPassword] = useState(password);
     const { height: screenHeight } = Dimensions.get('window');
 
 

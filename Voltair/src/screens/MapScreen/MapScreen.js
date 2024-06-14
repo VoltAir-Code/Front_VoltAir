@@ -100,7 +100,7 @@ export const MapScreen = ({ navigation }) => {
     return (
         <>
             <View style={{ flex: 1 }}>
-                <MapHeader navigation={navigation} progressValue={progressValue} />
+                <MapHeader navigation={navigation} progressValue={progressValue} setProgressValue={setProgressValue} />
                 <Map getDirection={getDirection} />
                 <ContainerBlackMap height={"104px"} flexDirection={"row"} justifyContent={"space-between"} >
                     <Timer key={Math.random()} progressValue={progressValue} />

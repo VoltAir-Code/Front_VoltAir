@@ -20,6 +20,7 @@ export const Main = ({ navigation, route }) => {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [photoUri, setPhotoUri] = useState(null);
     const [progressValue, setProgressValue] = useState(null);
+    const [stateProgressValue, setStateProgressValue] = useState(null)
 
 
     useEffect(() => {
@@ -49,6 +50,7 @@ export const Main = ({ navigation, route }) => {
         }
         else if (route.params?.progressValue) {
             setProgressValue(route.params?.progressValue)
+            setStateProgressValue(route.params?.setProgressValue)
         }
     }, [route.params?.photoUri || route.params?.progressValue]);
 
@@ -105,7 +107,7 @@ export const Main = ({ navigation, route }) => {
         >
             <BottomTab.Screen
                 name="Home"
-                children={() => <Home progressValue={progressValue} />}
+                children={() => <Home progressValue={progressValue} setProgressValue={stateProgressValue}/>}
                 listeners={{
                     focus: () => {
                         setColor("#FFFFFF")

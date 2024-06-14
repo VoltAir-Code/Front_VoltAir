@@ -1,4 +1,4 @@
-import { Modal } from "react-native";
+import { Alert, Modal } from "react-native";
 import { ButtonDefault, ButtonLoading, ImageBatery } from "../Button/Button"
 import { SubTitle, TextLink, Title } from "../Title/Style"
 import { BatteryPercentage, ModalContainer } from "./Style"
@@ -7,8 +7,72 @@ import { useDecodeToken } from "../../utils/Auth";
 import api from "../../services/Service";
 import { useEffect, useState } from "react";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import * as Notifications from "expo-notifications";
 
-const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setModalVisible, Percentage, title, buttonTextLoading }) => {
+const ModalLoading = ({
+    navigation,
+    visible,
+    textLink,
+    onClose,
+    buttonText,
+    setModalVisible,
+    Percentage,
+    title,
+    buttonTextLoading,
+    charging,
+}) => {
+    const [timer, setTimer] = useState(false)
+    const [car, setCar] = useState({})
+    const [battery, setBattery] = useState(0.5)
+    const batteryCapacity = car.capacidade
+    const [progressValue, setProgressValue] = useState(0);
+
+    useEffect(() => {
+        InformationCar();
+    }, [])
+
+    useEffect(() => {
+        setBattery(progressValue);
+    }, [progressValue]);
+
+
+    async function LoadingCar() {
+        const intervalCharging = setInterval(() => {
+            setProgressValue(prev => {
+                const newValue = Math.min(1, prev + (1 / batteryCapacity));
+                if (newValue >= 1) {
+                    clearInterval(intervalCharging);
+                    setTimer(false);
+                    scheduleNotification();
+                }
+                return newValue;
+            });
+        }, 1000);
+    }
+
+    async function InformationCar() {
+        const user = await useDecodeToken();
+
+        api.get(`Carro/BuscarPorId?idUser=${user.id}`)
+            .then(response => {
+                console.log(response.data);
+                setCar(response.data.idModeloNavigation)
+                // setBattery(response.data.bateriaAtual)
+            }).catch(err => {
+
+            })
+    }
+
+    const scheduleNotification = async () => {
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: 'Bateria totalmente carregada',
+                body: 'Seu carro está pronto para ser usado!',
+            },
+            trigger: null,
+        });
+    };
+
     return (
         <Modal visible={visible} transparent={true} animationType="fade">
             <ModalContainer height={"45%"}>
@@ -17,14 +81,14 @@ const ModalLoading = ({ navigation, visible, textLink, onClose, buttonText, setM
                 </Title>
 
                 <BatteryPercentage color={"#FFFFFF"} margin={"20px 0px 20px 0px"}>
-                    {`${(Percentage * 100).toFixed(0)}%`}
+                    {`${(battery * 100).toFixed(0)}%`}
                 </BatteryPercentage>
 
                 <ButtonLoading
-                    text={`${buttonTextLoading}`}
+                    text={timer ? LoadingCar() : `${buttonTextLoading}`}
                     height={"58px"}
                     margin={"10px 0px 10px 0px"}
-                    onPress={() => onClose()}
+                    onPress={() => { timer ? setTimer(false) : setTimer(true) }}
                 />
 
                 <ButtonDefault
