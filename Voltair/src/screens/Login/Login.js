@@ -24,10 +24,11 @@ export const Login = ({ navigation }) => {
     async function Login() {
         setLoading(true);
         try {
-            // Chamando a API
+            // Chamando a AP
+  
             const response = await api.post('Login', {
-                email: "richardfpassarelli@gmail.com",
-                password: "teste123"
+                email: email,
+                password: password
             });
 
             console.log(response.data);

@@ -17,7 +17,6 @@ import { Card } from "../../components/Card/Card";
 
 
 const requestNotificationPermissions = async () => {
-    const token = await useDecodeToken();
     const { status } = await Notifications.requestPermissionsAsync();
     if (status !== 'granted') {
         alert('Permissão de notificação está desativada');
@@ -37,8 +36,10 @@ export const MapScreen = ({ navigation }) => {
     const [getDirection, setGetDirection] = useState(false);
     const [run, setRun] = useState(false);
     const [exibiu, setExibiu] = useState(false);
-    const [progressValue, setProgressValue] = useState(1);
-    const duration = 15000;
+    const [progressValue, setProgressValue] = useState();
+    const [dataCar, setDataCar] = useState();
+    const [idUser, setIdUser] = useState();
+
 
     const handleNotifications = async () => {
         const { status } = await Notifications.getPermissionsAsync();
@@ -58,9 +59,55 @@ export const MapScreen = ({ navigation }) => {
         });
     };
 
+    const [duration, setDuration] = useState();
+
+
+
+
+
+
+
+
+    useEffect(() => {
+        LoadDataUser();
+    }, [])
+
     const onPress = useCallback(() => {
         setRun(!run);
     }, [run]);
+
+    const LoadDataUser = async () => {
+        const token = await useDecodeToken();
+
+        const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
+        setIdUser(token.id)
+
+        const bateriaAtual = response.data.bateriaAtual
+        const durBateria = new Date(response.data.idModeloNavigation.durBateria)
+
+        setProgressValue(bateriaAtual)
+        const hours = durBateria.getHours();
+        const minutes = durBateria.getMinutes();
+        const seconds = durBateria.getSeconds();
+
+        const durationInMiliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+
+        setDuration(durationInMiliseconds * bateriaAtual)
+
+    }
+
+    const UpdateTime = async (newValue) => {
+
+        try {
+            const response = await api.put(`Carro/AtualizarBateria?idUsuario=${idUser}`, {
+                bateriaAtual: newValue
+            })
+        } catch (error) {
+            console.log(error);
+        }
+
+
+    }
 
     useEffect(() => {
         let interval;
@@ -69,17 +116,21 @@ export const MapScreen = ({ navigation }) => {
                 setProgressValue(prev => {
                     const newValue = Math.max(0, prev - (1000 / duration));
                     const percentage = newValue * 100;
-
+               
+                    
                     if (percentage < 16 && !exibiu) {
                         setExibiu(true);
                         handleNotifications();
                         setChargingStation(true);
-                        setRun(false); // Stop the timer when notification is triggered
+                        setRun(false);
                     }
+         
                     return newValue;
                 });
             }, 1000);
         } else {
+           
+     UpdateTime(progressValue)
             clearInterval(interval);
         }
 
@@ -89,7 +140,7 @@ export const MapScreen = ({ navigation }) => {
 
 
 
-      useEffect(() => {
+    useEffect(() => {
         requestNotificationPermissions();
 
     }, []);
