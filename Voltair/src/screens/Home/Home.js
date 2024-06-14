@@ -11,7 +11,7 @@ export const Home = ({progressValue}) => {
   const [userCar, setUserCar] = useState({});
   const [capacidadeAtual, setCapacidadeAtual] = useState();
   const [duracao, setDuracao] = useState();
-
+  const [loading, setLoading] = useState(false)
   
   
   async function userCarLoad() {
@@ -27,6 +27,7 @@ export const Home = ({progressValue}) => {
   }
   
   async function profileLoad() {
+    setLoading(true)
     const token = await useDecodeToken();
     try {
    
@@ -34,6 +35,8 @@ export const Home = ({progressValue}) => {
       setUser(response.data);
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false)
     }
   }
   useEffect(() => {
