@@ -80,7 +80,7 @@ const ModalLoading = ({
                 setNewBattery(newValue);
                 return newValue;
             });
-        }, 1000);
+        }, 1000);       
     }
 
     async function InformationCar() {
