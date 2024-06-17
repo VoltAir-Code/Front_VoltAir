@@ -97,7 +97,6 @@ export const MapScreen = ({ navigation }) => {
     }
 
     const UpdateTime = async (newValue) => {
-
         try {
             const response = await api.put(`Carro/AtualizarBateria?idUsuario=${idUser}`, {
                 bateriaAtual: newValue
@@ -105,8 +104,6 @@ export const MapScreen = ({ navigation }) => {
         } catch (error) {
             console.log(error);
         }
-
-
     }
 
     useEffect(() => {
@@ -130,9 +127,9 @@ export const MapScreen = ({ navigation }) => {
             }, 1000);
         } else {
            
-     UpdateTime(progressValue)
+    UpdateTime(progressValue)
             clearInterval(interval);
-        }
+    }
 
         return () => clearInterval(interval);
     }, [run, exibiu]);
@@ -142,7 +139,6 @@ export const MapScreen = ({ navigation }) => {
 
     useEffect(() => {
         requestNotificationPermissions();
-
     }, []);
 
 

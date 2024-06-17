@@ -23,13 +23,16 @@ const ModalLoading = ({
 }) => {
     const [timer, setTimer] = useState(false)
     const [car, setCar] = useState({})
+    const [idUser, setIdUser] = useState();
     const [battery, setBattery] = useState()
     const batteryCapacity = car.capacidade
     const [progressValue, setProgressValue] = useState(0);
     const [notificationScheduled, setNotificationScheduled] = useState(false);
+    const [newBattery, setNewBattery] = useState(battery)
 
     useEffect(() => {
         InformationCar();
+        LoadDataUser()
     }, [])
 
     useEffect(() => {
@@ -42,6 +45,30 @@ const ModalLoading = ({
     }, [progressValue]);
 
 
+    useEffect(() => {
+        UpdateTime();
+    }, [newBattery])
+
+
+    const UpdateTime = async (newValue) => {
+        try {
+            const response = await api.put(`Carro/AtualizarBateria?idUsuario=${idUser}`, {
+                bateriaAtual: newBattery
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    const LoadDataUser = async () => {
+        const token = await useDecodeToken();
+
+        const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
+        setIdUser(token.id)
+    }
+
+
     async function LoadingCar() {
         const intervalCharging = setInterval(() => {
             setProgressValue(prev => {
@@ -50,6 +77,7 @@ const ModalLoading = ({
                     clearInterval(intervalCharging);
                     setTimer(false);
                 }   
+                setNewBattery(newValue);
                 return newValue;
             });
         }, 1000);
