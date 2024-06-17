@@ -68,40 +68,49 @@ export const MapScreen = ({ navigation }) => {
 
 
 
- 
+
 
     const onPress = useCallback(() => {
         setRun(!run);
     }, [run]);
 
+
+
+    const [totalDuration, setTotalDuration] = useState();
     const LoadDataUser = async () => {
+
+
+
         const token = await useDecodeToken();
 
         const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
-        setIdUser(token.id)
+        setIdUser(token.id);
 
-        const bateriaAtual = response.data.bateriaAtual
-        const durBateria = new Date(response.data.idModeloNavigation.durBateria)
+        const bateriaAtual = response.data.bateriaAtual;
+        const durBateria = new Date(response.data.idModeloNavigation.durBateria);
 
-        console.log(durBateria);
-        setProgressValue(bateriaAtual)
+        setProgressValue(bateriaAtual);
         const hours = durBateria.getHours();
         const minutes = durBateria.getMinutes();
         const seconds = durBateria.getSeconds();
 
-        const durationInMiliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+        const totalDurationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
-        setDuration(durationInMiliseconds * bateriaAtual)
-
+        setTotalDuration(totalDurationInMilliseconds);
+        const remainingDuration = totalDurationInMilliseconds * (bateriaAtual);
+setDuration(remainingDuration);
+   
 
     }
 
+
+
     const UpdateTime = async (newValue) => {
-LoadDataUser();
         try {
             const response = await api.put(`Carro/AtualizarBateria?idUsuario=${idUser}`, {
                 bateriaAtual: newValue
             })
+
         } catch (error) {
             console.log(error);
         }
@@ -109,41 +118,39 @@ LoadDataUser();
 
     }
 
-    useEffect(() => {
-LoadDataUser();
-    },[])
 
     useEffect(() => {
+        LoadDataUser();
+    }, [])
 
+    useEffect(() => {
         let interval;
         if (run) {
             interval = setInterval(() => {
-                setProgressValue(prev => {
+                setProgressValue((prev) => {
                     const newValue = Math.max(0, prev - (1000 / duration));
                     const percentage = newValue * 100;
 
-                    UpdateTime(newValue);
-                    
+                      
+
                     if (percentage < 16 && !exibiu) {
                         setExibiu(true);
                         handleNotifications();
                         setChargingStation(true);
                         setRun(false);
                     }
-         
-              
-         
                     return newValue;
                 });
-            }, 1000);
+            }, 2000);
         } else {
-           
-          
+            UpdateTime(progressValue);
             clearInterval(interval);
+
         }
 
         return () => clearInterval(interval);
     }, [run, exibiu]);
+
 
 
 

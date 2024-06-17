@@ -2,7 +2,7 @@ import React from 'react';
 import { Circle, Svg } from 'react-native-svg';
 import { ContainerTimer } from './Style';
 import { ReText } from 'react-native-redash';
-import Animated, { useSharedValue, withTiming, useAnimatedProps, useDerivedValue } from 'react-native-reanimated';
+import Animated, { useSharedValue, useAnimatedProps, useDerivedValue } from 'react-native-reanimated';
 
 const Timer = ({ progressValue, duration, timeRemaining }) => {
     const BACKGROUND_COLOR = '#ebe7dd';
@@ -11,15 +11,12 @@ const Timer = ({ progressValue, duration, timeRemaining }) => {
     const R = CIRCLE_LENGTH / (2 * Math.PI);
     const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-    const animatedProps = useAnimatedProps(() => (
-        {
-            strokeDashoffset: Math.floor(CIRCLE_LENGTH * (1 - progressValue))
-        }));
+    const animatedProps = useAnimatedProps(() => ({
+        strokeDashoffset: Math.floor(CIRCLE_LENGTH * (1 - progressValue))
+    }));
 
     const progressText = useDerivedValue(() => {
-
         if (duration != null && timeRemaining !== undefined) {
-
             const hours = Math.floor(timeRemaining / 3600000);
             const minutes = Math.floor((timeRemaining % 3600000) / 60000);
             const seconds = Math.floor((timeRemaining % 60000) / 1000);

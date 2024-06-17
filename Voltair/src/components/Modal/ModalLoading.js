@@ -24,7 +24,7 @@ const ModalLoading = ({
     const [timer, setTimer] = useState(false)
     const [car, setCar] = useState({})
     const [battery, setBattery] = useState()
-    const batteryCapacity = car.capacidade
+    // const batteryCapacity = car.capacidade
     const [progressValue, setProgressValue] = useState(0);
     const [notificationScheduled, setNotificationScheduled] = useState(false);
 
