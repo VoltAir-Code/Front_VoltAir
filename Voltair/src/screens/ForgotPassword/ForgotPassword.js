@@ -17,34 +17,47 @@ export const ForgotPassword = ({ navigation }) => {
 
   const { height: screenHeight } = Dimensions.get('window');
 
-  async function sendEmail() {
-    setLoading(true);
-    if (email != null) {
 
-      console.log(`RecuperarSenha?email=${email}`);
+  const ValidarEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z]+\.+[a-z]{2,}$/
+    return regex.test(String(email).toLocaleLowerCase())
+  }
+
+
+  async function sendEmail() {
+    if (email != null) {
+      
+      
+      if(!ValidarEmail(email))
+        {
+          Alert.alert('Voltaire - Alerta', 'Insira um email válido!')
+          return;
+        }
+        
+        
+        console.log(`RecuperarSenha?email=${email}`);
+        setLoading(true);
       try {
         const response = await api.post(`RecuperarSenha?email=${email}`);
-        navigation.navigate("EmailVerify", { recoveryEmail: email });
-       
+        setModalVisible(true)
+
       } catch (error) {
-        console.log(error);
+        if(error.response)
+          {
+            Alert.alert("Voltaire - Alerta", `${error.response.data}`)
+          }else{
+            console.log(error.message);
+          }
       }
+      setLoading(false);
 
 
     } else {
-      Alert.alert('Insira um email válido ou tente novamente mais tarde!')
-      setLoading(false);
+      Alert.alert('Voltaire - Alerta', 'Insira um email válido!')
     }
   }
 
-  function verifyEmail() {
-    if (email != '') {
-      setModalVisible(true)
-    }
-    else {
-      Alert.alert('Insira um email!')
-    }
-  }
+
 
   return (
     <>
@@ -72,6 +85,7 @@ export const ForgotPassword = ({ navigation }) => {
             </SubTitle>
 
             <InputWhite
+            autoCapitalize='none'
               height={"53px"}
               margin={"39px 0px 35px 0px"}
               placeholder={"digite seu e-mail"}
@@ -84,7 +98,7 @@ export const ForgotPassword = ({ navigation }) => {
               height={"58px"}
               margin={"0px 0px 0px 0px"}
               loading={loading}
-              onPress={() => verifyEmail()}
+              onPress={() => sendEmail()}
             />
 
             <TouchableOpacity onPress={() => navigation.replace("Login")}>
@@ -99,10 +113,7 @@ export const ForgotPassword = ({ navigation }) => {
         navigation={navigation}
         height={"41.5%"}
         setModalVisible={setModalVisible}
-        onClose={() => {
-          setModalVisible(false);
-          sendEmail();
-        }} //Falta colocar o navigation.replace
+        onClose={() => { setModalVisible(false),  navigation.navigate("EmailVerify", { recoveryEmail: email }); }}
         title={"Foi enviado um e-mail para:"}
         subTitle={email}
         buttonText={"Confirmar"}

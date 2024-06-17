@@ -31,14 +31,14 @@ export const CreateAccount = ({ navigation }) => {
         return regex.test(String(email).toLowerCase());
     }
     async function Register() {
-        setLoading(true)
+      
         if (nome != '' && email != "" && senha != '' && confirmeSenha != '') {
 
             if (!validarEmail(email)) {
                 alert("Email não segue o padrão do mercado!");
                 return;
             }
-
+               
             if (senha != confirmeSenha) {
                 alert("Senhas diferentes!");
                 return;
@@ -48,8 +48,8 @@ export const CreateAccount = ({ navigation }) => {
                 alert("É necessário ao menos 4 caracteres na senha!")
                 return;
             }
-
-            setSpinner(true);
+            setLoading(true)
+          
             try {
                 const response = await api.post('Usuario', {
                     nome: nome,
@@ -59,7 +59,7 @@ export const CreateAccount = ({ navigation }) => {
                 setModalVisible(true);
             } catch (error) {
                 if (error.response) {
-                    alert(error.response.data);
+                    console.log(error.response.data);
                 } else {
                     console.log(error.message);
                 }

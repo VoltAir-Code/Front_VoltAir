@@ -1,6 +1,6 @@
-import { Modal } from "react-native";
+import { Modal, TouchableOpacity } from "react-native";
 import { ButtonDefault, ButtonLoading } from "../Button/Button"
-import { SubTitle, TextLink, Title } from "../Title/Style"
+import { SubTitle, TextLink, TextLinkModal, Title } from "../Title/Style"
 import { ModalContainer} from "./Style"
 
 const ModalDefault = ({
@@ -10,6 +10,7 @@ const ModalDefault = ({
     buttonText,
     title,
     subTitle,
+    setModalVisible,
     height }) => {
 
     return (
@@ -30,6 +31,9 @@ const ModalDefault = ({
                     margin={"0px 0px 30px 0px"}
                     onPress={() => onClose()}
                 />
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <TextLinkModal   margin={"0px 0px 0px 0px"}>Voltar</TextLinkModal>
+                </TouchableOpacity>
                 
             </ModalContainer>
         </Modal>
