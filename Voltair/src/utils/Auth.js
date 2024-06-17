@@ -25,7 +25,6 @@ export const useDecodeToken = async () => {
             id: decoded.jti,
         };
     } catch (error) {
-        console.error("Erro ao decodificar o token:", error);
         return null;
     }
 };
@@ -37,7 +36,6 @@ export const userEncodeToken = async (token) => {
         await AsyncStorage.setItem('encodedToken', encodedToken);
         return encodedToken;
     } catch (error) {
-        console.error("Erro ao codificar e armazenar o token:", error);
         return null;
     }
 };

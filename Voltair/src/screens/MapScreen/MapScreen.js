@@ -1,4 +1,4 @@
-import { SafeAreaView, View } from "react-native";
+import { Alert, SafeAreaView, View } from "react-native";
 import { MapFooter } from "../../components/MapFooter/MapFooter";
 import { MapHeader } from "../../components/MapHeader/MapHeader";
 import Map from "../Map";
@@ -36,9 +36,9 @@ export const MapScreen = ({ navigation }) => {
     const [getDirection, setGetDirection] = useState(false);
     const [run, setRun] = useState(false);
     const [exibiu, setExibiu] = useState(false);
-    const [progressValue, setProgressValue] = useState();
+    const [progressValue, setProgressValue] = useState(1);
     const [dataCar, setDataCar] = useState();
-    const [idUser, setIdUser] = useState();
+    const [idUser, setIdUser] = useState(null);
 
 
     const handleNotifications = async () => {
@@ -62,15 +62,12 @@ export const MapScreen = ({ navigation }) => {
     const [duration, setDuration] = useState();
 
 
-
-
-
-
-
-
-
-
     const onPress = useCallback(() => {
+        if(idUser == null)
+            {
+                Alert.alert("Voltaire - Informação", "É necessário realizar o cadastro do carro!")
+                return;
+            }
         setRun(!run);
     }, [run]);
 
@@ -82,24 +79,30 @@ export const MapScreen = ({ navigation }) => {
 
 
         const token = await useDecodeToken();
+try {
+    
+    const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
+    setIdUser(token.id);
 
-        const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
-        setIdUser(token.id);
+    const bateriaAtual = response.data.bateriaAtual;
+    const durBateria = new Date(response.data.idModeloNavigation.durBateria);
+    console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+    console.log(durBateria);
+    setProgressValue(bateriaAtual);
+    const hours = durBateria.getHours();
+    const minutes = durBateria.getMinutes();
+    const seconds = durBateria.getSeconds();
 
-        const bateriaAtual = response.data.bateriaAtual;
-        const durBateria = new Date(response.data.idModeloNavigation.durBateria);
+    const totalDurationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
-        setProgressValue(bateriaAtual);
-        const hours = durBateria.getHours();
-        const minutes = durBateria.getMinutes();
-        const seconds = durBateria.getSeconds();
+    setTotalDuration(totalDurationInMilliseconds);
+    const remainingDuration = totalDurationInMilliseconds * (bateriaAtual);
+    setDuration(remainingDuration);
 
-        const totalDurationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+} catch (error) {
+    
+}
 
-        setTotalDuration(totalDurationInMilliseconds);
-        const remainingDuration = totalDurationInMilliseconds * (bateriaAtual);
-setDuration(remainingDuration);
-   
 
     }
 
@@ -129,7 +132,7 @@ setDuration(remainingDuration);
                     const newValue = Math.max(0, prev - (1000 / duration));
                     const percentage = newValue * 100;
 
-                      
+
 
                     if (percentage < 16 && !exibiu) {
                         setExibiu(true);

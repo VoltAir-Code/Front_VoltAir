@@ -35,7 +35,6 @@ export const ForgotPassword = ({ navigation }) => {
         }
         
         
-        console.log(`RecuperarSenha?email=${email}`);
         setLoading(true);
       try {
         const response = await api.post(`RecuperarSenha?email=${email}`);

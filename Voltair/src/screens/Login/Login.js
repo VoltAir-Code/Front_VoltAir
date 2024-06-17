@@ -13,8 +13,8 @@ import { StyleSheet } from 'react-native';
 
 
 export const Login = ({ navigation }) => {
-    const [email, setEmail] = useState('afiorentino1415@gmail.com');
-    const [password, setPassword] = useState('1234');
+    const [email, setEmail] = useState('teste01@gmail.com');
+    const [password, setPassword] = useState('12345');
     const { height: screenHeight } = Dimensions.get('window');
     const [loading, setLoading] = useState();
 
@@ -43,7 +43,7 @@ export const Login = ({ navigation }) => {
         } catch (error) {
             console.log(error);
             setLoading(false);
-            Alert.alert('Falha no Login!', 'Verifique seus dados e aguarde um momento.');
+            Alert.alert('Voltaire - Alerta', 'Verifique seus dados!');
         }
     }
 
