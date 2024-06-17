@@ -68,9 +68,7 @@ export const MapScreen = ({ navigation }) => {
 
 
 
-    useEffect(() => {
-        LoadDataUser();
-    }, [])
+ 
 
     const onPress = useCallback(() => {
         setRun(!run);
@@ -85,6 +83,7 @@ export const MapScreen = ({ navigation }) => {
         const bateriaAtual = response.data.bateriaAtual
         const durBateria = new Date(response.data.idModeloNavigation.durBateria)
 
+        console.log(durBateria);
         setProgressValue(bateriaAtual)
         const hours = durBateria.getHours();
         const minutes = durBateria.getMinutes();
@@ -94,10 +93,11 @@ export const MapScreen = ({ navigation }) => {
 
         setDuration(durationInMiliseconds * bateriaAtual)
 
+
     }
 
     const UpdateTime = async (newValue) => {
-
+LoadDataUser();
         try {
             const response = await api.put(`Carro/AtualizarBateria?idUsuario=${idUser}`, {
                 bateriaAtual: newValue
@@ -110,13 +110,19 @@ export const MapScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
+LoadDataUser();
+    },[])
+
+    useEffect(() => {
+
         let interval;
         if (run) {
             interval = setInterval(() => {
                 setProgressValue(prev => {
                     const newValue = Math.max(0, prev - (1000 / duration));
                     const percentage = newValue * 100;
-               
+
+                    UpdateTime(newValue);
                     
                     if (percentage < 16 && !exibiu) {
                         setExibiu(true);
@@ -125,12 +131,14 @@ export const MapScreen = ({ navigation }) => {
                         setRun(false);
                     }
          
+              
+         
                     return newValue;
                 });
             }, 1000);
         } else {
            
-     UpdateTime(progressValue)
+          
             clearInterval(interval);
         }
 

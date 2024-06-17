@@ -13,18 +13,17 @@ const Timer = ({ progressValue, duration, timeRemaining }) => {
 
     const animatedProps = useAnimatedProps(() => (
         {
-        
-        strokeDashoffset: Math.floor(CIRCLE_LENGTH * (1 - progressValue))
-    }));
+            strokeDashoffset: Math.floor(CIRCLE_LENGTH * (1 - progressValue))
+        }));
 
     const progressText = useDerivedValue(() => {
-     
+
         if (duration != null && timeRemaining !== undefined) {
 
             const hours = Math.floor(timeRemaining / 3600000);
-    const minutes = Math.floor((timeRemaining % 3600000) / 60000);
-    const seconds = Math.floor((timeRemaining % 60000) / 1000);
-    return `${hours}:${minutes < 10? '0' : ''}${minutes}:${seconds < 10? '0' : ''}${seconds}`;
+            const minutes = Math.floor((timeRemaining % 3600000) / 60000);
+            const seconds = Math.floor((timeRemaining % 60000) / 1000);
+            return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         } else {
             return `${Math.floor(progressValue * 100)}%`;
         }
