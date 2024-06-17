@@ -41,6 +41,7 @@ export const MapScreen = ({ navigation }) => {
     const [idUser, setIdUser] = useState(null);
 
 
+
     const handleNotifications = async () => {
         const { status } = await Notifications.getPermissionsAsync();
 
@@ -59,17 +60,18 @@ export const MapScreen = ({ navigation }) => {
         });
     };
 
-    const [duration, setDuration] = useState();
+    const [duration, setDuration] = useState(null);
 
 
-    const onPress = useCallback(() => {
-        if(idUser == null)
+    const ButtonUpdate = () => {
+        console.log(dataCar);
+        if(dataCar == null)
             {
                 Alert.alert("Voltaire - Informação", "É necessário realizar o cadastro do carro!")
                 return;
             }
         setRun(!run);
-    }, [run]);
+    } 
 
 
 
@@ -82,13 +84,16 @@ export const MapScreen = ({ navigation }) => {
 try {
     
     const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
+    console.log(response.data);
+    setDataCar(response.data);
     setIdUser(token.id);
 
     const bateriaAtual = response.data.bateriaAtual;
     const durBateria = new Date(response.data.idModeloNavigation.durBateria);
-    console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-    console.log(durBateria);
+
     setProgressValue(bateriaAtual);
+
+
     const hours = durBateria.getHours();
     const minutes = durBateria.getMinutes();
     const seconds = durBateria.getSeconds();
@@ -96,7 +101,8 @@ try {
     const totalDurationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
     setTotalDuration(totalDurationInMilliseconds);
-    const remainingDuration = totalDurationInMilliseconds * (bateriaAtual);
+    const remainingDuration = ((bateriaAtual * 100) * totalDurationInMilliseconds) / 100;
+    console.log(remainingDuration);
     setDuration(remainingDuration);
 
 } catch (error) {
@@ -129,6 +135,7 @@ try {
         if (run) {
             interval = setInterval(() => {
                 setProgressValue((prev) => {
+          
                     const newValue = Math.max(0, prev - (1000 / duration));
                     const percentage = newValue * 100;
 
@@ -178,7 +185,7 @@ try {
                                 :
                                 <Ionicons name="play" size={54} color="black" style={{ alignSelf: "center", marginLeft: 7 }} />
                         }
-                        onPress={onPress}
+                        onPress={ButtonUpdate}
                     />
                     <Timer key={Math.random()} progressValue={progressValue} timeRemaining={timeRemaining} duration={duration} />
                 </ContainerBlackMap>

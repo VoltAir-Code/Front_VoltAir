@@ -21,19 +21,19 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [user, setUser] = useState();
     const [userCarData, setUserCarData] = useState(null);
 
+    const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedModel, setSelectedModel] = useState(null);
-    
+
     const [carData, setCarData] = useState();
     const [carBrandData, setCarBrandData] = useState();
     const [carModelData, setCarModelData] = useState();
-    
+
     const [plate, setPlate] = useState("");
     const [editable, setEditable] = useState(true);
-    
+
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [loadingLoggout, setLoadingLogout] = useState(false)
-    
  
     useEffect(() => {
         profileLoad();
@@ -62,6 +62,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
 
     useEffect(() => {
         if (photoUri != {}) {
+            console.log(photoUri);
             OCR();
         }
     }, [photoUri]);
@@ -84,15 +85,16 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                     })
                     setEditable(false)
                 } catch (error) {
+                    console.log("RegisterCar");
                     console.log(error);
                 }
             } else {
-                Alert.alert('Voltaire - Alerta', "Informe a placa corretamente!")
+                Alert.alert("Informe a placa corretamente!")
             }
         }
 
         else {
-            Alert.alert('Voltaire - Alerta',"Informe os dados corretamente!")
+            Alert.alert("Informe os dados corretamente!")
         }
         setLoading(false);
     }
@@ -104,15 +106,13 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
             setPlate(response.data.placa)
             setUserCarData(response.data)
-            console.log(response.data.idModeloNavigation);
-            console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-            setCarBrandData(response.data?.idModeloNavigation)
 
             if (response.data != '') {
                 setEditable(false)
             }
 
         } catch (error) {
+            console.log("GetUserCar");
             console.log(error);
         }
     }
@@ -126,11 +126,12 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             setUser(response.data);
 
         } catch (error) {
+            console.log("ProfileLoad");
             console.log(error);
         }
     }
 
-    const [selectedBrand, setSelectedBrand] = useState(null); 
+
     async function ListCarBrand() {
         await api.get('Marca')
             .then((response) => {
@@ -138,10 +139,35 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                 console.log(response.data);
             })
             .catch((error) => {
+                console.log("ListCarBrand");
                 console.log(error);
             }
             )
     }
+
+    async function ListCar(idMarca) {
+        await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
+            .then((response) => {
+                setCarData(response.data.modelos);
+            })
+            .catch((error) => {
+                console.log("ListCar");
+                console.log(error);
+            });
+    }
+
+    async function GetModelData() {
+        await api.get(`Model/BuscarPorId?idModelo=${selectedModel}`)
+            .then((response) => {
+                console.log("Modelo Data: ", response.data);
+                setCarModelData(response.data)
+            })
+            .catch((error) => {
+                console.log("GetModelData");
+                console.log(error);
+            })
+    }
+
     function FoundCar() {
         if (carData != null) {
             return carData.map((car) => ({
@@ -152,27 +178,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             return [];
         }
     }
-    async function ListCar(idMarca) {
-        await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
-            .then((response) => {
-                setCarData(response.data.modelos);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    async function GetModelData() {
-        await api.get(`Model/BuscarPorId?idModelo=${selectedModel}`)
-            .then((response) => {
-                setCarModelData(response.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
-
 
     function FoundBrand() {
         if (carBrandData != null) {
@@ -215,10 +220,12 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
+            console.log("OCRDATA: ", response.data);
             setPlate(response.data)
 
             setModalVisible(true);
         }).catch((err) => {
+            console.log("OCR");
             console.log(err);
         })
     }

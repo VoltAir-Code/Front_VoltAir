@@ -6,7 +6,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-export const InputSelect = ({ item, save, setSelected, placeholder, selected }) => {
+export const InputSelect = ({ item, save, setSelected, placeholder }) => {
 
 
     return (
@@ -29,7 +29,7 @@ export const InputSelect = ({ item, save, setSelected, placeholder, selected }) 
             searchPlaceholderTextColor={'white'}
             setSelected={setSelected}
             save={save}
-            selected={selected?.key}
+      
         />
 
     )
