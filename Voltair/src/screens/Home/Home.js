@@ -6,12 +6,12 @@ import { Header } from "../../components/Header/Header";
 import { Token, useDecodeToken } from "../../utils/Auth";
 import api from "../../services/Service";
 
-export const Home = ({progressValue}) => {
+export const Home = ({progressValue, setProgressValue}) => {
   const [user, setUser] = useState({});
   const [userCar, setUserCar] = useState({});
   const [capacidadeAtual, setCapacidadeAtual] = useState();
   const [duracao, setDuracao] = useState();
-
+  const [loading, setLoading] = useState(false)
   
   
   async function userCarLoad() {
@@ -27,6 +27,7 @@ export const Home = ({progressValue}) => {
   }
   
   async function profileLoad() {
+    setLoading(true)
     const token = await useDecodeToken();
     try {
    
@@ -34,6 +35,8 @@ export const Home = ({progressValue}) => {
       setUser(response.data);
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false)
     }
   }
   useEffect(() => {
@@ -58,6 +61,7 @@ export const Home = ({progressValue}) => {
         autonomia={userCar.idModeloNavigation?.autonomia}
         capacidade={userCar.idModeloNavigation?.capacidade}
         progressValue={progressValue}
+        setProgressValue={setProgressValue}
       />
       {/* <Footer/> */}
     </ContainerHome>

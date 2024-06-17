@@ -32,7 +32,7 @@ export const CreateAccount = ({ navigation }) => {
     }
     async function Register() {
         setLoading(true)
-        if (nome != null && email != null && senha != null && confirmeSenha != null) {
+        if (nome != '' && email != "" && senha != '' && confirmeSenha != '') {
 
             if (!validarEmail(email)) {
                 alert("Email não segue o padrão do mercado!");

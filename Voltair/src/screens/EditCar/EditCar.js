@@ -6,17 +6,18 @@ import { InputBlack, ViewInput } from "../../components/Input/Style"
 import { SubTitle, TextInput, TextLink, TextWarning, Title } from "../../components/Title/Style"
 import { Feather } from '@expo/vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { ButtonLogOut } from "../../components/Button/Style";
+import { ButtonLogOut, ButtonLogOutText } from "../../components/Button/Style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/Service"
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDecodeToken } from "../../utils/Auth";
 import ModalOcr from "../../components/Modal/ModalOcr";
+import { ActivityIndicator } from "react-native";
 
 
 
 
-export const EditCar = ({ navigation, route, photoUri}) => {
+export const EditCar = ({ navigation, route, photoUri }) => {
     const [user, setUser] = useState();
     const [userCarData, setUserCarData] = useState(null);
 
@@ -31,19 +32,21 @@ export const EditCar = ({ navigation, route, photoUri}) => {
     const [editable, setEditable] = useState(true);
 
     const [modalVisible, setModalVisible] = useState(false);
-    
+    const [loading, setLoading] = useState(false);
+    const [loadingLoggout, setLoadingLogout] = useState(false)
+ 
     useEffect(() => {
         profileLoad();
         ListCarBrand();
     }, [])
 
     useEffect(() => {
-            GetUserCar();
+        GetUserCar();
     }, []);
 
     useEffect(() => {
         if (editable == false) {
-            GetUserCar();     
+            GetUserCar();
         }
     }, [editable]);
 
@@ -65,17 +68,20 @@ export const EditCar = ({ navigation, route, photoUri}) => {
     }, [photoUri]);
 
 
-    
-    async function RegisterCar() {
 
-        if (selectedBrand || selectedModel != null ) {
-            if (plate != "") {
+    async function RegisterCar() {
+        setLoading(true);
+        
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        if (selectedBrand || selectedModel != null) {
+            const plateRegex = /^(?=(?:.*[A-Za-z]){4})(?=(?:.*\d){3})[A-Za-z\d]{7}$/;
+            if (plate != "" && plate.length == 7 && plateRegex.test(plate)) {
                 try {
                     await api.put(`Carro?idUsuario=${user.idUsuario}`, {
                         idUsuario: user.idUsuario,
                         idModelo: selectedModel,
-                        placa: ValidationPlate(plate),
-                        bateriaAtual: carModelData.durBateria
+                        placa: ValidationPlate(plate)
                     })
                     setEditable(false)
                 } catch (error) {
@@ -90,6 +96,7 @@ export const EditCar = ({ navigation, route, photoUri}) => {
         else {
             Alert.alert("Informe os dados corretamente!")
         }
+        setLoading(false);
     }
 
 
@@ -102,7 +109,7 @@ export const EditCar = ({ navigation, route, photoUri}) => {
             if (response.data != '') {
                 setEditable(false)
             }
-            
+
         } catch (error) {
             console.log("GetUserCar");
             console.log(error);
@@ -150,14 +157,14 @@ export const EditCar = ({ navigation, route, photoUri}) => {
 
     async function GetModelData() {
         await api.get(`Model/BuscarPorId?idModelo=${selectedModel}`)
-        .then((response) => {
-            console.log("Modelo Data: ", response.data);
-            setCarModelData(response.data)
-        })
-        .catch((error) => {
-            console.log("GetModelData");
+            .then((response) => {
+                console.log("Modelo Data: ", response.data);
+                setCarModelData(response.data)
+            })
+            .catch((error) => {
+                console.log("GetModelData");
                 console.log(error);
-        })
+            })
     }
 
     function FoundCar() {
@@ -183,10 +190,19 @@ export const EditCar = ({ navigation, route, photoUri}) => {
     }
 
     async function Logout() {
+        setLoadingLogout(true); // Define o estado de carregamento como verdadeiro
+
         try {
-            await AsyncStorage.removeItem("token", navigation.replace("Login"))
+            // Aguarda 2 segundos antes de prosseguir com o logout
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Realiza o logout removendo o token e redirecionando para a tela de login
+            await AsyncStorage.removeItem("token");
+            navigation.replace("Login");
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoadingLogout(false); // Define o estado de carregamento como falso após o logout
         }
     }
 
@@ -203,7 +219,7 @@ export const EditCar = ({ navigation, route, photoUri}) => {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
-            console.log("OCRDATA: ",response.data);
+            console.log("OCRDATA: ", response.data);
             setPlate(response.data)
 
             setModalVisible(true);
@@ -229,133 +245,137 @@ export const EditCar = ({ navigation, route, photoUri}) => {
 
     return (
         <>
-        <ContainerHome>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <ContainerBlackMap radius={"0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
-                    <Title color={"#FFF"} margin={"45px 0px 10px 0px"}>
-                        Informe os dados do seu carro
-                    </Title>
+            <ContainerHome>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                    <ContainerBlackMap radius={"0px"} height={"100%"} flexDirection={"column"} justifyContent={"flex-start"}>
+                        <Title color={"#FFF"} margin={"45px 0px 10px 0px"}>
+                            Informe os dados do seu carro
+                        </Title>
 
-                    <TextWarning color={"#FFF"} margin={"5px 0px 15px 0px"}>
-                        Cadastre com 100% de bateria!
-                    </TextWarning>
+                        <TextWarning color={"#FFF"} margin={"5px 0px 15px 0px"}>
+                            Cadastre com 100% de bateria!
+                        </TextWarning>
 
-                    {
-                        editable ?
-                            <>
-                                
-                                <ContainerLabelInput>
-                                    <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
-                                </ContainerLabelInput>
+                        {
+                            editable ?
+                                <>
 
-                                <ViewInput>
+                                    <ContainerLabelInput>
+                                        <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
+                                    </ContainerLabelInput>
+
+                                    <ViewInput>
+                                        <InputBlack
+                                            height={"60px"}
+                                            margin={"5px 0px 25px 0px"}
+                                            editable={true}
+                                            placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
+                                            autoCapitalize="characters"
+                                            onChangeText={txt => setPlate(txt.toUpperCase())}
+                                            value={ValidationPlate(plate)}
+                                            maxLength={7}
+                                        />
+
+                                        <ButtonInput onPress={() => { editable ? navigation.navigate("Camera") : null }}>
+                                            <Feather name="camera" size={24} color="#F2732E" />
+                                        </ButtonInput>
+                                    </ViewInput>
+
+                                    <ContainerLabelInput>
+                                        <TextInput margin={"5px 0px 0px 15px"}>Marca</TextInput>
+                                    </ContainerLabelInput>
+                                    <InputSelect
+                                        item={FoundBrand}
+                                        setSelected={(value) => setSelectedBrand(value)}
+                                        save='key'
+                                        placeholder='Selecione uma Marca'
+                                    />
+
+
+                                    <ContainerLabelInput>
+                                        <TextInput margin={"35px 0px 0px 15px"}>Modelo</TextInput>
+                                    </ContainerLabelInput>
+
+                                    <InputSelect
+                                        item={FoundCar}
+                                        setSelected={(value) => setSelectedModel(value)}
+                                        save='key'
+                                        placeholder='Selecione um modelo'
+                                    />
+
+                                </>
+                                :
+                                <>
+                                    <ContainerLabelInput>
+                                        <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
+                                    </ContainerLabelInput>
+                                    <InputBlack
+                                        height={"60px"}
+                                        margin={"5px 0px 0px 0px"}
+                                        editable={false}
+                                        placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.idMarcaNavigation?.nomeMarca}` : 'Not Found'}
+                                    />
+
+                                    <ContainerLabelInput>
+                                        <TextInput margin={"35px 0px 0px 15px"}>Modelo</TextInput>
+                                    </ContainerLabelInput>
+                                    <InputBlack
+                                        height={"60px"}
+                                        margin={"5px 0px 0px 0px"}
+                                        editable={false}
+                                        placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.nomeModelo}` : 'Not Found'}
+                                    />
+
+                                    <ContainerLabelInput>
+                                        <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
+                                    </ContainerLabelInput>
                                     <InputBlack
                                         height={"60px"}
                                         margin={"5px 0px 25px 0px"}
-                                        editable={true}
-                                        placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
-                                        autoCapitalize="characters"
-                                        onChangeText={txt => setPlate(txt.toUpperCase())}
-                                        value={plate}
+                                        editable={false}
+                                        placeholder={userCarData != null ? `${userCarData.placa}` : 'Not Found'}
                                     />
+                                </>
 
-                                    <ButtonInput onPress={() => { editable ? navigation.navigate("Camera") : null }}>
-                                        <Feather name="camera" size={24} color="#F2732E" />
-                                    </ButtonInput>
-                                </ViewInput>
-
-                                <ContainerLabelInput>
-                                    <TextInput margin={"5px 0px 0px 15px"}>Marca</TextInput>
-                                </ContainerLabelInput>
-                                <InputSelect
-                                    item={FoundBrand}
-                                    setSelected={(value) => setSelectedBrand(value)}
-                                    save='key'
-                                    placeholder='Selecione uma Marca'
-                                />
-
-
-                                <ContainerLabelInput>
-                                    <TextInput margin={"35px 0px 0px 15px"}>Modelo</TextInput>
-                                </ContainerLabelInput>
-                                
-                                <InputSelect
-                                    item={FoundCar}
-                                    setSelected={(value) => setSelectedModel(value)}
-                                    save='key'
-                                    placeholder='Selecione um modelo'
-                                />
-
-                            </>
-                            :
-                            <>
-                                <ContainerLabelInput>
-                                    <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
-                                </ContainerLabelInput>
-                                <InputBlack
-                                    height={"60px"}
-                                    margin={"5px 0px 0px 0px"}
-                                    editable={false}
-                                    placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.idMarcaNavigation?.nomeMarca}` : 'Not Found'}
-                                />
-
-                                <ContainerLabelInput>
-                                    <TextInput margin={"35px 0px 0px 15px"}>Modelo</TextInput>
-                                </ContainerLabelInput>
-                                <InputBlack
-                                    height={"60px"}
-                                    margin={"5px 0px 0px 0px"}
-                                    editable={false}
-                                    placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.nomeModelo}` : 'Not Found'}
-                                />
-
-                                <ContainerLabelInput>
-                                    <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
-                                </ContainerLabelInput>
-                                <InputBlack
-                                    height={"60px"}
-                                    margin={"5px 0px 25px 0px"}
-                                    editable={false}
-                                    placeholder={userCarData != null ? `${userCarData.placa}` : 'Not Found'}
-                                />
-                            </>
-
-                    }
+                        }
 
 
 
 
 
-                    <ButtonDefault
-                        text={editable ? "Confirmar" : "Editar"}
-                        height={"58px"}
-                        margin={"45px 0px 0px 0px"}
-                        onPress={() => { editable ? RegisterCar() : setEditable(true) }}
-                    />
+                        <ButtonDefault
+                            text={editable ? "Confirmar" : "Editar"}
+                            height={"58px"}
+                            margin={"45px 0px 0px 0px"}
+                            loading={loading}
+                            onPress={() => editable ? RegisterCar() : setEditable(true)}
+                        />
 
-                    <ButtonLogOut onPress={() => Logout()} margin={"35px 0px 145px 0px"}>
-                        <TextLink style={{ color: '#FFFFFF' }} margin={"0px 0px 0px 0px"}>
-                            Sair do app
-                        </TextLink>
-                    </ButtonLogOut>
+                        <ButtonLogOut onPress={() => Logout()} margin={"35px 0px 145px 0px"}>
+                            {loadingLoggout ? (
+                                <ActivityIndicator color="#FFFFFF" /> // Mostra o indicador de atividade durante o carregamento
+                            ) : (
+                                <ButtonLogOutText>Sair do app</ButtonLogOutText> // Mostra o texto normal quando não está carregando
+                            )}
+                        </ButtonLogOut>
 
 
-                </ContainerBlackMap>
-            </ScrollView>
-        </ContainerHome>
+                    </ContainerBlackMap>
+                </ScrollView>
+            </ContainerHome>
 
-        <ModalOcr
+            <ModalOcr
                 visible={modalVisible}
                 height={'41.5%'}
                 navigation={navigation}
-                onConfirm={() => { setModalVisible(false), setEditable(true)}}
-                onClose={() => {setModalVisible(false), setPlate(""), setEditable(true)}}
+                onConfirm={() => { setModalVisible(false), setEditable(true) }}
+                onClose={() => { setModalVisible(false), setPlate(""), setEditable(true) }}
                 setModalVisible={setModalVisible}
                 title={"Esta e sua placa?"}
                 subTitle={ValidationPlate(plate)}
                 buttonText={"Confirmar placa"}
                 buttonText2={"Não, quero escrever"}
             />
-                    </>
+        </>
     )
 }
