@@ -49,10 +49,10 @@ const ModalLoading = ({
                 if (newValue >= 1) {
                     clearInterval(intervalCharging);
                     setTimer(false);
-                }   
+                }
                 return newValue;
             });
-        }, 1000);
+        }, 1000);       
     }
 
     async function InformationCar() {
