@@ -1,4 +1,4 @@
-import { Alert, Modal } from "react-native";
+import { ActivityIndicator, Alert, Modal } from "react-native";
 import { ButtonDefault, ButtonLoading, ImageBatery } from "../Button/Button"
 import { SubTitle, TextLink, Title } from "../Title/Style"
 import { BatteryPercentage, ModalContainer } from "./Style"
@@ -76,11 +76,18 @@ const ModalLoading = ({
                 if (newValue >= 1) {
                     clearInterval(intervalCharging);
                     setTimer(false);
-                }   
+                }
                 setNewBattery(newValue);
+                if(newValue == NaN){
+                    return "0"
+                }
+
                 return newValue;
+
+
+                    
             });
-        }, 1000);       
+        }, 1000);
     }
 
     async function InformationCar() {
