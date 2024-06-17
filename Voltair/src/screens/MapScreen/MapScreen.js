@@ -39,6 +39,7 @@ export const MapScreen = ({ navigation }) => {
     const [progressValue, setProgressValue] = useState(1);
     const [dataCar, setDataCar] = useState();
     const [idUser, setIdUser] = useState(null);
+    const [userResponse, setUserResponse] = useState(null);
 
 
     const handleNotifications = async () => {
@@ -63,13 +64,17 @@ export const MapScreen = ({ navigation }) => {
 
 
     const onPress = useCallback(() => {
-        if(idUser == null)
+        if (userResponse !== null && userResponse !== 204)
             {
-                Alert.alert("Voltaire - Informação", "É necessário realizar o cadastro do carro!")
-                return;
+                
+                setRun(!run);
+            return;
             }
-        setRun(!run);
-    }, [run]);
+        else{
+            Alert.alert("Voltaire - Informação", "É necessário realizar o cadastro do carro!")
+                return;
+        }
+    }, [run, userResponse]);
 
 
 
@@ -83,6 +88,8 @@ try {
     
     const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
     setIdUser(token.id);
+
+    setUserResponse(response.status);
 
     const bateriaAtual = response.data.bateriaAtual;
     const durBateria = new Date(response.data.idModeloNavigation.durBateria);

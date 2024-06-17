@@ -13,8 +13,8 @@ import { StyleSheet } from 'react-native';
 
 
 export const Login = ({ navigation }) => {
-    const [email, setEmail] = useState('teste01@gmail.com');
-    const [password, setPassword] = useState('12345');
+    const [email, setEmail] = useState('ssmurf446@gmail.com');
+    const [password, setPassword] = useState('teste123');
     const { height: screenHeight } = Dimensions.get('window');
     const [loading, setLoading] = useState();
 

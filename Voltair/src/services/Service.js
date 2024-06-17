@@ -4,11 +4,11 @@ import axios from "axios";
 const portaApi = '7152';
 
 // IP da máquina
-const ip = '172.16.39.89';
+const ip = '192.168.15.169';
 
 
 // Base da URL de acesso da API
-const apiUrlLocal = `http://172.16.43.145:7152/api/`;
+const apiUrlLocal = `http://192.168.15.169:7152/api/`;
 
 // Configurar axios
 const api = axios.create({

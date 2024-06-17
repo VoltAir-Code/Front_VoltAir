@@ -22,8 +22,9 @@ const ModalLoading = ({
 }) => {
     const [timer, setTimer] = useState(false)
     const [car, setCar] = useState({})
+    const [intervalId, setIntervalId] = useState(null);
+    const [idUser, setIdUser] = useState();
     const [battery, setBattery] = useState()
-    // const batteryCapacity = car.capacidade
     const [progressValue, setProgressValue] = useState(0);
     const [notificationScheduled, setNotificationScheduled] = useState(false);
     const [newBattery, setNewBattery] = useState(battery);
@@ -37,10 +38,6 @@ const ModalLoading = ({
     useEffect(() => {
         if (progressValue !== undefined && !isNaN(progressValue)) {
             setBattery(progressValue);
-            if (progressValue >= 1 && !notificationScheduled) {
-                setNotificationScheduled(true);
-                scheduleNotification();
-            }
         }
     }, [progressValue]);
 
@@ -48,22 +45,34 @@ const ModalLoading = ({
         if (newBattery !== undefined && !isNaN(newBattery)) {
             UpdateTime();
         }
+
+        if (newBattery >= 1 && !notificationScheduled) {
+            setNotificationScheduled(true);
+                scheduleNotification();
+        }
     }, [newBattery]);
 
     const UpdateTime = async (newValue) => {
         try {
+            console.log(idUser);
             const response = await api.put(`Carro/AtualizarBateria?idUsuario=${idUser}`, {
                 bateriaAtual: newBattery,
             });
         } catch (error) {
+            console.log("ATUALIZAR A BATERIA");
             console.log(error);
         }
     };
 
     const LoadDataUser = async () => {
-        const token = await useDecodeToken();
+        try {
+            const token = await useDecodeToken();
         const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
         setIdUser(token.id);
+        } catch (error) {
+            console.log("LOADDATAUSER");
+        }
+        
     };
 
     async function LoadingCar() {
@@ -88,6 +97,7 @@ const ModalLoading = ({
 
     async function InformationCar() {
         const user = await useDecodeToken();
+
         api.get(`Carro/BuscarPorId?idUser=${user.id}`)
             .then(response => {
                 console.log(response.data);
@@ -97,6 +107,7 @@ const ModalLoading = ({
                 setBattery(initialBattery);
                 setProgressValue(initialBattery);
             }).catch(err => {
+                console.log("INFORMATIONCAR");
                 console.log(err);
             });
     }
