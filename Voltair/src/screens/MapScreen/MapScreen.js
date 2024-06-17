@@ -114,8 +114,6 @@ setDuration(remainingDuration);
         } catch (error) {
             console.log(error);
         }
-
-
     }
 
 
@@ -157,7 +155,6 @@ setDuration(remainingDuration);
 
     useEffect(() => {
         requestNotificationPermissions();
-
     }, []);
 
 

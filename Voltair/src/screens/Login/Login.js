@@ -32,7 +32,7 @@ export const Login = ({ navigation }) => {
             });
 
             console.log(response.data);
-
+            
 
             if (response.status === 200) {
                 await AsyncStorage.setItem('token', response.data.token);
