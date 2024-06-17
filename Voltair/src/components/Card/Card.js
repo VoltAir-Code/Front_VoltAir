@@ -34,10 +34,10 @@ export const Card = ({ navigation, autonomia, capacidade, progressValue, setProg
                 onClose={() => setModalLoadingVisible(false)}
                 setModalVisible={setModalLoadingVisible}
                 title={"Carga da bateria:"}
-                Percentage={progressValue}
+          
                 buttonTextLoading={"Carregar Bateria"}
                 buttonText={"Confirmar"}
-                setProgressValue={setProgressValue}
+           
             />
 
             <ModalInformations

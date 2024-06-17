@@ -18,6 +18,7 @@ export const Home = ({progressValue, setProgressValue}) => {
     try {
       const car = await api.get(`Carro/BuscarPorId?idUser=${user.idUsuario}`);
       console.log(car.data);
+      console.log(user.idUsuario);
       setUserCar(car.data);
       setCapacidadeAtual(parseInt(new Date(car.data.bateriaAtual).toLocaleTimeString('pt-br', { hour: "2-digit"})));
       setDuracao(parseInt(new Date(car.data.idModeloNavigation?.durBateria).getHours()));
