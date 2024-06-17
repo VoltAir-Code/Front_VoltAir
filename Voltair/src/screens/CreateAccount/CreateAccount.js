@@ -36,16 +36,19 @@ export const CreateAccount = ({ navigation }) => {
 
             if (!validarEmail(email)) {
                 alert("Email não segue o padrão do mercado!");
+                setLoading(false)
                 return;
             }
 
             if (senha != confirmeSenha) {
                 alert("Senhas diferentes!");
+                setLoading(false)
                 return;
             }
 
             if (senha.length < 4) {
                 alert("É necessário ao menos 4 caracteres na senha!")
+                setLoading(false)
                 return;
             }
 
@@ -60,13 +63,16 @@ export const CreateAccount = ({ navigation }) => {
             } catch (error) {
                 if (error.response) {
                     alert(error.response.data);
+                    setLoading(false)
                 } else {
                     console.log(error.message);
+                    setLoading(false)
                 }
             }
             setLoading(false);
 
         } else {
+            setLoading(false)
             alert("Preencha todos os campos!")
         }
 
