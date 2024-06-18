@@ -23,6 +23,7 @@ import { MapScreen } from "./src/screens/MapScreen/MapScreen";
 import { EditCar } from "./src/screens/EditCar/EditCar";
 import { Main } from "./src/screens/Main/Main";
 import { Camera } from "./src/screens/Camera/Camera";
+import 'react-native-reanimated';
 
 //instancia do StackNavigator
 const Stack = createNativeStackNavigator();

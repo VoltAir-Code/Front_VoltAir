@@ -14,9 +14,6 @@ import { useDecodeToken } from "../../utils/Auth";
 import ModalOcr from "../../components/Modal/ModalOcr";
 import { ActivityIndicator } from "react-native";
 
-
-
-
 export const EditCar = ({ navigation, route, photoUri }) => {
     const [user, setUser] = useState();
     const [userCarData, setUserCarData] = useState(null);
@@ -219,7 +216,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
-            console.log("OCRDATA: ", response.data);
             setPlate(response.data)
 
             setModalVisible(true);
