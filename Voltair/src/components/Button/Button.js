@@ -11,7 +11,7 @@ export const ButtonLoading = ({ text, height, margin, onPress }) => {
     )
 }
 
-export const ButtonDefault = ({ text, height, margin, onPress, loading }) => {
+export const ButtonDefault = ({ text, height, margin, onPress, loading = false }) => {
     return (
         <Button height={height} margin={margin} onPress={onPress} disabled={loading}>
             {loading ? (

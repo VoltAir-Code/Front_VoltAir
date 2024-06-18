@@ -21,7 +21,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [selectedModel, setSelectedModel] = useState(null);
 
-    const [carData, setCarData] = useState();
+    const [carData, setCarData] = useState(null);
     const [carBrandData, setCarBrandData] = useState();
     const [carModelData, setCarModelData] = useState();
 
@@ -31,7 +31,8 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [loadingLoggout, setLoadingLogout] = useState(false)
- 
+
+
     useEffect(() => {
         profileLoad();
         ListCarBrand();
@@ -59,7 +60,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
 
     useEffect(() => {
         if (photoUri != {}) {
-            console.log(photoUri);
             OCR();
         }
     }, [photoUri]);
@@ -68,10 +68,10 @@ export const EditCar = ({ navigation, route, photoUri }) => {
 
     async function RegisterCar() {
         setLoading(true);
-        
+
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        if (selectedBrand || selectedModel != null) {
+        if (selectedBrand && selectedModel != null) {
             const plateRegex = /^(?=(?:.*[A-Za-z]){4})(?=(?:.*\d){3})[A-Za-z\d]{7}$/;
             if (plate != "" && plate.length == 7 && plateRegex.test(plate)) {
                 try {
@@ -82,16 +82,15 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                     })
                     setEditable(false)
                 } catch (error) {
-                    console.log("RegisterCar");
                     console.log(error);
                 }
             } else {
-                Alert.alert("Informe a placa corretamente!")
+                Alert.alert('Voltaire - Alerta', "Informe a placa corretamente!")
             }
         }
 
         else {
-            Alert.alert("Informe os dados corretamente!")
+            Alert.alert('Voltaire - Alerta', "Informe os dados corretamente!")
         }
         setLoading(false);
     }
@@ -101,14 +100,18 @@ export const EditCar = ({ navigation, route, photoUri }) => {
         const token = await useDecodeToken();
         try {
             const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
-            setUserCarData(response.data)
+
+            if (response.status != 204) {
+
+                setPlate(response.data.placa)
+                setUserCarData(response.data)
+            }
 
             if (response.data != '') {
                 setEditable(false)
             }
 
         } catch (error) {
-            console.log("GetUserCar");
             console.log(error);
         }
     }
@@ -122,7 +125,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
             setUser(response.data);
 
         } catch (error) {
-            console.log("ProfileLoad");
             console.log(error);
         }
     }
@@ -135,7 +137,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                 console.log(response.data);
             })
             .catch((error) => {
-                console.log("ListCarBrand");
                 console.log(error);
             }
             )
@@ -145,9 +146,9 @@ export const EditCar = ({ navigation, route, photoUri }) => {
         await api.get(`Marca/BuscarPorId?idMarca=${idMarca}`)
             .then((response) => {
                 setCarData(response.data.modelos);
+                console.log(response.data.modelos);
             })
             .catch((error) => {
-                console.log("ListCar");
                 console.log(error);
             });
     }
@@ -155,14 +156,13 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     async function GetModelData() {
         await api.get(`Model/BuscarPorId?idModelo=${selectedModel}`)
             .then((response) => {
-                console.log("Modelo Data: ", response.data);
                 setCarModelData(response.data)
             })
             .catch((error) => {
-                console.log("GetModelData");
                 console.log(error);
             })
     }
+
 
     function FoundCar() {
         if (carData != null) {
@@ -187,19 +187,19 @@ export const EditCar = ({ navigation, route, photoUri }) => {
     }
 
     async function Logout() {
-        setLoadingLogout(true); // Define o estado de carregamento como verdadeiro
+        setLoadingLogout(true);
 
         try {
-            // Aguarda 2 segundos antes de prosseguir com o logout
+
             await new Promise(resolve => setTimeout(resolve, 1000));
 
-            // Realiza o logout removendo o token e redirecionando para a tela de login
+
             await AsyncStorage.removeItem("token");
             navigation.replace("Login");
         } catch (error) {
             console.log(error);
         } finally {
-            setLoadingLogout(false); // Define o estado de carregamento como falso após o logout
+            setLoadingLogout(false);
         }
     }
 
@@ -220,7 +220,6 @@ export const EditCar = ({ navigation, route, photoUri }) => {
 
             setModalVisible(true);
         }).catch((err) => {
-            console.log("OCR");
             console.log(err);
         })
     }
@@ -256,6 +255,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                             editable ?
                                 <>
 
+
                                     <ContainerLabelInput>
                                         <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
                                     </ContainerLabelInput>
@@ -263,12 +263,12 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     <ViewInput>
                                         <InputBlack
                                             height={"60px"}
-                                            margin={"5px 0px 25px 0px"}
+                                            margin={"5px 0px 0px 0px"}
                                             editable={true}
                                             placeholder={plate != "" ? ValidationPlate(plate) : "Registre sua placa"}
                                             autoCapitalize="characters"
                                             onChangeText={txt => setPlate(txt.toUpperCase())}
-                                            value={ValidationPlate(plate)}
+                                            value={plate != "" ? ValidationPlate(plate) : ""}
                                             maxLength={7}
                                         />
 
@@ -278,7 +278,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                     </ViewInput>
 
                                     <ContainerLabelInput>
-                                        <TextInput margin={"5px 0px 0px 15px"}>Marca</TextInput>
+                                        <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
                                     </ContainerLabelInput>
                                     <InputSelect
                                         item={FoundBrand}
@@ -299,9 +299,22 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                         placeholder='Selecione um modelo'
                                     />
 
+
+
                                 </>
                                 :
                                 <>
+                                    <ContainerLabelInput>
+                                        <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
+                                    </ContainerLabelInput>
+                                    <InputBlack
+                                        height={"60px"}
+                                        margin={"5px 0px 0px 0px"}
+                                        editable={false}
+                                        placeholder={userCarData != null ? `${userCarData.placa}` : 'Not Found'}
+                                    />
+
+
                                     <ContainerLabelInput>
                                         <TextInput margin={"35px 0px 0px 15px"}>Marca</TextInput>
                                     </ContainerLabelInput>
@@ -309,7 +322,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                         height={"60px"}
                                         margin={"5px 0px 0px 0px"}
                                         editable={false}
-                                        placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.idMarcaNavigation?.nomeMarca}` : 'Not Found'}
+                                        placeholder={userCarData != '' ? `${userCarData?.idModeloNavigation?.idMarcaNavigation?.nomeMarca}` : 'Not Found'}
                                     />
 
                                     <ContainerLabelInput>
@@ -319,17 +332,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                                         height={"60px"}
                                         margin={"5px 0px 0px 0px"}
                                         editable={false}
-                                        placeholder={userCarData != '' ? `${userCarData.idModeloNavigation?.nomeModelo}` : 'Not Found'}
-                                    />
-
-                                    <ContainerLabelInput>
-                                        <TextInput margin={"35px 0px 0px 15px"}>Número da placa</TextInput>
-                                    </ContainerLabelInput>
-                                    <InputBlack
-                                        height={"60px"}
-                                        margin={"5px 0px 25px 0px"}
-                                        editable={false}
-                                        placeholder={userCarData != null ? `${userCarData.placa}` : 'Not Found'}
+                                        placeholder={userCarData != '' ? `${userCarData?.idModeloNavigation?.nomeModelo}` : 'Not Found'}
                                     />
                                 </>
 
@@ -351,7 +354,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                             {loadingLoggout ? (
                                 <ActivityIndicator color="#FFFFFF" /> // Mostra o indicador de atividade durante o carregamento
                             ) : (
-                                <ButtonLogOutText>Sair do app</ButtonLogOutText> // Mostra o texto normal quando não está carregando
+                                <ButtonLogOutText>Sair do app </ButtonLogOutText> // Mostra o texto normal quando não está carregando
                             )}
                         </ButtonLogOut>
 

@@ -13,7 +13,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { Navigation } from "./src/screens/Navigation/Navigation";
 import { Login } from "./src/screens/Login/Login";
-import { StatusBar } from "react-native";
+import { LogBox, StatusBar } from "react-native";
 import { CreateAccount } from "./src/screens/CreateAccount/CreateAccount";
 import { ForgotPassword } from "./src/screens/ForgotPassword/ForgotPassword";
 import { ResetPassword } from "./src/screens/ResetPassword/ResetPassword";
@@ -38,6 +38,9 @@ export default function App() {
   if (!fontsLoaded && !fontsError) {
     return null;
   }
+
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs();//Ignore all log notifications
 
   async function requestCamera() {
     await Camera.requestCameraPermissionsAsync();
