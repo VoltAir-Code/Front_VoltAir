@@ -355,7 +355,7 @@ export const EditCar = ({ navigation, route, photoUri }) => {
                             {loadingLoggout ? (
                                 <ActivityIndicator color="#FFFFFF" /> // Mostra o indicador de atividade durante o carregamento
                             ) : (
-                                <ButtonLogOutText>Sair do app</ButtonLogOutText> // Mostra o texto normal quando não está carregando
+                                <ButtonLogOutText>Sair do app </ButtonLogOutText> // Mostra o texto normal quando não está carregando
                             )}
                         </ButtonLogOut>
 

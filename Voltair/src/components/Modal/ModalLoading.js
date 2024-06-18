@@ -28,7 +28,7 @@ const ModalLoading = ({
     const [progressValue, setProgressValue] = useState(0);
     const [notificationScheduled, setNotificationScheduled] = useState(false);
     const [newBattery, setNewBattery] = useState(battery);
-    let batteryCapacity = car.capacidade || 1;
+    let batteryCapacity = car?.capacidade || 1;
 
     useEffect(() => {
         InformationCar();

@@ -20,7 +20,7 @@ export const Home = ({progressValue, setProgressValue}) => {
       console.log(car.data);
       setUserCar(car.data);
       setCapacidadeAtual(parseInt(new Date(car.data.bateriaAtual).toLocaleTimeString('pt-br', { hour: "2-digit"})));
-      setDuracao(parseInt(new Date(car.data.idModeloNavigation?.durBateria).getHours()));
+      setDuracao(parseInt(new Date(car.data?.idModeloNavigation?.durBateria).getHours()));
     } catch (error) {
       console.log(error);
     }
@@ -41,13 +41,10 @@ export const Home = ({progressValue, setProgressValue}) => {
   }
   useEffect(() => {
     profileLoad();
-    console.log(user);
   }, []);
 
   useEffect(() => {
     userCarLoad();
-   console.log(capacidadeAtual);
-   console.log(duracao);
   }, [user]);
 
   return (
@@ -55,11 +52,11 @@ export const Home = ({progressValue, setProgressValue}) => {
       <Header
         nome={user.nome}
         marca={userCar?.idModeloNavigation?.idMarcaNavigation?.nomeMarca}
-        modelo={userCar.idModeloNavigation?.nomeModelo}
+        modelo={userCar?.idModeloNavigation?.nomeModelo}
       />
       <Card
-        autonomia={userCar.idModeloNavigation?.autonomia}
-        capacidade={userCar.idModeloNavigation?.capacidade}
+        autonomia={userCar?.idModeloNavigation?.autonomia}
+        capacidade={userCar?.idModeloNavigation?.capacidade}
         progressValue={progressValue}
         setProgressValue={setProgressValue}
       />
