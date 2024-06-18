@@ -31,7 +31,7 @@ export const CreateAccount = ({ navigation }) => {
         return regex.test(String(email).toLowerCase());
     }
     async function Register() {
-        setLoading(true)
+      
         if (nome != '' && email != "" && senha != '' && confirmeSenha != '') {
 
             if (!validarEmail(email)) {
@@ -39,7 +39,7 @@ export const CreateAccount = ({ navigation }) => {
                 setLoading(false);
                 return;
             }
-
+               
             if (senha != confirmeSenha) {
                 alert("Senhas diferentes!");
                 setLoading(false);
@@ -67,6 +67,7 @@ export const CreateAccount = ({ navigation }) => {
                 } else {
                     setLoading(false);
                     console.log(error.message);
+                    setLoading(false)
                 }
             }
             setLoading(false);

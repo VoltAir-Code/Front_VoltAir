@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Alert, StyleSheet, Text, View } from "react-native"
 import { CardImagens, CardInformation, ContainerCard, ImageCard } from "./Style"
 import { useEffect, useState } from "react";
 import ModalLoading from "../Modal/ModalLoading";
@@ -6,21 +6,38 @@ import ModalInformations from "../Modal/ModalInformations";
 import api from "../../services/Service";
 import { useDecodeToken } from "../../utils/Auth";
 
-export const Card = ({ navigation, autonomia, capacidade, progressValue, setProgressValue }) => {
+export const Card = ({ navigation, autonomia, capacidade,data, progressValue, setProgressValue }) => {
 
     const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
     const [modalInformationsVisible, setModalInformationsVisible] = useState(false);    
 
+
+
+const OpenModal = (modalType) => {
+  
+if(capacidade != null && capacidade != undefined)
+    {
+        if(modalType == 'loading')
+            {
+                setModalLoadingVisible(true)
+            }else{
+                setModalInformationsVisible(true)
+            }
+    }else{
+        Alert.alert("Voltaire - Informação", "É necessário realizar o cadastro do carro!")
+    }
+
+}
     return (
         <ContainerCard>
-            <CardImagens onPress={() => setModalLoadingVisible(true)} >
+            <CardImagens onPress={() => OpenModal('loading')} >
                 <ImageCard source={require("../../../assets/Imagem-home-01.png")} />
                 <CardInformation>
                     <Text style={styles.textCard}>Carregamento</Text>
                 </CardInformation>
             </CardImagens>
 
-            <CardImagens onPress={() => setModalInformationsVisible(true)}>
+            <CardImagens onPress={() => OpenModal('information')}>
                 <ImageCard source={require("../../../assets/Imagem-home-02.png")} />
                 <CardInformation>
                     <Text style={styles.textCard}>Bateria</Text>
@@ -34,10 +51,10 @@ export const Card = ({ navigation, autonomia, capacidade, progressValue, setProg
                 onClose={() => setModalLoadingVisible(false)}
                 setModalVisible={setModalLoadingVisible}
                 title={"Carga da bateria:"}
-                Percentage={progressValue}
+          
                 buttonTextLoading={"Carregar Bateria"}
                 buttonText={"Confirmar"}
-                setProgressValue={setProgressValue}
+           
             />
 
             <ModalInformations

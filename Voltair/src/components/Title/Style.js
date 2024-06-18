@@ -33,6 +33,10 @@ export const TextLink = styled.Text`
     font-family: "Poppins_400Regular";
     margin: ${props => `${props.margin}`};
 `
+
+export const TextLinkModal = styled(TextLink)`
+color: white;
+`
 export const TextBtnFooter = styled(TextLink)`
     color: #FFFFFF;
 `

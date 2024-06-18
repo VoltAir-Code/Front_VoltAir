@@ -5,6 +5,7 @@ import { Footer } from "../../components/Footer/Footer";
 import { Header } from "../../components/Header/Header";
 import { Token, useDecodeToken } from "../../utils/Auth";
 import api from "../../services/Service";
+import { HttpStatusCode } from "axios";
 
 export const Home = ({progressValue, setProgressValue}) => {
   const [user, setUser] = useState({});
@@ -17,10 +18,12 @@ export const Home = ({progressValue, setProgressValue}) => {
   async function userCarLoad() {
     try {
       const car = await api.get(`Carro/BuscarPorId?idUser=${user.idUsuario}`);
-      console.log(car.data);
-      setUserCar(car.data);
-      setCapacidadeAtual(parseInt(new Date(car.data.bateriaAtual).toLocaleTimeString('pt-br', { hour: "2-digit"})));
-      setDuracao(parseInt(new Date(car.data?.idModeloNavigation?.durBateria).getHours()));
+  
+      if (car != HttpStatusCode.NoContent) {
+        setUserCar(car.data);
+        setCapacidadeAtual(parseInt(new Date(car.data.bateriaAtual).toLocaleTimeString('pt-br', { hour: "2-digit"})));
+        setDuracao(parseInt(new Date(car.data.idModeloNavigation?.durBateria).getHours()));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,6 +58,7 @@ export const Home = ({progressValue, setProgressValue}) => {
         modelo={userCar?.idModeloNavigation?.nomeModelo}
       />
       <Card
+      data={userCar}
         autonomia={userCar?.idModeloNavigation?.autonomia}
         capacidade={userCar?.idModeloNavigation?.capacidade}
         progressValue={progressValue}

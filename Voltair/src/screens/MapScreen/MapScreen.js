@@ -1,4 +1,4 @@
-import { SafeAreaView, View } from "react-native";
+import { Alert, SafeAreaView, View } from "react-native";
 import { MapFooter } from "../../components/MapFooter/MapFooter";
 import { MapHeader } from "../../components/MapHeader/MapHeader";
 import Map from "../Map";
@@ -36,9 +36,10 @@ export const MapScreen = ({ navigation }) => {
     const [getDirection, setGetDirection] = useState(false);
     const [run, setRun] = useState(false);
     const [exibiu, setExibiu] = useState(false);
-    const [progressValue, setProgressValue] = useState();
+    const [progressValue, setProgressValue] = useState(1);
     const [dataCar, setDataCar] = useState();
-    const [idUser, setIdUser] = useState();
+    const [idUser, setIdUser] = useState(null);
+    const [userResponse, setUserResponse] = useState(null);
 
 
     const handleNotifications = async () => {
@@ -62,77 +63,102 @@ export const MapScreen = ({ navigation }) => {
     const [duration, setDuration] = useState();
 
 
-
-
-
-
-
-
-    useEffect(() => {
-        LoadDataUser();
-    }, [])
-
     const onPress = useCallback(() => {
-        setRun(!run);
-    }, [run]);
+        if (userResponse !== null && userResponse !== 204)
+            {
+                
+                setRun(!run);
+            return;
+            }
+        else{
+            Alert.alert("Voltaire - Informação", "É necessário realizar o cadastro do carro!")
+                return;
+        }
+    }, [run, userResponse]);
 
+
+
+    const [totalDuration, setTotalDuration] = useState();
     const LoadDataUser = async () => {
+
+
+
         const token = await useDecodeToken();
+try {
+    
+    const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
+    setIdUser(token.id);
 
-        const response = await api.get(`Carro/BuscarPorId?idUser=${token.id}`);
-        setIdUser(token.id)
+    setUserResponse(response.status);
 
-        const bateriaAtual = response.data.bateriaAtual
-        const durBateria = new Date(response.data.idModeloNavigation.durBateria)
+    const bateriaAtual = response.data.bateriaAtual;
+    const durBateria = new Date(response.data.idModeloNavigation.durBateria);
+    console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+    console.log(durBateria);
+    setProgressValue(bateriaAtual);
+    const hours = durBateria.getHours();
+    const minutes = durBateria.getMinutes();
+    const seconds = durBateria.getSeconds();
 
-        setProgressValue(bateriaAtual)
-        const hours = durBateria.getHours();
-        const minutes = durBateria.getMinutes();
-        const seconds = durBateria.getSeconds();
+    const totalDurationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
-        const durationInMiliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+    setTotalDuration(totalDurationInMilliseconds);
+    const remainingDuration = totalDurationInMilliseconds * (bateriaAtual);
+    setDuration(remainingDuration);
 
-        setDuration(durationInMiliseconds * bateriaAtual)
+} catch (error) {
+    
+}
+
 
     }
+
+
 
     const UpdateTime = async (newValue) => {
         try {
             const response = await api.put(`Carro/AtualizarBateria?idUsuario=${idUser}`, {
                 bateriaAtual: newValue
             })
+
         } catch (error) {
             console.log(error);
         }
     }
 
+
+    useEffect(() => {
+        LoadDataUser();
+    }, [])
+
     useEffect(() => {
         let interval;
         if (run) {
             interval = setInterval(() => {
-                setProgressValue(prev => {
+                setProgressValue((prev) => {
                     const newValue = Math.max(0, prev - (1000 / duration));
                     const percentage = newValue * 100;
-               
-                    
+
+
+
                     if (percentage < 16 && !exibiu) {
                         setExibiu(true);
                         handleNotifications();
                         setChargingStation(true);
                         setRun(false);
                     }
-         
                     return newValue;
                 });
-            }, 1000);
+            }, 2000);
         } else {
-           
-    UpdateTime(progressValue)
+            UpdateTime(progressValue);
             clearInterval(interval);
-    }
+
+        }
 
         return () => clearInterval(interval);
     }, [run, exibiu]);
+
 
 
 
