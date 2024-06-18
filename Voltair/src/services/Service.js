@@ -8,7 +8,7 @@ const ip = '172.16.39.89';
 
 
 // Base da URL de acesso da API
-const apiUrlLocal = `http://172.16.43.145:7152/api/`;
+const apiUrlLocal = `http://172.16.39.89:7152/api/`;
 
 // Configurar axios
 const api = axios.create({
